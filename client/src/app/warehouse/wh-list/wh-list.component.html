@@ -1,0 +1,26 @@
+<main class="container">
+  <header>
+    <span>
+      <h1>Warehouse</h1>
+      <p>list of all products in warehouse</p>
+    </span>
+    <nav class="actions">
+      <a [routerLink]="['/warehouse/create']">
+        <i class="material-icons tile-icon">add</i>
+      </a>
+    </nav>
+  </header>
+  <hr>
+  <ul class="list">
+    <li *ngFor="let prod of products">
+      <span>
+        <h3>Name:&ensp;{{prod.name}}</h3>
+        <p>Serial:&ensp;{{prod.serial}}</p>
+      </span>
+      <span>
+        <a [routerLink]="['/warehouse/details', prod.id]" class="btn mr-8">details</a>
+        <button (click)="delete(prod.id)">delete</button>
+      </span>
+    </li>
+  </ul>
+</main>

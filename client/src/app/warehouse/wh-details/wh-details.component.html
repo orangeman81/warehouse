@@ -1,0 +1,18 @@
+<main class="container">
+  <header>
+    <span>
+      <h1>Product Details</h1>
+      <p>{{details.name}}</p>
+    </span>
+    <nav class="actions">
+      <a [routerLink]="['/warehouse']">
+        <i class="material-icons tile-icon">arrow_back</i>
+      </a>
+      <a>
+        <i class="material-icons tile-icon">update</i>
+      </a>
+    </nav>
+  </header>
+  <hr>
+  <p>{{details.serial}}</p>
+</main>

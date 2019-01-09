@@ -1,0 +1,13 @@
+@import '../../../leaves/variables';
+nav {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 16px 24px;
+    background-color: $lGray;
+    margin-bottom: 56px;
+    border-bottom: solid 1px $lineGray
+}
