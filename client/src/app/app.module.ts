@@ -8,11 +8,11 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 // services
-import { WhDetailsResolver } from './warehouse/resolvers/whDetails.resolver';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { WarehouseService } from './services/warehouse.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { environment } from '../environments/environment';
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [WhDetailsResolver],
+  providers: [WarehouseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

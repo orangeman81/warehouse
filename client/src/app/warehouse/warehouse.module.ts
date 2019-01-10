@@ -8,7 +8,10 @@ import { WhCreateComponent } from './wh-create/wh-create.component';
 import { WhDetailsComponent } from './wh-details/wh-details.component';
 import { WhFormComponent } from './wh-form/wh-form.component';
 import { StoreModule } from '@ngrx/store';
-import * as fromWarehouse from './warehouse.reducer';
+import * as fromWarehouse from './store/warehouse.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { WarehouseEffects } from './store/warehouse.effects';
+import { WhDetailsResolver } from './resolvers/whDetails.resolver';
 
 @NgModule({
   declarations: [WarehouseComponent, WhListComponent, WhCreateComponent, WhFormComponent, WhDetailsComponent],
@@ -16,7 +19,9 @@ import * as fromWarehouse from './warehouse.reducer';
     CommonModule,
     WarehouseRoutingModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('warehouse', fromWarehouse.whReducer)
-  ]
+    StoreModule.forFeature('warehouse', fromWarehouse.whReducer),
+    EffectsModule.forRoot([WarehouseEffects])
+  ],
+  providers: [WhDetailsResolver]
 })
 export class WarehouseModule { }
