@@ -1,5 +1,5 @@
 import { WarehouseActions, WarehouseActionTypes } from './warehouse.actions';
-import { Product } from '../models/product';
+import { Product } from '../../models/product';
 
 
 export interface State {

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Product } from '../models/product';
+import { Product } from '../../models/product';
 
 export enum WarehouseActionTypes {
   LoadWarehouse = '[Warehouse] Load Action'

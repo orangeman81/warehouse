@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WarehouseService } from 'src/app/services/warehouse.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { LoadWarehouse } from './../warehouse.actions';
+import { LoadWarehouse } from '../store/warehouse.actions';
 import { State } from './../../reducers/index';
 import { Product } from 'src/app/models/product';
 
