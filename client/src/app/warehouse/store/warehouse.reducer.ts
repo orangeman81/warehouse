@@ -4,17 +4,19 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 
 export interface whState extends EntityState<Product> {
-
+  warehouseLoaded: boolean;
 }
 
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
 
-export const initialWhState: whState = adapter.getInitialState();
+export const initialWhState: whState = adapter.getInitialState({
+  warehouseLoaded: false
+});
 
 export function whReducer(state = initialWhState, action: WarehouseActions): whState {
   switch (action.type) {
-    case WarehouseActionTypes.LoadWarehouse: {
-      return adapter.addAll(action.payload, state)
+    case WarehouseActionTypes.warehouseLoad: {
+      return adapter.addAll(action.payload.warehouse, {...state, warehouseLoaded: true})
     }
     case WarehouseActionTypes.productLoad: {
       return adapter.addOne(action.payload.prod, state)

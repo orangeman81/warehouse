@@ -2,14 +2,18 @@ import { Action } from '@ngrx/store';
 import { Product } from '../../models/product';
 
 export enum WarehouseActionTypes {
-  LoadWarehouse = '[Warehouse] Load warehouse Action',
+  warehouseRequest = '[Warehouse] warehouse requested Action',
+  warehouseLoad = '[Warehouse] warehouse loaded Action',
   productRequest = '[product details page] product requested',
   productLoad = '[warehouse API] product loaded'
 }
 
-export class LoadWarehouse implements Action {
-  readonly type = WarehouseActionTypes.LoadWarehouse;
-  constructor(public payload: Product[]) { }
+export class warehouseRequest implements Action {
+  readonly type = WarehouseActionTypes.warehouseRequest;
+}
+export class warehouseLoad implements Action {
+  readonly type = WarehouseActionTypes.warehouseLoad;
+  constructor(public payload: {warehouse: Product[]}) { }
 }
 
 export class productRequest implements Action {
@@ -22,4 +26,4 @@ export class productLoad implements Action {
   constructor(public payload: { prod: Product }) { }
 }
 
-export type WarehouseActions = LoadWarehouse | productRequest | productLoad;
+export type WarehouseActions = warehouseRequest | warehouseLoad | productRequest | productLoad;

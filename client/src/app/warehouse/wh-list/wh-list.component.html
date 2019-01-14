@@ -12,7 +12,7 @@
   </header>
   <hr>
   <ul class="list">
-    <li *ngFor="let prod of products">
+    <li *ngFor="let prod of products | async">
       <span>
         <h3>Name:&ensp;{{prod.name}}</h3>
         <p>Serial:&ensp;{{prod.serial}}</p>

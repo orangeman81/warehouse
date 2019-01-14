@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WarehouseService } from 'src/app/services/warehouse.service';
-import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { LoadWarehouse } from '../store/warehouse.actions';
+import { Subscription, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { warehouseRequest } from '../store/warehouse.actions';
 import { State } from './../../reducers/index';
 import { Product } from 'src/app/models/product';
+import { selectAllProd } from '../store/warehouse.selectors';
 
 @Component({
   selector: 'wh-wh-list',
@@ -14,7 +15,7 @@ import { Product } from 'src/app/models/product';
 export class WhListComponent implements OnInit, OnDestroy {
 
   prodSub: Subscription;
-  products: Product[];
+  products: any;
   operationSub: Subscription;
   constructor(private ws: WarehouseService, private store: Store<State>) { }
 
@@ -23,16 +24,11 @@ export class WhListComponent implements OnInit, OnDestroy {
   }
 
   LoadProducts() {
-    this.prodSub = this.ws.$findProduct()
-      .subscribe(
-        data => {
-          this.products = data;
-        },
-        console.log,
-        () => {
-          // this.store.dispatch(new LoadWarehouse(this.products));
-        }
-      )
+    this.store.dispatch(new warehouseRequest());
+    this.products = this.store
+      .pipe(
+        select(selectAllProd)
+      );
   }
 
   delete(id) {
@@ -47,7 +43,7 @@ export class WhListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.prodSub.unsubscribe();
+    // this.prodSub.unsubscribe();
     if (this.operationSub) {
       this.operationSub.unsubscribe();
     }
