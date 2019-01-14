@@ -6,11 +6,11 @@ export interface State {
   data: Product[];
 }
 
-export const initialState: State = {
+export const initialWhState: State = {
   data: []
 };
 
-export function whReducer(state = initialState, action: WarehouseActions): State {
+export function whReducer(state = initialWhState, action: WarehouseActions): State {
   switch (action.type) {
     case WarehouseActionTypes.LoadWarehouse: {
       return action.payload
