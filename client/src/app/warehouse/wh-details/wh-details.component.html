@@ -9,10 +9,34 @@
         <i class="material-icons tile-icon">arrow_back</i>
       </a>
       <a>
-        <i class="material-icons tile-icon">update</i>
+        <i class="material-icons tile-icon" (click)="toggleUpdate()">update</i>
       </a>
     </nav>
   </header>
   <hr>
-  <p>{{details.serial}}</p>
+  <ul class="list" *ngIf="!toUpdate; else updateForm">
+    <li>
+      <h3>Serial</h3>
+      <p>{{details.serial}}</p>
+    </li>
+    <li>
+      <h3>Type</h3>
+      <p>{{details.type}}</p>
+    </li>
+    <li>
+      <h3>Conditions</h3>
+      <p>{{details.conditions}}</p>
+    </li>
+    <li>
+      <h3>Assegnee</h3>
+      <p>{{details.assignee}}</p>
+    </li>
+    <li>
+      <h3>Note</h3>
+      <p>{{details.note}}</p>
+    </li>
+  </ul>
+  <ng-template #updateForm>
+    <wh-wh-form [data]="details" (save)="update($event)"></wh-wh-form>
+  </ng-template>
 </main>

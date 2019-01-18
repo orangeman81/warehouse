@@ -4,12 +4,13 @@ import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListComponent } from './list/list.component';
 import { SelectComponent } from './forms/select/select.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
-  declarations: [NavComponent, FooterComponent, ListComponent, SelectComponent],
+  declarations: [NavComponent, FooterComponent, ListComponent, SelectComponent, PaginatorComponent],
   imports: [
     CommonModule
   ],
-  exports: [NavComponent, FooterComponent]
+  exports: [NavComponent, FooterComponent, PaginatorComponent]
 })
 export class ComponentsModule { }

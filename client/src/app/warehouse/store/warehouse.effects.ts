@@ -1,15 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { WarehouseActionTypes, productRequest, productLoad, warehouseRequest, warehouseLoad } from './warehouse.actions';
-import { mergeMap, map, withLatestFrom, filter } from 'rxjs/operators';
+import { WarehouseActionTypes, productRequest, productLoad, warehouseRequest, warehouseLoad, productCreated, productDeleted, productDeleteReq, productUpdated } from './warehouse.actions';
+import { mergeMap, map, withLatestFrom, filter, tap } from 'rxjs/operators';
 import { WarehouseService } from 'src/app/services/warehouse.service';
 import { Store, select } from '@ngrx/store';
 import { State } from 'src/app/reducers';
 import { warehouseLoaded } from './warehouse.selectors';
+import { Router } from '@angular/router';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 
 @Injectable()
 export class WarehouseEffects {
+
+  @Effect()
+  createProd$ = this.actions$
+    .pipe(
+      ofType<productCreated>(WarehouseActionTypes.productCreated),
+      mergeMap(action => this.ws.$createProduct(action.payload)),
+      map(prod => new productLoad({ prod })),
+      tap(() => this.router.navigate(['/warehouse']))
+    );
+
+  @Effect()
+  updateProd$ = this.actions$
+    .pipe(
+      ofType<productUpdated>(WarehouseActionTypes.productUpdated),
+      mergeMap(action => this.ws.$updateProduct(action.payload.prod))
+    );
+
+  @Effect()
+  deleteProd$ = this.actions$
+    .pipe(
+      ofType<productDeleteReq>(WarehouseActionTypes.productDeleteReq),
+      mergeMap(action => this.ws.$deleteProduct(action.payload.prodId)),
+      map(prodId => new productDeleted({ prodId: prodId.id }))
+    );
 
   @Effect()
   loadProd$ = this.actions$
@@ -32,5 +58,10 @@ export class WarehouseEffects {
       map(warehouse => new warehouseLoad({ warehouse }))
     )
 
-  constructor(private actions$: Actions, private store: Store<State>, private ws: WarehouseService) { }
+  constructor(
+    private actions$: Actions,
+    private store: Store<State>,
+    private ws: WarehouseService,
+    private router: Router
+  ) { }
 }

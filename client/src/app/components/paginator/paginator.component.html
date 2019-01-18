@@ -1,0 +1,11 @@
+<span>
+  <button [disabled]="!_pages.hasPreviousPage()" (click)="prev()">
+    <i class="material-icons">navigate_before</i>
+  </button>
+  <span>
+    {{pageIndex + 1}}&ensp;of&ensp;{{length}}
+  </span>
+  <button [disabled]="!_pages.hasNextPage()" (click)="next()">
+    <i class="material-icons">navigate_next</i>
+  </button>
+</span>

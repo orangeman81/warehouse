@@ -1,0 +1,28 @@
+:host {
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span {
+            color: darken(#9A9A9B, 15%);
+            transform: translateY(1.5px);
+            font-weight: 700
+        }
+    }
+    button {
+        background: none;
+        border: none;
+        transition: color .3s ease;
+        cursor: pointer;
+        &:hover,
+        &[disabled] {
+            i {
+                color: lighten(#9A9A9B, 25%)
+            }
+        }
+        i {
+            color: #9A9A9B;
+            height: 20px
+        }
+    }
+}

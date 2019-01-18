@@ -1,33 +1,19 @@
-import { Component, OnDestroy } from '@angular/core';
-import { WarehouseService } from 'src/app/services/warehouse.service';
-import { Subscription, noop } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/reducers';
+import { productCreated } from '../store/warehouse.actions';
 
 @Component({
   selector: 'wh-wh-create',
   templateUrl: './wh-create.component.html',
   styleUrls: ['./wh-create.component.scss']
 })
-export class WhCreateComponent implements OnDestroy {
+export class WhCreateComponent {
 
-  operationSub: Subscription;
-  constructor(private ws: WarehouseService, private router: Router) { }
+  constructor(private store: Store<State>) { }
 
   save(payload) {
-    this.operationSub = this.ws.$createProduct(payload)
-      .subscribe(
-        noop,
-        console.log,
-        () => {
-          this.router.navigate(['/warehouse']);
-        },
-      );
-  }
-
-  ngOnDestroy() {
-    if (this.operationSub) {
-      this.operationSub.unsubscribe();
-    }
+    this.store.dispatch(new productCreated(payload))
   }
 
 }

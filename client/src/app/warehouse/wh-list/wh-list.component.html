@@ -11,7 +11,7 @@
     </nav>
   </header>
   <hr>
-  <ul class="list">
+  <ul class="list mb-24">
     <li *ngFor="let prod of products | async">
       <span>
         <h3>Name:&ensp;{{prod.name}}</h3>
@@ -23,4 +23,5 @@
       </span>
     </li>
   </ul>
+  <wh-paginator [length]="prodLength" [size]="10" (data)="LoadProducts($event.pageIndex)"></wh-paginator>
 </main>
