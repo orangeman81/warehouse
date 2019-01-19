@@ -15,5 +15,8 @@ nav {
         li:not(:last-child) {
             margin-right: 16px
         }
+        .active {
+            color: $color
+        }
     }
 }
