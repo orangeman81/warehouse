@@ -1,14 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WarehouseService } from 'src/app/services/warehouse.service';
-<<<<<<< HEAD
-import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { LoadWarehouse } from '../store/warehouse.actions';
-=======
 import { Subscription, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { warehouseRequest } from '../store/warehouse.actions';
->>>>>>> 5826ca826c3d862f541e7725a79ac540836ea898
 import { State } from './../../reducers/index';
 import { Product } from 'src/app/models/product';
 import { selectAllProd } from '../store/warehouse.selectors';
@@ -20,8 +14,7 @@ import { selectAllProd } from '../store/warehouse.selectors';
 })
 export class WhListComponent implements OnInit, OnDestroy {
 
-  prodSub: Subscription;
-  products: any;
+  products: Observable<Product[]>;
   operationSub: Subscription;
   constructor(private ws: WarehouseService, private store: Store<State>) { }
 
@@ -49,7 +42,6 @@ export class WhListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.prodSub.unsubscribe();
     if (this.operationSub) {
       this.operationSub.unsubscribe();
     }

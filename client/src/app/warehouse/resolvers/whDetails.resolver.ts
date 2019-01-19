@@ -15,7 +15,6 @@ export class WhDetailsResolver implements Resolve<Product> {
     constructor(private store: Store<State>) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Product> {
-        console.log(route.params['id']);
         return this.store
             .pipe(
                 select(selectProdById(route.params['id'])),
