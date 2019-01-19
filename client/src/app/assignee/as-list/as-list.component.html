@@ -17,7 +17,7 @@
         <h3>{{assignee.name}} {{assignee.surname}}</h3>
         <p>{{assignee.email}}</p>
       </span>
-      <span>
+      <span class="actions">
         <a [routerLink]="['/assignee/details', assignee.id]" class="btn mr-8">details</a>
         <button (click)="delete(assignee.id)">delete</button>
       </span>

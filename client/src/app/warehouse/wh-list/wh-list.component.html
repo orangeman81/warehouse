@@ -17,8 +17,8 @@
         <h3>{{prod.name}}</h3>
         <p>Serial:&ensp;{{prod.serial}}</p>
       </span>
-      <span>
-        <a [routerLink]="['/warehouse/details', prod.id]" class="btn mr-8">details</a>
+      <span class="actions">
+        <a [routerLink]="['/warehouse/details', prod.id]" class="btn">details</a>
         <button (click)="delete(prod.id)">delete</button>
       </span>
     </li>
