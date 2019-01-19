@@ -1,7 +1,7 @@
 <main class="container">
   <header>
     <span>
-      <h1>Warehouse</h1>
+      <h1>Products</h1>
       <p>list of all products in warehouse</p>
     </span>
     <nav class="actions">
@@ -10,11 +10,11 @@
       </a>
     </nav>
   </header>
-  <hr>
-  <ul class="list">
+  <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
+  <wh-list>
     <li *ngFor="let prod of products | async">
       <span>
-        <h3>Name:&ensp;{{prod.name}}</h3>
+        <h3>{{prod.name}}</h3>
         <p>Serial:&ensp;{{prod.serial}}</p>
       </span>
       <span>
@@ -22,5 +22,6 @@
         <button (click)="delete(prod.id)">delete</button>
       </span>
     </li>
-  </ul>
+  </wh-list>
+  <wh-paginator [length]="prodLength" [size]="10" (data)="LoadProducts($event.pageIndex)"></wh-paginator>
 </main>

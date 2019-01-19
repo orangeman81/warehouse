@@ -7,13 +7,13 @@ textarea {
 }
 
 fieldset {
-    margin-top: 40px;
     border: 0;
     padding: 0;
 }
 
 input,
-textarea {
+textarea,
+select {
     min-height: 1.5rem;
     background: transparent;
     padding: .25rem 0;
@@ -23,15 +23,11 @@ textarea {
     border-radius: 0;
     font-family: inherit;
     box-sizing: content-box;
-}
-
-input:not([name=search]),
-textarea {
     width: 100%;
     border-bottom: solid .15rem lighten($gray, 15%);
     transition: all .3s ease-out;
     &:focus,
-    &.ng-dirty.ng-valid {
+    &.ng-dirty.ng-valid:not(.ng-pristine) {
         border-bottom: solid .15rem $color;
     }
     &.ng-touched.ng-invalid,

@@ -2,16 +2,38 @@
   <fieldset>
     <div class="row">
       <div class="col s12 m6">
-        <label for="">Name</label>
-        <input type="text" formControlName="name">
+        <label>Name</label>
+        <input type="text" formControlName="name" required>
       </div>
       <div class="col s12 m6">
-        <label for="">Serial</label>
-        <input type="text" formControlName="serial">
+        <label>Producer</label>
+        <input type="text" formControlName="producer" required>
+      </div>
+      <div class="col s12 m6">
+        <label>Serial</label>
+        <input type="text" formControlName="serial" required>
+      </div>
+      <div class="col s12 m6">
+        <label>Type</label>
+        <select type="text" formControlName="type" required>
+          <option value="">none</option>
+          <option [value]="type" *ngFor="let type of filters.types">{{type}}</option>
+        </select>
+      </div>
+      <div class="col s12 m6">
+        <label>Conditions</label>
+        <select type="text" formControlName="conditions" required>
+          <option value="">unknown</option>
+          <option [value]="condition" *ngFor="let condition of filters.conditions">{{condition}}</option>
+        </select>
+      </div>
+      <div class="col s12 m6">
+        <label>Note</label>
+        <input type="text" formControlName="note">
       </div>
     </div>
   </fieldset>
   <div class="actions">
-    <button type="submit">save</button>
+    <button type="submit" [disabled]="prodForm.invalid">save</button>
   </div>
 </form>

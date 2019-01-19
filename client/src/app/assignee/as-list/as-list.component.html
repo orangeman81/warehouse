@@ -1,0 +1,27 @@
+<main class="container">
+  <header>
+    <span>
+      <h1>Assignees</h1>
+      <p>list of all Assignees in warehouse</p>
+    </span>
+    <nav class="actions">
+      <a [routerLink]="['/assignee/create']">
+        <i class="material-icons tile-icon">add</i>
+      </a>
+    </nav>
+  </header>
+  <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
+  <wh-list>
+    <li *ngFor="let assignee of assignees | async">
+      <span>
+        <h3>{{assignee.name}} {{assignee.surname}}</h3>
+        <p>{{assignee.email}}</p>
+      </span>
+      <span>
+        <a [routerLink]="['/assignee/details', assignee.id]" class="btn mr-8">details</a>
+        <button (click)="delete(assignee.id)">delete</button>
+      </span>
+    </li>
+  </wh-list>
+  <wh-paginator [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
+</main>

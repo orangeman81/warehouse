@@ -32,7 +32,8 @@ button,
         color: $color
     }
     &[disabled] {
-        background-color: rgba(0, 0, 0, .12);
         color: rgba(0, 0, 0, .26);
+        background-color: rgba(0, 0, 0, .12);
+        border-color: rgba(0, 0, 0, .12);
     }
 }

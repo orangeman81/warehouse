@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: "warehouse",
     loadChildren: './warehouse/warehouse.module#WarehouseModule'
+  },
+  {
+    path: "assignee",
+    loadChildren: './assignee/assignee.module#AssigneeModule'
   }
 ];
 

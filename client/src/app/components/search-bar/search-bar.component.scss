@@ -1,0 +1,14 @@
+@import './../../../leaves/variables';
+@import './../../../leaves/forms';
+:host {
+    form {
+        position: relative
+    }
+    label {
+        position: absolute;
+        bottom: 8px
+    }
+    input {
+        padding-left: 30px
+    }
+}

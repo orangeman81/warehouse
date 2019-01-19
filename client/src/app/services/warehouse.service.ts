@@ -1,6 +1,6 @@
 import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { first, last } from 'rxjs/operators';
 
@@ -10,11 +10,26 @@ import { first, last } from 'rxjs/operators';
 export class WarehouseService {
 
   baseUrl: string = 'http://localhost:1337/';
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Allow-Methods' : '*',
+      'Access-Control-Allow-Headers' : '*'
+    })
+  };
 
   constructor(private http: HttpClient) { }
 
   $findProduct(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + 'warehouse?sort=createdAt DESC')
+      .pipe(
+        first()
+      )
+  }
+
+  $findPagedProduct(skip): Observable<Product[]> {
+    return this.http.get<Product[]>(this.baseUrl + `warehouse?limit=10?skip=${skip}?sort=createdAt DESC`)
       .pipe(
         first()
       )
@@ -34,11 +49,18 @@ export class WarehouseService {
       )
   }
 
+  $updateProduct(payload): Observable<Product> {
+    return this.http.patch<Product>(this.baseUrl + 'warehouse/update/' + payload.id, JSON.stringify(payload.changes), this.httpOptions)
+      .pipe(
+        last()
+      )
+  }
+
   $deleteProduct(id) {
     return this.http.delete<Product>(this.baseUrl + 'warehouse/' + id)
-    .pipe(
-      last()
-    )
+      .pipe(
+        last()
+      )
   }
 
 }

@@ -9,5 +9,11 @@ nav {
     padding: 16px 24px;
     background-color: $lGray;
     margin-bottom: 56px;
-    border-bottom: solid 1px $lineGray
+    border-bottom: solid 1px $lineGray;
+    ul {
+        display: flex;
+        li:not(:last-child) {
+            margin-right: 16px
+        }
+    }
 }

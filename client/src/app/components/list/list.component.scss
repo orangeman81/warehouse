@@ -1,0 +1,26 @@
+@import './../../../leaves/animations';
+@import './../../../leaves/variables';
+:host::ng-deep {
+    ul {
+        li {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            animation: slide-out .3s ease-out;
+            &:not(:last-child) {
+                border-bottom: solid 1px $lineGray;
+            }
+            @media screen and (max-width: $tablet) {
+                flex-direction: column;
+                span:last-child {
+                    margin-top: 24px;
+                }
+            }
+        }
+        li:nth-child(even) {
+            background: $lGray;
+        }
+    }
+}

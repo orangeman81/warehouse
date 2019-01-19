@@ -16,10 +16,16 @@ export const initialWhState: whState = adapter.getInitialState({
 export function whReducer(state = initialWhState, action: WarehouseActions): whState {
   switch (action.type) {
     case WarehouseActionTypes.warehouseLoad: {
-      return adapter.addAll(action.payload.warehouse, {...state, warehouseLoaded: true})
+      return adapter.addAll(action.payload.warehouse, { ...state, warehouseLoaded: true })
     }
     case WarehouseActionTypes.productLoad: {
       return adapter.addOne(action.payload.prod, state)
+    }
+    case WarehouseActionTypes.productUpdated: {
+      return adapter.updateOne(action.payload.prod, state)
+    }
+    case WarehouseActionTypes.productDeleted: {
+      return adapter.removeOne(action.payload.prodId, state)
     }
     default: {
       return state;

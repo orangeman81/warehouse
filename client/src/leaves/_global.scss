@@ -32,6 +32,12 @@ img.res {
     display: flex;
     justify-content: flex-end;
     margin-top: 24px;
+    a,
+    button {
+        &:hover {
+            animation: emphasis .4s both ease-out
+        }
+    }
     a:not(:last-child),
     button:not(:last-child) {
         margin-right: 8px

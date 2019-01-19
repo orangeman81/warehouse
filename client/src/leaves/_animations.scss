@@ -1,11 +1,23 @@
 @keyframes slide-out {
-    from {opacity: 1;transform: translateY(0);}
-    to {opacity: 0;transform: translateY(-2rem);}
+    from {opacity: 0;transform: translateY(2rem);}
+    to {opacity: 1;transform: translateY(0);}
 }
 
 @keyframes slide-in {
     from {opacity: 0;transform: translateY(-2rem);}
     to {opacity: 1;transform: translateY(0);}
+}
+
+@keyframes emphasis {
+    0% {
+        transform: translateX(0, 0) rotate(0);
+    }
+    40% {
+        transform: translateX(1px) rotate(-1deg);
+    }
+    100% {
+        transform: translateX(0) rotate(0);
+    }
 }
 
 @keyframes tile-out {

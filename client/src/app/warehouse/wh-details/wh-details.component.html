@@ -1,18 +1,42 @@
 <main class="container">
   <header>
     <span>
-      <h1>Product Details</h1>
-      <p>{{details.name}}</p>
+      <h1>{{details.name}}</h1>
+      <p>Product Details</p>
     </span>
     <nav class="actions">
       <a [routerLink]="['/warehouse']">
         <i class="material-icons tile-icon">arrow_back</i>
       </a>
       <a>
-        <i class="material-icons tile-icon">update</i>
+        <i class="material-icons tile-icon" (click)="toggleUpdate()">update</i>
       </a>
     </nav>
   </header>
   <hr>
-  <p>{{details.serial}}</p>
+  <wh-list *ngIf="!toUpdate; else updateForm">
+    <li>
+      <h3>Serial</h3>
+      <p>{{details.serial}}</p>
+    </li>
+    <li>
+      <h3>Producer</h3>
+      <p>{{details.producer}}</p>
+    </li>
+    <li>
+      <h3>Type</h3>
+      <p>{{details.type}}</p>
+    </li>
+    <li>
+      <h3>Conditions</h3>
+      <p>{{details.conditions}}</p>
+    </li>
+    <li>
+      <h3>Note</h3>
+      <p>{{details.note}}</p>
+    </li>
+  </wh-list>
+  <ng-template #updateForm>
+    <wh-wh-form [data]="details" (save)="update($event)"></wh-wh-form>
+  </ng-template>
 </main>
