@@ -1,32 +1,32 @@
 <form [formGroup]="assigneeForm" (ngSubmit)="save.emit(assigneeForm.value)">
-    <fieldset>
-      <div class="row">
-        <div class="col s12 m6">
-          <label>Name</label>
-          <input type="text" formControlName="name" required>
-        </div>
-        <div class="col s12 m6">
-          <label>Surname</label>
-          <input type="text" formControlName="surname" required>
-        </div>
-        <div class="col s12 m6">
-          <label>Email</label>
-          <input type="email" formControlName="email" required>
-        </div>
-        <div class="col s12 m6">
-          <label>Phone</label>
-          <input type="phone" formControlName="phone" required>
-        </div>
-        <div class="col s12 m6">
-          <label>Role</label>
-          <select formControlName="role" required>
-            <option value="">unknown</option>
-            <option [value]="role" *ngFor="let role of filters.roles">{{role}}</option>
-          </select>
-        </div>
+  <fieldset>
+    <div class="row">
+      <div class="col s12 m6 formGroup">
+        <label>Name</label>
+        <input type="text" formControlName="name" required>
       </div>
-    </fieldset>
-    <div class="actions mt-24">
-      <button type="submit" [disabled]="assigneeForm.invalid">save</button>
+      <div class="col s12 m6 formGroup">
+        <label>Surname</label>
+        <input type="text" formControlName="surname" required>
+      </div>
+      <div class="col s12 m6 formGroup">
+        <label>Email</label>
+        <input type="email" formControlName="email" required>
+      </div>
+      <div class="col s12 m6 formGroup">
+        <label>Phone</label>
+        <input type="tel" formControlName="phone" required>
+      </div>
+      <div class="col s12 m6 formGroup">
+        <label>Role</label>
+        <select formControlName="role" required>
+          <option value="">unknown</option>
+          <option [value]="role" *ngFor="let role of filters.roles">{{role}}</option>
+        </select>
+      </div>
     </div>
-  </form>
+  </fieldset>
+  <div class="actions mt-24">
+    <button type="submit" [disabled]="assigneeForm.invalid">save</button>
+  </div>
+</form>

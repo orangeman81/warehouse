@@ -17,6 +17,7 @@ export class WhDetailsComponent implements OnInit {
   detailsSub: Subscription;
   details: Product;
   toUpdate: boolean = false;
+  toggleIcon: string = "update";
 
   constructor(private route: ActivatedRoute, private store: Store<State>) { }
 
@@ -38,8 +39,10 @@ export class WhDetailsComponent implements OnInit {
   toggleUpdate() {
     if(this.toUpdate) {
       this.toUpdate = false;
+      this.toggleIcon = "update";
     } else {
       this.toUpdate = true;
+      this.toggleIcon = "details";
     }
   }
 

@@ -18,9 +18,8 @@
     margin: .5rem -.5rem;
     $i: 1;
     .col {
-        padding: 0 .5rem;
+        padding: .5rem;
         box-sizing: border-box;
-        margin: .5rem 0;
         @while $i <=$columns {
             $perc: unquote((100 / ($columns / $i)) + "%");
             &.s#{$i} {
