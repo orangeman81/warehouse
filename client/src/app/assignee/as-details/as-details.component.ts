@@ -4,7 +4,7 @@ import { State } from 'src/app/reducers';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { Assignee } from './../../models/assignee';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './as-details.component.html',
   styleUrls: ['./as-details.component.scss']
 })
-export class AsDetailsComponent implements OnInit {
+export class AsDetailsComponent implements OnInit, OnDestroy {
 
   detailsSub: Subscription;
   details: Assignee;
@@ -44,6 +44,10 @@ export class AsDetailsComponent implements OnInit {
       this.toUpdate = true;
       this.toggleIcon = "details"
     }
+  }
+
+  ngOnDestroy() {
+    this.detailsSub.unsubscribe();
   }
 
 }

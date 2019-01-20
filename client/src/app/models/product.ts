@@ -7,6 +7,6 @@ export interface Product {
     type: string;
     note?: string;
     conditions?: string;
-    assignmentDate?: Date;
+    assignmentDate?: number;
     deleted?: boolean;
 }

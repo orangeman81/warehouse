@@ -1,3 +1,4 @@
+import { Assignee } from './../../models/assignee';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { warehouseRequest, productDeleted, productDeleteReq } from '../store/warehouse.actions';
@@ -14,15 +15,15 @@ import { map } from 'rxjs/operators';
 })
 export class WhListComponent implements OnInit {
 
-  products: Observable<Product[]>;
+  products: Observable<Product[] | Assignee[]>;
   prodLength: number;
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.LoadProducts(0);
+    this.loadProducts(0);
   }
 
-  LoadProducts(skip) {
+  loadProducts(skip) {
     this.store.dispatch(new warehouseRequest());
     this.products = this.store
       .pipe(
@@ -36,7 +37,7 @@ export class WhListComponent implements OnInit {
 
   loadSearch(query: string) {
     if (query === "") {
-      this.LoadProducts(0);
+      this.loadProducts(0);
     } else {
       this.products = this.store
         .pipe(

@@ -38,6 +38,13 @@ export const selectProdQuery = (query: string) => createSelector(
     }
 )
 
+export const selectProdByAssegneeId = (assigneeId: string) => createSelector(
+    selectAllProd,
+    allProd => {
+        return allProd.filter(prod => prod.assigneeId = assigneeId)
+    }
+)
+
 export const warehouseLoaded = createSelector(
     selectWhState,
     whState => whState.warehouseLoaded

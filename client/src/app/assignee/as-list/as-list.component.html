@@ -19,6 +19,7 @@
       </span>
       <span class="actions">
         <a [routerLink]="['/assignee/details', assignee.id]" class="btn mr-8">details</a>
+        <a [routerLink]="['/warehouse/assign', assignee.id]" class="btn mr-8">assign</a>
         <button (click)="delete(assignee.id)">delete</button>
       </span>
     </li>

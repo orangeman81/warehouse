@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { Update } from '@ngrx/entity';
   templateUrl: './wh-details.component.html',
   styleUrls: ['./wh-details.component.scss']
 })
-export class WhDetailsComponent implements OnInit {
+export class WhDetailsComponent implements OnInit, OnDestroy {
 
   detailsSub: Subscription;
   details: Product;
@@ -33,17 +33,21 @@ export class WhDetailsComponent implements OnInit {
       id: this.details.id,
       changes: payload
     }
-    this.store.dispatch(new productUpdated({prod}));
+    this.store.dispatch(new productUpdated({ prod }));
   }
 
   toggleUpdate() {
-    if(this.toUpdate) {
+    if (this.toUpdate) {
       this.toUpdate = false;
       this.toggleIcon = "update";
     } else {
       this.toUpdate = true;
       this.toggleIcon = "details";
     }
+  }
+
+  ngOnDestroy() {
+    this.detailsSub.unsubscribe();
   }
 
 }

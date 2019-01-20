@@ -1,3 +1,4 @@
+import { Product } from './../../models/product';
 import { map } from 'rxjs/operators';
 import { AssigneesRequest, AssigneeDeleteReq } from '../store/assignee.actions';
 import { State } from 'src/app/reducers';
@@ -14,7 +15,7 @@ import { selectAssigneePage, selectAssigneeQuery } from '../store/assignee.selec
 })
 export class AsListComponent implements OnInit {
 
-  assignees: Observable<Assignee[]>;
+  assignees: Observable<Product[] | Assignee[]>;
   asLength: number;
   constructor(private store: Store<State>) { }
 

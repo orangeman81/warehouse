@@ -1,3 +1,4 @@
+import { WhAssignResolver } from './resolvers/whAssign.resolver';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WarehouseRoutingModule } from './warehouse-routing.module';
@@ -12,9 +13,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { WarehouseEffects } from './store/warehouse.effects';
 import { WhDetailsResolver } from './resolvers/whDetails.resolver';
 import { ComponentsModule } from '../components/components.module';
+import { WhAssignComponent } from './wh-assign/wh-assign.component';
 
 @NgModule({
-  declarations: [WarehouseComponent, WhListComponent, WhCreateComponent, WhFormComponent, WhDetailsComponent],
+  declarations: [WarehouseComponent, WhListComponent, WhCreateComponent, WhFormComponent, WhDetailsComponent, WhAssignComponent],
   imports: [
     CommonModule,
     WarehouseRoutingModule,
@@ -22,6 +24,6 @@ import { ComponentsModule } from '../components/components.module';
     StoreModule.forFeature('warehouse', fromWarehouse.whReducer),
     EffectsModule.forRoot([WarehouseEffects])
   ],
-  providers: [WhDetailsResolver]
+  providers: [WhDetailsResolver, WhAssignResolver]
 })
 export class WarehouseModule { }
