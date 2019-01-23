@@ -106,7 +106,8 @@ a {
         color: $gray;
         font-weight: $medium;
         @extend .ease;
-        &:hover {
+        &:hover,
+        &.active {
             color: $color;
         }
     }

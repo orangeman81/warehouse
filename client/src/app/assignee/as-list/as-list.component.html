@@ -2,7 +2,7 @@
   <header>
     <span>
       <h1>Assignees</h1>
-      <p>list of all Assignees in warehouse</p>
+      <p>list of all Assignees</p>
     </span>
     <nav class="actions">
       <a [routerLink]="['/assignee/create']">
@@ -32,7 +32,7 @@
     <p>{{dialogPayload.email}}</p>
   </span>
   <span class="actions">
-    <button (click)="delete()">delete</button>
     <button (click)="dialog = false">cancel</button>
+    <button (click)="delete()">delete</button>
   </span>
 </wh-dialog>

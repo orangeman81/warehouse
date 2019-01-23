@@ -45,6 +45,7 @@
           <p>Serial:&ensp;{{prod.serial}}</p>
         </span>
         <span class="actions">
+          <a [routerLink]="['/assignee/details', details.id]" class="btn mr-8">details</a>
           <button (click)="openDialog(prod)">assign</button>
         </span>
       </li>
@@ -59,7 +60,7 @@
     <p>{{dialogPayload.serial}}</p>
   </span>
   <span class="actions">
-    <button (click)="assign()">assign</button>
     <button (click)="dialog = false">cancel</button>
+    <button (click)="assign()">assign</button>
   </span>
 </wh-dialog>

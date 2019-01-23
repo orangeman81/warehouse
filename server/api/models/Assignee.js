@@ -12,8 +12,7 @@ module.exports = {
     surname: { type: 'string', required: true },
     email: { type: 'string', required: true },
     phone: { type: 'string', required: true },
-    role: { type: 'string', required: true },
-    products: { type: 'json', columnType: 'array', required: false }
+    note: { type: 'string', required: false },
   },
 
 };

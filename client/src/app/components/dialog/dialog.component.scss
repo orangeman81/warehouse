@@ -15,5 +15,13 @@
     position: fixed;
     bottom: 0;
     animation: slide-out .3s ease-out;
-    z-index: 999
+    z-index: 999;
+    @media screen and (max-width: $mobile) {
+        flex-direction: column;
+        align-items: initial;
+        span:last-child {
+            margin-top: 30px;
+            justify-content: space-between
+        }
+    }
 }

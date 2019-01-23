@@ -2,9 +2,12 @@
   <header>
     <span>
       <h1>Products</h1>
-      <p>list of all products in warehouse</p>
+      <p>list of all products</p>
     </span>
     <nav class="actions">
+      <a (click)="filterProd()" [ngClass]="{'active' : prodIn}">
+        <i class="material-icons tile-icon">store</i>
+      </a>
       <a [routerLink]="['/warehouse/create']">
         <i class="material-icons tile-icon">add</i>
       </a>
@@ -15,7 +18,7 @@
     <li *ngFor="let prod of products | async">
       <span class="withIcon">
         <span>
-          <i class="material-icons mr-24" *ngIf="prod.assigneeId; else assigned">store</i>
+          <i class="material-icons mr-24" *ngIf="prod.assigneeId == ''; else assigned">store</i>
           <ng-template #assigned>
             <i class="material-icons mr-24">check</i>
           </ng-template>
@@ -39,7 +42,7 @@
     <p>{{dialogPayload.serial}}</p>
   </span>
   <span class="actions">
-    <button (click)="delete()">delete</button>
     <button (click)="dialog = false">cancel</button>
+    <button (click)="delete()">delete</button>
   </span>
 </wh-dialog>

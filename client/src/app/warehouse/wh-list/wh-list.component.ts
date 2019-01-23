@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { warehouseRequest, productDeleted, productDeleteReq } from '../store/warehouse.actions';
 import { State } from './../../reducers/index';
 import { Product } from 'src/app/models/product';
-import { selectAllProd, selectProdPage, selectProdQuery } from '../store/warehouse.selectors';
+import { selectAllProd, selectProdPage, selectProdQuery, selectProdNotAssigned } from '../store/warehouse.selectors';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -19,6 +19,7 @@ export class WhListComponent implements OnInit {
   prodLength: number;
   dialog: boolean;
   dialogPayload: Product;
+  prodIn: boolean = false;
 
   constructor(private store: Store<State>) { }
 
@@ -50,6 +51,27 @@ export class WhListComponent implements OnInit {
             return data;
           })
         );
+    }
+  }
+
+  loadProductsIn(skip) {
+    this.products = this.store
+      .pipe(
+        select(selectProdNotAssigned(skip)),
+        map(data => {
+          this.prodLength = data.total;
+          return data.data;
+        })
+      );
+  }
+
+  filterProd() {
+    if (this.prodIn) {
+      this.prodIn = false;
+      this.loadProducts(0);
+    } else {
+      this.prodIn = true;
+      this.loadProductsIn(0);
     }
   }
 

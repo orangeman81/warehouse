@@ -39,6 +39,11 @@
         <h2>Products assigned</h2>
         <p>All product assigned to {{details.name}} {{details.surname}}</p>
       </span>
+      <nav class="actions">
+        <a [routerLink]="['/assignee/assign', details.id]">
+          <i class="material-icons tile-icon">add</i>
+        </a>
+      </nav>
     </header>
     <hr>
     <wh-list *ngIf="(products | async)?.length > 0; else noProds">
@@ -65,7 +70,7 @@
     <p>{{dialogPayload.serial}}</p>
   </span>
   <span class="actions">
-    <button (click)="unassign()">unassign</button>
     <button (click)="dialog = false">cancel</button>
+    <button (click)="unassign()">unassign</button>
   </span>
 </wh-dialog>
