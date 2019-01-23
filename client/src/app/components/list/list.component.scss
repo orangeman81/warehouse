@@ -7,7 +7,7 @@
             flex-wrap: nowrap;
             align-items: center;
             justify-content: space-between;
-            padding: 16px;
+            padding: 24px 16px;
             animation: slide-out .3s ease-out;
             &:not(:last-child) {
                 border-bottom: solid 1px $lineGray;
