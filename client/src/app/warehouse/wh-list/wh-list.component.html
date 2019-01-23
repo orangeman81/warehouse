@@ -13,15 +13,33 @@
   <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
   <wh-list>
     <li *ngFor="let prod of products | async">
-      <span>
-        <h3>{{prod.name}}</h3>
-        <p>Serial:&ensp;{{prod.serial}}</p>
+      <span class="withIcon">
+        <span>
+          <i class="material-icons mr-24" *ngIf="prod.assigneeId; else assigned">store</i>
+          <ng-template #assigned>
+            <i class="material-icons mr-24">check</i>
+          </ng-template>
+        </span>
+        <header>
+          <h3>{{prod.name}}</h3>
+          <p>Serial:&ensp;{{prod.serial}}</p>
+        </header>
       </span>
       <span class="actions">
         <a [routerLink]="['/warehouse/details', prod.id]" class="btn">details</a>
-        <button (click)="delete(prod.id)">delete</button>
+        <button (click)="openDialog(prod)">delete</button>
       </span>
     </li>
   </wh-list>
   <wh-paginator [length]="prodLength" [size]="10" (data)="loadProducts($event.pageIndex)"></wh-paginator>
 </main>
+<wh-dialog *ngIf="dialog">
+  <span>
+    <h3>Delete {{dialogPayload.name}}?</h3>
+    <p>{{dialogPayload.serial}}</p>
+  </span>
+  <span class="actions">
+    <button (click)="delete()">delete</button>
+    <button (click)="dialog = false">cancel</button>
+  </span>
+</wh-dialog>

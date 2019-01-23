@@ -5,6 +5,7 @@ import { AssigneeComponent } from './assignee.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AsDetailsResolver } from './resolvers/asDetails.resolver';
+import { AsAssignComponent } from './as-assign/as-assign.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,13 @@ const routes: Routes = [
       {
         path: "details/:id",
         component: AsDetailsComponent,
+        resolve: {
+          details: AsDetailsResolver
+        }
+      },
+      {
+        path: "assign/:id",
+        component: AsAssignComponent,
         resolve: {
           details: AsDetailsResolver
         }

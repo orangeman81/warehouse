@@ -41,7 +41,20 @@ export const selectProdQuery = (query: string) => createSelector(
 export const selectProdByAssegneeId = (assigneeId: string) => createSelector(
     selectAllProd,
     allProd => {
-        return allProd.filter(prod => prod.assigneeId = assigneeId)
+        return allProd.filter(prod => prod.assigneeId == assigneeId)
+    }
+)
+
+export const selectProdNotAssigned = (skip: number) => createSelector(
+    selectAllProd,
+    allProd => {
+        const start = skip * 10;
+        const end = start + 10;
+        const paginatedData: paginatedData = {
+            data: allProd.filter(prod => !prod.assigneeId).slice(start, end),
+            total: allProd.length
+        }
+        return paginatedData;
     }
 )
 

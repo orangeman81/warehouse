@@ -3,19 +3,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { first, last } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WarehouseService {
 
-  baseUrl: string = 'http://localhost:1337/';
+  baseUrl: string = environment.baseUrl;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin':'*',
-      'Access-Control-Allow-Methods' : '*',
-      'Access-Control-Allow-Headers' : '*'
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': '*',
+      'Access-Control-Allow-Headers': '*'
     })
   };
 
@@ -50,7 +51,7 @@ export class WarehouseService {
   }
 
   $updateProduct(payload): Observable<Product> {
-    return this.http.patch<Product>(this.baseUrl + 'warehouse/update/' + payload.id, JSON.stringify(payload.changes), this.httpOptions)
+    return this.http.patch<Product>(this.baseUrl + 'warehouse/' + payload.id, JSON.stringify(payload.changes), this.httpOptions)
       .pipe(
         last()
       )

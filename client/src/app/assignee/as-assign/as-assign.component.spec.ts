@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WhAssignComponent } from './wh-assign.component';
+import { AsAssignComponent } from './as-assign.component';
 
-describe('WhAssignComponent', () => {
-  let component: WhAssignComponent;
-  let fixture: ComponentFixture<WhAssignComponent>;
+describe('AsAssignComponent', () => {
+  let component: AsAssignComponent;
+  let fixture: ComponentFixture<AsAssignComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WhAssignComponent ]
+      declarations: [ AsAssignComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WhAssignComponent);
+    fixture = TestBed.createComponent(AsAssignComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Assignee } from '../models/assignee';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssigneesService {
 
-  baseUrl: string = 'http://localhost:1337/';
+  baseUrl: string = environment.baseUrl;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

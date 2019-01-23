@@ -1,34 +1,71 @@
 <main class="container">
-  <header>
-    <span>
-      <h1>{{details.name}} {{details.surname}}</h1>
-      <p>Assingee Details</p>
-    </span>
-    <nav class="actions">
-      <a [routerLink]="['/assignee']">
-        <i class="material-icons tile-icon">arrow_back</i>
-      </a>
-      <a>
-        <i class="material-icons tile-icon" (click)="toggleUpdate()">{{toggleIcon}}</i>
-      </a>
-    </nav>
-  </header>
-  <hr>
-  <wh-list *ngIf="!toUpdate; else updateForm">
-    <li>
-      <h3>Email</h3>
-      <p>{{details.email}}</p>
-    </li>
-    <li>
-      <h3>Phone</h3>
-      <p>{{details.phone}}</p>
-    </li>
-    <li>
-      <h3>Role</h3>
-      <p>{{details.role}}</p>
-    </li>
-  </wh-list>
-  <ng-template #updateForm>
-    <wh-as-form [data]="details" (save)="update($event)"></wh-as-form>
-  </ng-template>
+  <section>
+    <header>
+      <span>
+        <h1>{{details.name}} {{details.surname}}</h1>
+        <p>Assingee Details</p>
+      </span>
+      <nav class="actions">
+        <a [routerLink]="['/assignee']">
+          <i class="material-icons tile-icon">arrow_back</i>
+        </a>
+        <a>
+          <i class="material-icons tile-icon" (click)="toggleUpdate()">{{toggleIcon}}</i>
+        </a>
+      </nav>
+    </header>
+    <hr>
+    <wh-list *ngIf="!toUpdate; else updateForm">
+      <li>
+        <h3>Email</h3>
+        <p>{{details.email}}</p>
+      </li>
+      <li>
+        <h3>Phone</h3>
+        <p>{{details.phone}}</p>
+      </li>
+      <li>
+        <h3>Role</h3>
+        <p>{{details.role}}</p>
+      </li>
+    </wh-list>
+    <ng-template #updateForm>
+      <wh-as-form [data]="details" (save)="update($event)"></wh-as-form>
+    </ng-template>
+  </section>
+  <section class="mt-56">
+    <header>
+      <span>
+        <h2>Products assigned</h2>
+        <p>All product assigned to {{details.name}} {{details.surname}}</p>
+      </span>
+    </header>
+    <hr>
+    <wh-list *ngIf="(products | async)?.length > 0; else noProds">
+      <li *ngFor="let prod of products | async">
+        <span>
+          <h3>{{prod.name}}</h3>
+          <p>Serial:&ensp;{{prod.serial}}</p>
+        </span>
+        <span class="actions">
+          <a [routerLink]="['/warehouse/details', prod.id]" class="btn">details</a>
+          <button (click)="openDialog(prod)">unassign</button>
+        </span>
+      </li>
+    </wh-list>
+    <ng-template #noProds>
+      <h4 class="mt-24">No products assigned</h4>
+    </ng-template>
+  </section>
 </main>
+<wh-dialog *ngIf="dialog">
+  <span>
+    <h3>Product unassignment</h3>
+    <p>{{dialogPayload.name}}</p>
+    <p>{{dialogPayload.serial}}</p>
+  </span>
+  <span class="actions">
+    <button (click)="unassign()">unassign</button>
+    <button (click)="dialog = false">cancel</button>
+  </span>
+</wh-dialog>

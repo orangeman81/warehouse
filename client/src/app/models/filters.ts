@@ -16,11 +16,4 @@ export class Filters {
         'Reconditioned',
         'Broken'
     ];
-    roles: string[] = [
-        'stage',
-        'apprenticeship',
-        'junior',
-        'senior',
-        'project manager'
-    ]
 }

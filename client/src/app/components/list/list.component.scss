@@ -12,6 +12,10 @@
             &:not(:last-child) {
                 border-bottom: solid 1px $lineGray;
             }
+            &>span.withIcon {
+                display: flex;
+                align-items: center
+            }
             @media screen and (max-width: $mobile) {
                 flex-direction: column;
                 span:last-child {

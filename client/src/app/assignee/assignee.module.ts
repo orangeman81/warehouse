@@ -13,14 +13,19 @@ import { EffectsModule } from '@ngrx/effects';
 import { AssigneeEffects } from './store/assignee.effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromAssignee from './store/assignee.reducer';
+import * as fromWarehouse from './../warehouse/store/warehouse.reducer';
+import { WarehouseEffects } from '../warehouse/store/warehouse.effects';
+import { AsAssignComponent } from './as-assign/as-assign.component';
 
 @NgModule({
-  declarations: [AssigneeComponent, AsCreateComponent, AsDetailsComponent, AsListComponent, AsFormComponent],
+  declarations: [AssigneeComponent, AsCreateComponent, AsDetailsComponent, AsListComponent, AsFormComponent, AsAssignComponent],
   imports: [
     CommonModule,
     AssigneeRoutingModule,
     ComponentsModule,
     StoreModule.forFeature('assignees', fromAssignee.asReducer),
+    StoreModule.forFeature('warehouse', fromWarehouse.whReducer),
+    EffectsModule.forFeature([WarehouseEffects]),
     EffectsModule.forRoot([AssigneeEffects])
   ],
   providers: [AsDetailsResolver]

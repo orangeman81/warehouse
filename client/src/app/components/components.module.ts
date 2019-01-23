@@ -8,14 +8,15 @@ import { ListComponent } from './list/list.component';
 import { SelectComponent } from './forms/select/select.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
-  declarations: [NavComponent, FooterComponent, ListComponent, SelectComponent, PaginatorComponent, SearchBarComponent],
+  declarations: [NavComponent, FooterComponent, ListComponent, SelectComponent, PaginatorComponent, SearchBarComponent, DialogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule
   ],
-  exports: [ReactiveFormsModule, RouterModule, NavComponent, FooterComponent, ListComponent, PaginatorComponent, SearchBarComponent]
+  exports: [ReactiveFormsModule, RouterModule, NavComponent, FooterComponent, ListComponent, PaginatorComponent, SearchBarComponent, DialogComponent]
 })
 export class ComponentsModule { }

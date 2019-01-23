@@ -45,10 +45,21 @@
           <p>Serial:&ensp;{{prod.serial}}</p>
         </span>
         <span class="actions">
-          <button (click)="assign(prod)">assign</button>
+          <button (click)="openDialog(prod)">assign</button>
         </span>
       </li>
     </wh-list>
     <wh-paginator [length]="prodLength" [size]="10" (data)="loadProducts($event.pageIndex)"></wh-paginator>
   </section>
 </main>
+<wh-dialog *ngIf="dialog">
+  <span>
+    <h3>Product assignment</h3>
+    <p>{{dialogPayload.name}}</p>
+    <p>{{dialogPayload.serial}}</p>
+  </span>
+  <span class="actions">
+    <button (click)="assign()">assign</button>
+    <button (click)="dialog = false">cancel</button>
+  </span>
+</wh-dialog>

@@ -17,7 +17,7 @@ export class AsFormComponent implements OnInit {
     surname: new FormControl(''),
     email: new FormControl(''),
     phone: new FormControl(''),
-    role: new FormControl(''),
+    note: new FormControl(''),
   });
 
   @Input()
@@ -33,7 +33,7 @@ export class AsFormComponent implements OnInit {
         surname: this.data.surname,
         email: this.data.email,
         phone: this.data.phone,
-        role: this.data.role,
+        note: this.data.note,
       });
     }
   }

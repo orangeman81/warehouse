@@ -19,10 +19,20 @@
       </span>
       <span class="actions">
         <a [routerLink]="['/assignee/details', assignee.id]" class="btn mr-8">details</a>
-        <a [routerLink]="['/warehouse/assign', assignee.id]" class="btn mr-8">assign</a>
-        <button (click)="delete(assignee.id)">delete</button>
+        <a [routerLink]="['/assignee/assign', assignee.id]" class="btn mr-8">assign</a>
+        <button (click)="openDialog(assignee)">delete</button>
       </span>
     </li>
   </wh-list>
   <wh-paginator [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
 </main>
+<wh-dialog *ngIf="dialog">
+  <span>
+    <h3>Delete {{dialogPayload.name}} {{dialogPayload.surname}}?</h3>
+    <p>{{dialogPayload.email}}</p>
+  </span>
+  <span class="actions">
+    <button (click)="delete()">delete</button>
+    <button (click)="dialog = false">cancel</button>
+  </span>
+</wh-dialog>

@@ -17,8 +17,7 @@ html {
 // headings
 h1 {
     font-size: $h1-size;
-    font-weight: $light;
-    line-height: 1
+    font-weight: $light
 }
 
 h2 {
@@ -49,6 +48,7 @@ strong {
     font-weight: $bold;
 }
 
+h1,
 h2,
 h3,
 h4,
@@ -82,7 +82,8 @@ p {
     line-height: 1.4
 }
 
-main>header {
+main>header,
+main>section>header {
     display: flex;
     align-items: center;
     justify-content: space-between;

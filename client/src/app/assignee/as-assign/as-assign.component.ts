@@ -1,28 +1,30 @@
-import { Update } from '@ngrx/entity';
-import { map } from 'rxjs/operators';
-import { Assignee } from './../../models/assignee';
-import { State } from 'src/app/reducers';
-import { Store, select } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
-import { Product } from 'src/app/models/product';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { selectProdPage, selectProdQuery } from '../store/warehouse.selectors';
-import { warehouseRequest, productUpdated } from '../store/warehouse.actions';
+import { Assignee } from 'src/app/models/assignee';
+import { Product } from 'src/app/models/product';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { State } from 'src/app/reducers';
+import { warehouseRequest, productUpdated } from 'src/app/warehouse/store/warehouse.actions';
+import { selectProdQuery, selectProdNotAssigned } from 'src/app/warehouse/store/warehouse.selectors';
+import { map } from 'rxjs/operators';
+import { Update } from '@ngrx/entity';
 
 @Component({
-  selector: 'wh-wh-assign',
-  templateUrl: './wh-assign.component.html',
-  styleUrls: ['./wh-assign.component.scss']
+  selector: 'wh-as-assign',
+  templateUrl: './as-assign.component.html',
+  styleUrls: ['./as-assign.component.scss']
 })
-export class WhAssignComponent implements OnInit, OnDestroy {
+export class AsAssignComponent implements OnInit {
 
   detailsSub: Subscription;
   details: Assignee;
   products: Observable<Product[] | Assignee[]>;
   prodLength: number;
+  dialog: boolean;
+  dialogPayload: Product;
 
-  constructor(private route: ActivatedRoute, private store: Store<State>) { }
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<State>) { }
 
   ngOnInit() {
     this.loadProducts(0);
@@ -36,7 +38,7 @@ export class WhAssignComponent implements OnInit, OnDestroy {
     this.store.dispatch(new warehouseRequest());
     this.products = this.store
       .pipe(
-        select(selectProdPage(skip)),
+        select(selectProdNotAssigned(skip)),
         map(data => {
           this.prodLength = data.total;
           return data.data;
@@ -59,7 +61,12 @@ export class WhAssignComponent implements OnInit, OnDestroy {
     }
   }
 
-  assign(payload: Product) {
+  openDialog(prod) {
+    this.dialogPayload = prod;
+    this.dialog = true;
+  }
+
+  assign(payload: Product = this.dialogPayload) {
     payload.assigneeId = this.details.id;
     payload.assignmentDate = Date.now();
     const prod: Update<Product> = {
@@ -67,6 +74,7 @@ export class WhAssignComponent implements OnInit, OnDestroy {
       changes: payload
     }
     this.store.dispatch(new productUpdated({ prod }));
+    this.router.navigate(['/assignee/details', this.details.id]);
   }
 
   ngOnDestroy() {

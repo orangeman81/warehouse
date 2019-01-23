@@ -4,6 +4,5 @@ export interface Assignee {
     surname: string;
     email: string;
     phone: string;
-    role: string;
-    products: string[];
+    note: string;
 }

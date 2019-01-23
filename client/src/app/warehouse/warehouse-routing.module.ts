@@ -1,5 +1,3 @@
-import { WhAssignResolver } from './resolvers/whAssign.resolver';
-import { WhAssignComponent } from './wh-assign/wh-assign.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WarehouseComponent } from './warehouse.component';
@@ -26,13 +24,6 @@ const routes: Routes = [
         component: WhDetailsComponent,
         resolve: {
           details: WhDetailsResolver
-        }
-      },
-      {
-        path: "assign/:id",
-        component: WhAssignComponent,
-        resolve: {
-          details: WhAssignResolver
         }
       }
     ]

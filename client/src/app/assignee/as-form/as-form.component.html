@@ -18,11 +18,8 @@
         <input type="tel" formControlName="phone" required>
       </div>
       <div class="col s12 m6 formGroup">
-        <label>Role</label>
-        <select formControlName="role" required>
-          <option value="">unknown</option>
-          <option [value]="role" *ngFor="let role of filters.roles">{{role}}</option>
-        </select>
+        <label>Note</label>
+        <textarea formControlName="note"></textarea>
       </div>
     </div>
   </fieldset>

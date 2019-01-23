@@ -17,6 +17,9 @@ export class AsListComponent implements OnInit {
 
   assignees: Observable<Product[] | Assignee[]>;
   asLength: number;
+  dialog: boolean;
+  dialogPayload: Product;
+
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
@@ -50,8 +53,14 @@ export class AsListComponent implements OnInit {
     }
   }
 
-  delete(id) {
+  openDialog(prod) {
+    this.dialogPayload = prod;
+    this.dialog = true;
+  }
+
+  delete(id: string = this.dialogPayload.id) {
     this.store.dispatch(new AssigneeDeleteReq({ assigneeId: id }));
+    this.dialog = false;
   }
 
 }

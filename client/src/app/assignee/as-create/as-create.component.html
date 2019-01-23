@@ -1,15 +1,15 @@
 <main class="container">
-    <header>
-      <span>
-        <h1>New Assegnee</h1>
-        <p>Create a new Assegnee</p>
-      </span>
-      <nav class="actions">
-        <a [routerLink]="['/assignee']">
-          <i class="material-icons tile-icon">arrow_back</i>
-        </a>
-      </nav>
-    </header>
-    <hr>
-    <wh-as-form (save)="save($event)"></wh-as-form>
-  </main>
+  <header>
+    <span>
+      <h1>New Assegnee</h1>
+      <p>Create a new Assegnee</p>
+    </span>
+    <nav class="actions">
+      <a [routerLink]="['/assignee']">
+        <i class="material-icons tile-icon">arrow_back</i>
+      </a>
+    </nav>
+  </header>
+  <hr>
+  <wh-as-form (save)="save($event)"></wh-as-form>
+</main>

@@ -13,10 +13,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { WarehouseEffects } from './store/warehouse.effects';
 import { WhDetailsResolver } from './resolvers/whDetails.resolver';
 import { ComponentsModule } from '../components/components.module';
-import { WhAssignComponent } from './wh-assign/wh-assign.component';
 
 @NgModule({
-  declarations: [WarehouseComponent, WhListComponent, WhCreateComponent, WhFormComponent, WhDetailsComponent, WhAssignComponent],
+  declarations: [WarehouseComponent, WhListComponent, WhCreateComponent, WhFormComponent, WhDetailsComponent],
   imports: [
     CommonModule,
     WarehouseRoutingModule,
