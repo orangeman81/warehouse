@@ -7,7 +7,7 @@ nav {
     justify-content: space-between;
     box-sizing: border-box;
     padding: 16px 24px;
-    background-color: $lGray;
+    background-color: $navGray;
     margin-bottom: 56px;
     border-bottom: solid 1px $lineGray;
     ul {
@@ -15,8 +15,5 @@ nav {
         li:not(:last-child) {
             margin-right: 16px
         }
-    }
-    .active {
-        color: $color
     }
 }

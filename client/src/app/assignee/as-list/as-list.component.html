@@ -18,9 +18,9 @@
         <p>{{assignee.email}}</p>
       </span>
       <span class="actions">
+        <button (click)="openDialog(assignee)">delete</button>
         <a [routerLink]="['/assignee/details', assignee.id]" class="btn mr-8">details</a>
         <a [routerLink]="['/assignee/assign', assignee.id]" class="btn mr-8">assign</a>
-        <button (click)="openDialog(assignee)">delete</button>
       </span>
     </li>
   </wh-list>

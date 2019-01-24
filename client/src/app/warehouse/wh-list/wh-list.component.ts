@@ -43,6 +43,7 @@ export class WhListComponent implements OnInit {
     if (query === "") {
       this.loadProducts(0);
     } else {
+      this.prodIn = true ? this.prodIn = false : null;
       this.products = this.store
         .pipe(
           select(selectProdQuery(query)),
