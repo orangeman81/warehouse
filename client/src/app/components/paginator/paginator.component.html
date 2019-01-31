@@ -3,7 +3,7 @@
     <i class="material-icons">navigate_before</i>
   </button>
   <span>
-    <strong>{{pageIndex + 1}}</strong>&ensp;of&ensp;<strong>{{length}}</strong>
+    <strong>{{pageIndex + 1}}</strong>&ensp;of&ensp;<strong>{{totalPages}}</strong>
   </span>
   <button [disabled]="!_pages.hasNextPage()" (click)="next()">
     <i class="material-icons">navigate_next</i>

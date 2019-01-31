@@ -39,6 +39,11 @@ export class PaginatorComponent implements OnInit {
     this._changeDetectorRef.markForCheck();
   }
 
+  //total page number
+  get totalPages(): number {
+    return Math.ceil(this.length / this.size);
+  }
+
   //previous page
   prevPage: number;
 
