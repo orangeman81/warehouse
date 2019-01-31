@@ -24,9 +24,9 @@
         <h3>Phone</h3>
         <p>{{details.phone}}</p>
       </li>
-      <li>
-        <h3>Role</h3>
-        <p>{{details.role}}</p>
+      <li *ngIf="details.note">
+        <h3>Note</h3>
+        <p>{{details.note}}</p>
       </li>
     </wh-list>
   </section>
