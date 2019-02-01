@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnDestroy {
 
   authSub: Subscription;
+  errorMessage: string;
 
   constructor(private auth: AuthService, private router: Router) { }
 
@@ -21,7 +22,10 @@ export class LoginComponent implements OnDestroy {
         (res: LoginRequest) => {
           console.log(res)
         },
-        (err) => console.log,
+        (err) => {
+          console.log(err)
+          this.errorMessage = "Username or password invalid";
+        },
         () => {
           this.router.navigate(['main']);
         })

@@ -1,7 +1,7 @@
 <form [formGroup]="loginForm" (ngSubmit)="save.emit(loginForm.value)">
   <fieldset>
     <div class="row">
-      <div class="col s12 m6 formGroup">
+      <div class="col s12 formGroup">
         <label>Username</label>
         <input type="text" formControlName="username" required>
       </div>
@@ -9,7 +9,7 @@
         <label>Email</label>
         <input type="email" formControlName="email" required>
       </div> -->
-      <div class="col s12 m6 formGroup">
+      <div class="col s12 formGroup">
         <label>Password</label>
         <input type="password" formControlName="password" required>
       </div>

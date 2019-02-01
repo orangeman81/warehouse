@@ -1,0 +1,11 @@
+@import './../../leaves/variables';
+:host {
+    @media screen and (min-width: $mobile) {
+        .container {
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+    }
+}

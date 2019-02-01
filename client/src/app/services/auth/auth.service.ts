@@ -19,12 +19,15 @@ export class AuthService {
     return localStorage.getItem('token');
   }
   set token(value: string) {
+    this.isLoggedIn$.next(true);
     localStorage.setItem('token', value);
   }
 
   get isAuthenticated(): boolean {
     const helper = new JwtHelperService();
-    return !helper.isTokenExpired(this.token);
+    const results = !helper.isTokenExpired(this.token);
+    this.isLoggedIn$.next(results);
+    return results;
   }
 
   constructor(private http: HttpClient) { }
@@ -34,7 +37,6 @@ export class AuthService {
       .pipe(
         tap(res => {
           this.token = res.token;
-          this.isLoggedIn$.next(true);
         }),
         last(),
         shareReplay()
@@ -42,7 +44,6 @@ export class AuthService {
   }
 
   logout() {
-    this.isLoggedIn$.next(false);
     localStorage.removeItem('token');
   }
 

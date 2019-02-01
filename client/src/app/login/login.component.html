@@ -7,4 +7,5 @@
   </header>
   <hr>
   <wh-login-form (save)="signUp($event)"></wh-login-form>
+  <p *ngIf="errorMessage">{{errorMessage}}</p>
 </main>
