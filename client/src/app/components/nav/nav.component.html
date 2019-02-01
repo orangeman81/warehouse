@@ -7,5 +7,8 @@
     <li>
       <a [routerLink]="['/assignee']" routerLinkActive="active">Assignees</a>
     </li>
+    <li *ngIf="(auth.isLoggedIn$) | async">
+      <a href="#" (click)="auth.logout()"><i class="material-icons tile-icon">exit_to_app</i></a>
+    </li>
   </ul>
 </nav>

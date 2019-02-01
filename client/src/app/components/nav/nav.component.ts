@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../../services/auth/auth.service';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'wh-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(private auth: AuthService) { }
 
 }

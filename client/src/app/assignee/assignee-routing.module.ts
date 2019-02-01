@@ -1,3 +1,4 @@
+import { AuthGuard } from './../services/auth/auth.guard';
 import { AsDetailsComponent } from './as-details/as-details.component';
 import { AsCreateComponent } from './as-create/as-create.component';
 import { AsListComponent } from './as-list/as-list.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: "",
     component: AssigneeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: "",

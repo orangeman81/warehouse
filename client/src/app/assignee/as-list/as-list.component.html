@@ -24,7 +24,7 @@
       </span>
     </li>
   </wh-list>
-  <wh-paginator [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
+  <wh-paginator *ngIf="asLength" [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
 </main>
 <wh-dialog *ngIf="dialog">
   <span>

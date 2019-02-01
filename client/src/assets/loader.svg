@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 104 104" style="enable-background:new 0 0 104 104;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;stroke:#9E9E9E;stroke-width:4;stroke-miterlimit:10;}
+	.st1{fill:#FFFFFF;stroke:#525151;stroke-width:8;stroke-miterlimit:10;}
+	@keyframes animate {
+		0% {transform: rotateY(0) scale(1)}
+		30% {transform: rotateY(-10deg) scale(.8)}
+		60% {transform: rotateY(10deg) scale(1.2)}
+		100% {transform: rotateY(0) scale(.8)}
+	}
+	polyline {
+		animation: animate 1s both ease-in-out infinite;
+		transform-origin: center
+	}
+	#b4 {
+		animation-delay: .1s;
+	}
+	#b3 {
+		animation-delay: .2s;
+	}
+	#b2 {
+		animation-delay: .3s;
+	}
+	#b1 {
+		animation-delay: .4s;
+	}
+	#l4 {
+		animation-delay: .1s;
+	}
+	#l3 {
+		animation-delay: .2s;
+	}
+	#l2 {
+		animation-delay: .3s;
+	}
+	#l1 {
+		animation-delay: .4s;
+	}
+</style>
+<polyline id="b4" class="st0" points="2,52 2,2 52,2 "/>
+<polyline id="b3" class="st0" points="52,102 2,102 2,52 "/>
+<polyline id="b2" class="st0" points="102,52 102,102 52,102 "/>
+<polyline id="b1" class="st0" points="52,2 102,2 102,52 "/>
+<polyline id="l4" class="st1" points="27,52 27,27 52,27 "/>
+<polyline id="l3" class="st1" points="52,77 27,77 27,52 "/>
+<polyline id="l2" class="st1" points="77,52 77,77 52,77 "/>
+<polyline id="l1" class="st1" points="52,27 77,27 77,52 "/>
+</svg>

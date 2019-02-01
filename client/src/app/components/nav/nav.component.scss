@@ -12,6 +12,10 @@ nav {
     border-bottom: solid 1px $lineGray;
     ul {
         display: flex;
+        align-items: center;
+        i {
+            line-height: inherit
+        }
         li:not(:last-child) {
             margin-right: 16px
         }

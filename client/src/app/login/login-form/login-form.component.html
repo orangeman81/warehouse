@@ -1,0 +1,21 @@
+<form [formGroup]="loginForm" (ngSubmit)="save.emit(loginForm.value)">
+  <fieldset>
+    <div class="row">
+      <div class="col s12 m6 formGroup">
+        <label>Username</label>
+        <input type="text" formControlName="username" required>
+      </div>
+      <!-- <div class="col s12 m6 formGroup">
+        <label>Email</label>
+        <input type="email" formControlName="email" required>
+      </div> -->
+      <div class="col s12 m6 formGroup">
+        <label>Password</label>
+        <input type="password" formControlName="password" required>
+      </div>
+    </div>
+  </fieldset>
+  <div class="actions mt-24">
+    <button type="submit" [disabled]="loginForm.invalid">save</button>
+  </div>
+</form>
