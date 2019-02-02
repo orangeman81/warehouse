@@ -2,7 +2,7 @@ import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { first, last } from 'rxjs/operators';
+import { first, last, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -25,42 +25,48 @@ export class WarehouseService {
   $findProduct(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + 'warehouse?sort=createdAt DESC')
       .pipe(
-        first()
+        first(),
+        shareReplay()
       )
   }
 
   $findPagedProduct(skip): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + `warehouse?limit=10?skip=${skip}?sort=createdAt DESC`)
       .pipe(
-        first()
+        first(),
+        shareReplay()
       )
   }
 
   $findOneProduct(id): Observable<Product> {
     return this.http.get<Product>(this.baseUrl + 'warehouse/' + id)
       .pipe(
-        first()
+        first(),
+        shareReplay()
       )
   }
 
   $createProduct(payload): Observable<Product> {
     return this.http.post<Product>(this.baseUrl + 'warehouse', JSON.stringify(payload))
       .pipe(
-        last()
+        last(),
+        shareReplay()
       )
   }
 
   $updateProduct(payload): Observable<Product> {
     return this.http.patch<Product>(this.baseUrl + 'warehouse/' + payload.id, JSON.stringify(payload.changes), this.httpOptions)
       .pipe(
-        last()
+        last(),
+        shareReplay()
       )
   }
 
   $deleteProduct(id) {
     return this.http.delete<Product>(this.baseUrl + 'warehouse/' + id)
       .pipe(
-        last()
+        last(),
+        shareReplay()
       )
   }
 

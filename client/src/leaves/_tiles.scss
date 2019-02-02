@@ -27,6 +27,11 @@
 }
 
 a.tile {
+    &:hover {
+        i {
+            animation: emphasis .4s both ease-out;
+        }
+    }
     .col:nth-child(odd) & {
         background: darken($lGray, 2%);
     }

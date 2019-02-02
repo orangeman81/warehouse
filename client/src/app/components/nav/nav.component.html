@@ -1,13 +1,13 @@
 <nav>
-  <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Warehouse</a>
-  <ul>
+  <a [routerLink]="['/main']" routerLinkActive="active">Warehouse</a>
+  <ul *ngIf="(auth.isLoggedIn$) | async">
     <li>
       <a [routerLink]="['/warehouse']" routerLinkActive="active">Products</a>
     </li>
     <li>
       <a [routerLink]="['/assignee']" routerLinkActive="active">Assignees</a>
     </li>
-    <li *ngIf="(auth.isLoggedIn$) | async">
+    <li>
       <a (click)="auth.logout()"><i class="material-icons tile-icon">exit_to_app</i></a>
     </li>
   </ul>

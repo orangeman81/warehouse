@@ -5,7 +5,8 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { last, tap, shareReplay } from 'rxjs/operators';
+import { last, shareReplay, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { last, tap, shareReplay } from 'rxjs/operators';
 export class AuthService {
 
   baseUrl: string = environment.baseUrl;
+  errorMessage: string;
   isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get token(): string {
@@ -30,13 +32,19 @@ export class AuthService {
     return results;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public router: Router) { }
 
   $login(credentials): Observable<LoginRequest> {
     return this.http.post<LoginRequest>(this.baseUrl + 'login', JSON.stringify(credentials))
       .pipe(
-        tap(res => {
-          this.token = res.token;
+        tap((res: LoginRequest) => {
+          if (res.user) {
+            this.token = res.token;
+            this.errorMessage != "" ? this.errorMessage = "" : null;
+            this.router.navigate(['main']);
+          } else {
+            this.errorMessage = res.message;
+          }
         }),
         last(),
         shareReplay()
@@ -45,12 +53,15 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    this.isLoggedIn$.next(false);
+    this.router.navigate(['login']);
   }
 
   $createUser(credentials): Observable<User> {
     return this.http.post<User>(this.baseUrl + 'user', JSON.stringify(credentials))
       .pipe(
-        last()
+        last(),
+        shareReplay()
       )
   }
 }

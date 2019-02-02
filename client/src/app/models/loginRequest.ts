@@ -1,6 +1,5 @@
-import { User } from './user';
 export interface LoginRequest {
     message: string;
-    user: User;
+    user: boolean;
     token: string;
 }

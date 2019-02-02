@@ -28,7 +28,8 @@ h3 {
     font-size: $h3-size;
 }
 
-h4 {
+h4,
+.title {
     font-size: $h4-size;
 }
 
@@ -117,4 +118,15 @@ a {
 hr {
     width: 100%;
     border: 1px solid $lineGray
+}
+
+// error text
+.error {
+    font-size: $h5-size;
+    color: #F44336;
+    text-align: center;
+    letter-spacing: 1px;
+    padding: 8px 0;
+    font-weight: $medium;
+    animation: slide-out .3s ease-out
 }

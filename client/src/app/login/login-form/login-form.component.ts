@@ -15,6 +15,9 @@ export class LoginFormComponent {
     password: new FormControl("")
   });
 
+  get username() { return this.loginForm.get('username'); };
+  get password() { return this.loginForm.get('password'); };
+
   @Output()
   save: EventEmitter<FormData> = new EventEmitter<FormData>();
 

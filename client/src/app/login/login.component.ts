@@ -1,8 +1,6 @@
-import { LoginRequest } from './../models/loginRequest';
-import { AuthService } from '../services/auth/auth.service';
 import { Component, OnDestroy } from '@angular/core';
+import { AuthService } from '../services/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'wh-login',
@@ -12,23 +10,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnDestroy {
 
   authSub: Subscription;
-  errorMessage: string;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService) { }
 
-  signUp(credentials) {
+  signIn(credentials) {
     this.authSub = this.auth.$login(credentials)
-      .subscribe(
-        (res: LoginRequest) => {
-          console.log(res)
-        },
-        (err) => {
-          console.log(err)
-          this.errorMessage = "Username or password invalid";
-        },
-        () => {
-          this.router.navigate(['main']);
-        })
+      .subscribe();
   }
 
   ngOnDestroy() {
