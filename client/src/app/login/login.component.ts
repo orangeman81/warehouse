@@ -1,25 +1,30 @@
-import { Component, OnDestroy } from '@angular/core';
-import { AuthService } from '../services/auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { State } from '../reducers';
+import { LoginActionRequest } from './store/auth.actions';
+import { Observable } from 'rxjs';
+import { message } from './store/auth.selectors';
 
 @Component({
   selector: 'wh-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnInit {
 
-  authSub: Subscription;
+  message$: Observable<string>;
 
-  constructor(private auth: AuthService) { }
+  constructor(private store: Store<State>) { }
 
-  signIn(credentials) {
-    this.authSub = this.auth.$login(credentials)
-      .subscribe();
+  ngOnInit() {
+    this.message$ = this.store
+      .pipe(
+        select(message)
+      )
   }
 
-  ngOnDestroy() {
-    this.authSub ? this.authSub.unsubscribe() : null;
+  signIn(credentials) {
+    this.store.dispatch(new LoginActionRequest(credentials));
   }
 
 }

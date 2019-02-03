@@ -1,5 +1,9 @@
-import { AuthService } from './../../services/auth/auth.service';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Logout } from './../../login/store/auth.actions';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { isLoggedIn } from './../../login/store/auth.selectors';
+import { State } from 'src/app/reducers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'wh-nav',
@@ -7,8 +11,21 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  isLoggedIn$: Observable<boolean>;
+
+  constructor(private store: Store<State>) { }
+
+  ngOnInit() {
+    this.isLoggedIn$ = this.store
+      .pipe(
+        select(isLoggedIn)
+      )
+  }
+
+  logout() {
+    this.store.dispatch(new Logout());
+  }
 
 }

@@ -7,7 +7,6 @@ import { Store, select } from '@ngrx/store';
 import { State } from 'src/app/reducers';
 import { warehouseLoaded } from './warehouse.selectors';
 import { Router } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 
 @Injectable()

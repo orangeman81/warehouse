@@ -7,6 +7,6 @@
   </header>
   <hr>
   <wh-login-form (save)="signIn($event)">
-    <p class="error" *ngIf="auth.errorMessage">{{auth.errorMessage}}</p>
+    <p class="error" *ngIf="message$ | async">{{message$ | async}}</p>
   </wh-login-form>
 </main>

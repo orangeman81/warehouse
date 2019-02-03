@@ -15,9 +15,9 @@ module.exports = {
                 if (err) res.send(err);
                 const token = jwt.sign(user, jwtSecret, { expiresIn: 180 * 60 });
                 return res.send({
+                    token,
                     message: info.message,
-                    user,
-                    token
+                    user
                 });
             });
         })(req, res);
