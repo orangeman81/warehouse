@@ -25,7 +25,7 @@ import { AsAssignComponent } from './as-assign/as-assign.component';
     StoreModule.forFeature('assignees', fromAssignee.asReducer),
     StoreModule.forFeature('warehouse', fromWarehouse.whReducer),
     EffectsModule.forFeature([WarehouseEffects]),
-    EffectsModule.forRoot([AssigneeEffects])
+    EffectsModule.forFeature([AssigneeEffects])
   ],
   providers: [AsDetailsResolver]
 })

@@ -5,6 +5,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AuthActionTypes, Logout, LoginActionRequest, Login } from './auth.actions';
 import { Router } from '@angular/router';
 import { defer } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/reducers';
 
 
 @Injectable()
@@ -39,17 +41,22 @@ export class AuthEffects {
   @Effect()
   init$ = defer(() => {
     if (this.auth.isAuthenticated) {
-      console.log("refreshed");
-      new Login({ user: null, message: "", isLoggedIn: true })
+      const tokenInfo = this.auth.userInfo;
+      const user = {
+        email: tokenInfo.email,
+        username: tokenInfo.username,
+        id: tokenInfo.id
+      };
+      this.store.dispatch(new Login({ user: user, message: "Login Succesful", isLoggedIn: true }));
     } else {
-      console.log("not refreshed");
-      new Login({ user: false, message: "", isLoggedIn: false })
+      this.store.dispatch(new Login({ user: false, message: "", isLoggedIn: false }));
     }
   })
 
   constructor(
     private actions$: Actions,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store<State>
   ) { }
 }

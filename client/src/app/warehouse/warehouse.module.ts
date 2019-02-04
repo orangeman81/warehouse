@@ -21,7 +21,7 @@ import { ComponentsModule } from '../components/components.module';
     WarehouseRoutingModule,
     ComponentsModule,
     StoreModule.forFeature('warehouse', fromWarehouse.whReducer),
-    EffectsModule.forRoot([WarehouseEffects])
+    EffectsModule.forFeature([WarehouseEffects])
   ],
   providers: [WhDetailsResolver, WhAssignResolver]
 })

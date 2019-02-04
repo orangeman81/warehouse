@@ -4,19 +4,18 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
-import { StoreModule } from '@ngrx/store';
 import { LoginModule } from './login/login.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // components
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 // services
 import { reducers, metaReducers } from './reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { WarehouseService } from './services/warehouse.service';
-import { AssigneesService } from './services/assignees.service';
-import { AuthService } from './services/auth/auth.service';
+import { AuthEffects } from './login/store/auth.effects';
 import { TokenInterceptor } from './services/auth/token.interceptor';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -30,12 +29,10 @@ import { TokenInterceptor } from './services/auth/token.interceptor';
     ComponentsModule,
     LoginModule,
     StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AuthEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
-    WarehouseService,
-    AssigneesService,
-    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

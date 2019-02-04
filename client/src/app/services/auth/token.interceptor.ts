@@ -6,17 +6,31 @@ import {
     HttpInterceptor
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY, never } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/reducers';
+import { Logout } from 'src/app/login/store/auth.actions';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-    constructor(public auth: AuthService) { }
+    constructor(public auth: AuthService, private store: Store<State>) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        request = request.clone({
-            setHeaders: {
-                Authorization: `Bearer ${this.auth.token}`
+        if (!this.auth.isAuthenticated) {
+            this.store.dispatch(new Logout);
+            if (request.headers.get('Authorization')) {
+                request = request.clone();
+                return next.handle(request);
+            } else {
+                // return EMPTY;
+                return never();
             }
-        });
-        return next.handle(request);
+        } else {
+            request = request.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${this.auth.token}`
+                }
+            });
+            return next.handle(request);
+        }
     }
 }
