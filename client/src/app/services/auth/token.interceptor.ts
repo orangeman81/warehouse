@@ -6,7 +6,7 @@ import {
     HttpInterceptor
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable, EMPTY, never } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/reducers';
 import { Logout } from 'src/app/login/store/auth.actions';
@@ -17,12 +17,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
         if (!this.auth.isAuthenticated) {
             this.store.dispatch(new Logout);
-            if (request.headers.get('Authorization')) {
+            if (request.headers.has('Authorization')) {
                 request = request.clone();
                 return next.handle(request);
             } else {
-                // return EMPTY;
-                return never();
+                return throwError(new Error('Token expired'));
             }
         } else {
             request = request.clone({
