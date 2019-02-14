@@ -33,7 +33,7 @@ export class WarehouseEffects {
     .pipe(
       ofType<productDeleteReq>(WarehouseActionTypes.productDeleteReq),
       mergeMap(action => this.ws.$deleteProduct(action.payload.prodId)),
-      map(prodId => new productDeleted({ prodId: prodId.id }))
+      map(prodId => new productDeleted({ prodId: prodId._id }))
     );
 
   @Effect()
@@ -53,7 +53,7 @@ export class WarehouseEffects {
           select(warehouseLoaded)
         )),
       filter(([action, warehouseloaded]) => !warehouseloaded),
-      mergeMap(action => this.ws.$findProduct()),
+      mergeMap(action => this.ws.$findProduct().pipe(map(res => res.data))),
       map(warehouse => new warehouseLoad({ warehouse }))
     )
 

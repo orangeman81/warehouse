@@ -58,7 +58,7 @@ export class AsListComponent implements OnInit {
     this.dialog = true;
   }
 
-  delete(id: string = this.dialogPayload.id) {
+  delete(id: string = this.dialogPayload._id) {
     this.store.dispatch(new AssigneeDeleteReq({ assigneeId: id }));
     this.dialog = false;
   }

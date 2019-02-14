@@ -81,7 +81,7 @@ export class WhListComponent implements OnInit {
     this.dialog = true;
   }
 
-  delete(id: string = this.dialogPayload.id) {
+  delete(id: string = this.dialogPayload._id) {
     this.store.dispatch(new productDeleteReq({ prodId: id }));
     this.dialog = false;
   }

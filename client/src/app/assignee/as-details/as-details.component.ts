@@ -33,7 +33,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.details = data['details'];
       });
-    this.loadProducts(this.details.id);
+    this.loadProducts(this.details._id);
   }
 
   loadProducts(id) {
@@ -49,7 +49,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
 
   update(payload) {
     const assignee: Update<Assignee> = {
-      id: this.details.id,
+      id: this.details._id,
       changes: payload
     }
     this.store.dispatch(new AssigneeUpdated({ assignee }));
@@ -64,7 +64,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
     payload.assigneeId = "";
     payload.assignmentDate = null;
     const prod: Update<Product> = {
-      id: payload.id,
+      id: payload._id,
       changes: payload
     }
     this.store.dispatch(new productUpdated({ prod }));

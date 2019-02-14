@@ -10,12 +10,13 @@ import { Component, ChangeDetectionStrategy, EventEmitter, Output } from '@angul
 export class LoginFormComponent {
 
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl(""),
-    // email: new FormControl(""),
+    // username: new FormControl(""),
+    email: new FormControl(""),
     password: new FormControl("")
   });
 
   get username() { return this.loginForm.get('username'); };
+  get email() { return this.loginForm.get('email'); };
   get password() { return this.loginForm.get('password'); };
 
   @Output()

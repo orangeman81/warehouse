@@ -30,7 +30,7 @@ export class WhDetailsComponent implements OnInit, OnDestroy {
 
   update(payload) {
     const prod: Update<Product> = {
-      id: this.details.id,
+      id: this.details._id,
       changes: payload
     }
     this.store.dispatch(new productUpdated({ prod }));

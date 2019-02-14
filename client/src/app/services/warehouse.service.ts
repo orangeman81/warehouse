@@ -1,3 +1,5 @@
+import { Paginated } from '@feathersjs/feathers';
+import { FeathersService } from './feathers.service';
 import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -20,18 +22,26 @@ export class WarehouseService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private api: FeathersService) { }
 
-  $findProduct(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl + 'warehouse?sort=createdAt DESC')
-      .pipe(
-        first(),
-        shareReplay()
-      )
+  $findProduct(): Observable<any> {
+    // return this.http.get<Product[]>(this.baseUrl + 'warehouse?$sort[createdAt]=-1')
+    //   .pipe(
+    //     first(),
+    //     shareReplay()
+    //   )
+    return (this.api
+      .service('warehouse'))
+      .watch()
+      .find({
+        query: {
+          $sort: { createdAt: -1 }
+        }
+      });
   }
 
   $findPagedProduct(skip): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl + `warehouse?limit=10?skip=${skip}?sort=createdAt DESC`)
+    return this.http.get<Product[]>(this.baseUrl + `warehouse?$limit=10?$skip=${skip}?$sort[createdAt]=-1`)
       .pipe(
         first(),
         shareReplay()
@@ -47,7 +57,7 @@ export class WarehouseService {
   }
 
   $createProduct(payload): Observable<Product> {
-    return this.http.post<Product>(this.baseUrl + 'warehouse', JSON.stringify(payload))
+    return this.http.post<Product>(this.baseUrl + 'warehouse', payload)
       .pipe(
         last(),
         shareReplay()
@@ -55,7 +65,7 @@ export class WarehouseService {
   }
 
   $updateProduct(payload): Observable<Product> {
-    return this.http.patch<Product>(this.baseUrl + 'warehouse/' + payload.id, JSON.stringify(payload.changes), this.httpOptions)
+    return this.http.patch<Product>(this.baseUrl + 'warehouse/' + payload.id, payload.changes, this.httpOptions)
       .pipe(
         last(),
         shareReplay()

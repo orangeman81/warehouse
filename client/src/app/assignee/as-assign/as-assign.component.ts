@@ -67,14 +67,14 @@ export class AsAssignComponent implements OnInit {
   }
 
   assign(payload: Product = this.dialogPayload) {
-    payload.assigneeId = this.details.id;
+    payload.assigneeId = this.details._id;
     payload.assignmentDate = Date.now();
     const prod: Update<Product> = {
-      id: payload.id,
+      id: payload._id,
       changes: payload
     }
     this.store.dispatch(new productUpdated({ prod }));
-    this.router.navigate(['/assignee/details', this.details.id]);
+    this.router.navigate(['/assignee/details', this.details._id]);
   }
 
   ngOnDestroy() {

@@ -33,7 +33,7 @@ export class AssigneeEffects {
     .pipe(
       ofType<AssigneeDeleteReq>(AssigneeActionTypes.AssigneeDeleteReq),
       mergeMap(action => this.as.$deleteAssignee(action.payload.assigneeId)),
-      map(assigneeId => new AssigneeDeleted({ assigneeId: assigneeId.id }))
+      map(assigneeId => new AssigneeDeleted({ assigneeId: assigneeId._id }))
     );
 
   @Effect()

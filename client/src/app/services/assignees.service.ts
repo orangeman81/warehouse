@@ -1,4 +1,4 @@
-import { first, last } from 'rxjs/operators';
+import { first, last, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -23,42 +23,43 @@ export class AssigneesService {
   constructor(private http: HttpClient) { }
 
   $findAssignee(): Observable<Assignee[]> {
-    return this.http.get<Assignee[]>(this.baseUrl + 'assignee?sort=createdAt DESC')
+    return this.http.get<any>(this.baseUrl + 'assignees?$sort[createdAt]=-1')
       .pipe(
+        map(res => res.data),
         first()
       )
   }
 
   $findPagedAssignee(skip): Observable<Assignee[]> {
-    return this.http.get<Assignee[]>(this.baseUrl + `assignee?limit=10?skip=${skip}?sort=createdAt DESC`)
+    return this.http.get<Assignee[]>(this.baseUrl + `assignees?limit=10?skip=${skip}?sort=createdAt DESC`)
       .pipe(
         first()
       )
   }
 
   $findOneAssignee(id): Observable<Assignee> {
-    return this.http.get<Assignee>(this.baseUrl + 'assignee/' + id)
+    return this.http.get<Assignee>(this.baseUrl + 'assignees/' + id)
       .pipe(
         first()
       )
   }
 
   $createAssignee(payload): Observable<Assignee> {
-    return this.http.post<Assignee>(this.baseUrl + 'assignee', JSON.stringify(payload))
+    return this.http.post<Assignee>(this.baseUrl + 'assignees', payload)
       .pipe(
         last()
       )
   }
 
   $updateAssignee(payload): Observable<Assignee> {
-    return this.http.patch<Assignee>(this.baseUrl + 'assignee/update/' + payload.id, JSON.stringify(payload.changes), this.httpOptions)
+    return this.http.patch<Assignee>(this.baseUrl + 'assignees/update/' + payload.id, payload.changes, this.httpOptions)
       .pipe(
         last()
       )
   }
 
   $deleteAssignee(id) {
-    return this.http.delete<Assignee>(this.baseUrl + 'assignee/' + id)
+    return this.http.delete<Assignee>(this.baseUrl + 'assignees/' + id)
       .pipe(
         last()
       )

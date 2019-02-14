@@ -1,19 +1,20 @@
 <form [formGroup]="loginForm" (ngSubmit)="save.emit(loginForm.value)">
   <fieldset>
     <div class="row">
-      <div class="col s12 formGroup">
+      <!-- <div class="col s12 formGroup">
         <label>Username</label>
         <input type="text" formControlName="username" required>
         <p class="error" *ngIf="username.invalid && (username.dirty || username.touched)">insert a valid username</p>
-      </div>
-      <!-- <div class="col s12 m6 formGroup">
+      </div> -->
+      <div class="col s12 m6 formGroup">
         <label>Email</label>
         <input type="email" formControlName="email" required>
-      </div> -->
+        <p class="error" *ngIf="email.invalid && (email.dirty || email.touched)">insert a valid password</p>
+      </div>
       <div class="col s12 formGroup">
         <label>Password</label>
         <input type="password" formControlName="password" required>
-        <p class="error" *ngIf="password.invalid && (username.dirty || username.touched)">insert a valid password</p>
+        <p class="error" *ngIf="password.invalid && (password.dirty || password.touched)">insert a valid password</p>
       </div>
     </div>
   </fieldset>

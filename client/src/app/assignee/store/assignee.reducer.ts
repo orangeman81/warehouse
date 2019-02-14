@@ -7,7 +7,9 @@ export interface asState extends EntityState<Assignee> {
   assigneesLoaded: boolean;
 }
 
-export const adapter: EntityAdapter<Assignee> = createEntityAdapter<Assignee>();
+export const adapter: EntityAdapter<Assignee> = createEntityAdapter<Assignee>({
+  selectId: (assignee: Assignee) => assignee._id
+});
 
 export const initialAsState: asState = adapter.getInitialState({
   assigneesLoaded: false

@@ -1,10 +1,11 @@
+import { FeathersService } from './../feathers.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoginRequest } from './../../models/loginRequest';
 import { User } from '../../models/user';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { last, shareReplay } from 'rxjs/operators';
 
 @Injectable({
@@ -23,10 +24,10 @@ export class AuthService {
   };
 
   get token(): string {
-    return localStorage.getItem('token');
+    return localStorage.getItem('feathers-jwt');
   }
   set token(value: string) {
-    localStorage.setItem('token', value);
+    localStorage.setItem('feathers-jwt', value);
   }
 
   get userInfo(): User {
@@ -41,14 +42,15 @@ export class AuthService {
     return results;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private api: FeathersService) { }
 
   $login(credentials): Observable<LoginRequest> {
-    return this.http.post<LoginRequest>(this.baseUrl + 'login', JSON.stringify(credentials), this.httpOptions)
-      .pipe(
-        last(),
-        shareReplay()
-      )
+    return from(
+      this.api.authenticate({
+        strategy: 'local',
+        email: credentials.email,
+        password: credentials.password
+      }))
   }
 
   $createUser(credentials): Observable<User> {

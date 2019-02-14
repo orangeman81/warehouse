@@ -18,12 +18,12 @@ export class AuthEffects {
       ofType<LoginActionRequest>(AuthActionTypes.LoginRequest),
       mergeMap(action => this.auth.$login(action.payload)),
       map(res => {
-        if (res.user != false) {
-          this.auth.token = res.token;
+        if (res.user) {
+          // this.auth.token = res.accessToken;
           this.router.navigate(['main'])
-          return new Login({ user: res.user, message: res.message, isLoggedIn: true })
+          return new Login({ user: res.user, message: "Login Succesful", isLoggedIn: true })
         } else {
-          return new Login({ user: false, message: res.message, isLoggedIn: false })
+          return new Login({ user: false, message: "User doesn't exist", isLoggedIn: false })
         }
       })
     );
@@ -33,7 +33,7 @@ export class AuthEffects {
     .pipe(
       ofType<Logout>(AuthActionTypes.LogoutAction),
       tap(() => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('feathers-jwt');
         this.router.navigate(['login']);
       })
     );

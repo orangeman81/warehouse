@@ -1,3 +1,4 @@
+import { FeathersService } from './services/feathers.service';
 // module
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -37,7 +38,8 @@ import { environment } from '../environments/environment';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    FeathersService
   ],
   bootstrap: [AppComponent]
 })

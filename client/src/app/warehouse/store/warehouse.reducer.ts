@@ -7,7 +7,9 @@ export interface whState extends EntityState<Product> {
   warehouseLoaded: boolean;
 }
 
-export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
+export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>({
+  selectId: (product: Product) => product._id
+});
 
 export const initialWhState: whState = adapter.getInitialState({
   warehouseLoaded: false
