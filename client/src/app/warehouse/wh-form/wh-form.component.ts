@@ -13,6 +13,7 @@ export class WhFormComponent implements OnInit {
 
   filters = new Filters();
   prodForm = new FormGroup({
+    assigneeId: new FormControl(''),
     name: new FormControl(''),
     producer: new FormControl(''),
     serial: new FormControl(''),
