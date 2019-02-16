@@ -33,7 +33,8 @@ export class AuthService {
   get userInfo(): User {
     const helper = new JwtHelperService();
     const results = helper.decodeToken(this.token);
-    return results;
+    console.log(results)
+    return results.userInfo;
   }
 
   get isAuthenticated(): boolean {

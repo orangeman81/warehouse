@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: './assignee/assignee.module#AssigneeModule'
   },
   {
+    path: "incoming",
+    loadChildren: './incoming/incoming.module#IncomingModule'
+  },
+  {
     path: "**",
     redirectTo: "main"
   }

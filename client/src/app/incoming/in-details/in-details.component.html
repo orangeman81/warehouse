@@ -1,0 +1,42 @@
+<main class="container">
+  <header>
+    <span>
+      <h1>{{details.checkInDate | date: 'short'}}</h1>
+      <p>Check-in Details</p>
+    </span>
+    <nav class="actions">
+      <a [routerLink]="['/incoming']">
+        <i class="material-icons tile-icon">arrow_back</i>
+      </a>
+      <a>
+        <i class="material-icons tile-icon" (click)="toggleUpdate()">{{toggleIcon}}</i>
+      </a>
+    </nav>
+  </header>
+  <hr>
+  <wh-list *ngIf="!toUpdate; else updateForm">
+    <li>
+      <h3>Serial</h3>
+      <p>{{details.serial}}</p>
+    </li>
+    <li>
+      <h3>Sender</h3>
+      <p>{{details.sender}}</p>
+    </li>
+    <li>
+      <h3>Recipient</h3>
+      <p>{{details.recipient}}</p>
+    </li>
+    <li>
+      <h3>Consignee</h3>
+      <p>{{details.userId}}</p>
+    </li>
+    <li>
+      <h3>Description</h3>
+      <p>{{details.description}}</p>
+    </li>
+  </wh-list>
+  <ng-template #updateForm>
+    <wh-in-form [data]="details" (save)="update($event)"></wh-in-form>
+  </ng-template>
+</main>

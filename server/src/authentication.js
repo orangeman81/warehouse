@@ -27,7 +27,17 @@ module.exports = function (app) {
     },
     before: {
       create: [
-        authentication.hooks.authenticate(config.strategies)
+        authentication.hooks.authenticate(config.strategies),
+
+        context => {
+          // make sure params.payload exists
+          context.params.payload = context.params.payload || {}
+          // merge in a `test` property
+          const user = context.params.user;
+          delete user._id;
+          delete user.password;
+          Object.assign(context.params.payload, {userInfo: user})
+        }
       ],
       remove: [
         authentication.hooks.authenticate('jwt')

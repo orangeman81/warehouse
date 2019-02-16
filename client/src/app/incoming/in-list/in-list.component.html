@@ -1,0 +1,48 @@
+<main class="container">
+  <header>
+    <span>
+      <h1>Check-in</h1>
+      <p>list of all incoming products</p>
+    </span>
+    <nav class="actions">
+      <!-- <a (click)="filterProd()" [ngClass]="{'active' : prodIn}">
+        <i class="material-icons tile-icon">store</i>
+      </a> -->
+      <a [routerLink]="['/incoming/create']">
+        <i class="material-icons tile-icon">add</i>
+      </a>
+    </nav>
+  </header>
+  <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
+  <wh-list>
+    <li *ngFor="let prod of incoming | async">
+      <span class="withIcon">
+        <span>
+          <i class="material-icons mr-24" *ngIf="prod.cheked; else assigned">store</i>
+          <ng-template #assigned>
+            <i class="material-icons mr-24">check</i>
+          </ng-template>
+        </span>
+        <header>
+          <h3>{{prod.checkInDate | date: 'short'}}</h3>
+          <p>Serial:&ensp;{{prod.serial}}</p>
+        </header>
+      </span>
+      <span class="actions">
+        <button (click)="openDialog(prod)">delete</button>
+        <a [routerLink]="['/incoming/details', prod.id]" class="btn">details</a>
+      </span>
+    </li>
+  </wh-list>
+  <!-- <wh-paginator *ngIf="prodLength" [length]="prodLength" [size]="10" (data)="loadProducts($event.pageIndex)"></wh-paginator> -->
+</main>
+<wh-dialog *ngIf="dialog">
+  <span>
+    <h3>Delete {{dialogPayload.name}}?</h3>
+    <p>{{dialogPayload.serial}}</p>
+  </span>
+  <span class="actions">
+    <button (click)="dialog = false">cancel</button>
+    <button (click)="delete()">delete</button>
+  </span>
+</wh-dialog>

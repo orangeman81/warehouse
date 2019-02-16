@@ -1,0 +1,25 @@
+<form [formGroup]="prodForm" (ngSubmit)="save.emit(prodForm.value)">
+  <fieldset>
+    <div class="row">
+      <div class="col s12 m6 formGroup">
+        <label>Description</label>
+        <input type="text" formControlName="description" required>
+      </div>
+      <div class="col s12 m6 formGroup">
+        <label>Sender</label>
+        <input type="text" formControlName="sender">
+      </div>
+      <div class="col s12 m6 formGroup">
+        <label>Recipient</label>
+        <input type="text" formControlName="recipient">
+      </div>
+      <div class="col s12 m6 formGroup">
+        <label>Serial</label>
+        <input type="text" formControlName="serial">
+      </div>
+    </div>
+  </fieldset>
+  <div class="actions mt-24">
+    <button type="submit" [disabled]="prodForm.invalid">save</button>
+  </div>
+</form>

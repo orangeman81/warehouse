@@ -22,22 +22,14 @@ export class WarehouseService {
     })
   };
 
-  constructor(private http: HttpClient, private api: FeathersService) { }
+  constructor(private http: HttpClient) { }
 
   $findProduct(): Observable<any> {
-    // return this.http.get<Product[]>(this.baseUrl + 'warehouse?$sort[createdAt]=-1')
-    //   .pipe(
-    //     first(),
-    //     shareReplay()
-    //   )
-    return (this.api
-      .service('warehouse'))
-      .watch()
-      .find({
-        query: {
-          $sort: { createdAt: -1 }
-        }
-      });
+    return this.http.get<Product[]>(this.baseUrl + 'warehouse?$sort[createdAt]=-1')
+      .pipe(
+        first(),
+        shareReplay()
+      )
   }
 
   $findPagedProduct(skip): Observable<Product[]> {
