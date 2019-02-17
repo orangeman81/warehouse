@@ -1,35 +1,33 @@
+import { Incoming } from 'src/app/models/incoming';
 import { Paginated } from '@feathersjs/feathers';
-import { Incoming } from './../../models/incoming';
-import { FeathersService } from './../../services/feathers.service';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ApiService } from 'src/app/services/api.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'wh-in-list',
   templateUrl: './in-list.component.html',
   styleUrls: ['./in-list.component.scss']
 })
-export class InListComponent implements OnInit {
+export class InListComponent implements OnInit, OnDestroy {
 
-  incoming: Observable<any>;
+  incoming: Observable<Incoming[]>;
+  incomingLength: number;
+  operationSub: Subscription;
   dialog: boolean;
   dialogPayload: Incoming;
 
-  constructor(private api: FeathersService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.incoming = (this.api
-      .service('incoming'))
-      .watch()
-      .find({
-        query: {
-          $sort: { createdAt: -1 }
-        }
-      })
+    this.incoming = this.api.$connect('incoming')
       .pipe(
-        map((res: Paginated<any>) => res.data)
-      );
+        map((res: Paginated<any>) => {
+          this.incomingLength = res.total;
+          return res.data;
+        })
+      )
   }
 
   openDialog(prod) {
@@ -38,10 +36,13 @@ export class InListComponent implements OnInit {
   }
 
   delete(id: string = this.dialogPayload._id) {
-    this.api
-      .service('incoming')
-      .remove(id)
+    this.operationSub = this.api.$delete('incoming', id)
+      .subscribe();
     this.dialog = false;
+  }
+
+  ngOnDestroy() {
+    this.operationSub ? this.operationSub.unsubscribe() : null;
   }
 
 }

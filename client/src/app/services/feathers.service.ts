@@ -6,6 +6,7 @@ import * as io from 'socket.io-client';
 import feathers from '@feathersjs/feathers';
 import feathersSocketIOClient from '@feathersjs/socketio-client';
 import feathersAuthClient from '@feathersjs/authentication-client';
+import { Observable } from 'rxjs';
 
 /**
  * Simple wrapper for feathers
@@ -28,8 +29,18 @@ export class FeathersService {
 
   // expose services
   public service(name: string) {
-    return this._feathers.service(name);
+    return this._feathers.service(name)
   }
+
+  // connect(name: string): Observable<any> {
+  //   return this.service(name)
+  //     .watch()
+  //     .find({
+  //       query: {
+  //         $sort: { createdAt: -1 }
+  //       }
+  //     })
+  // }
 
   // expose authentication
   public authenticate(credentials?): Promise<any> {

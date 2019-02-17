@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { ApiService } from './../../services/api.service';
 import { FeathersService } from './../../services/feathers.service';
 import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,17 +12,18 @@ import { Router } from '@angular/router';
 })
 export class InCreateComponent implements OnDestroy {
 
-  constructor(private api: FeathersService, private router: Router) { }
+  operationSub: Subscription;
+
+  constructor(private api: ApiService, private router: Router) { }
 
   save(payload) {
-    this.api
-      .service('incoming')
-      .create(payload)
+    this.operationSub = this.api.$create('incoming', payload)
+      .subscribe();
     this.router.navigate(['/incoming'])
   }
 
   ngOnDestroy() {
-
+    this.operationSub ? this.operationSub.unsubscribe() : null;
   }
 
 }

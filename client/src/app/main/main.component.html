@@ -1,25 +1,27 @@
 <main class="container">
-  <header>
-    <h1>Warehouse</h1>
-  </header>
-  <hr>
   <nav class="row">
-    <div class="col s6 m4">
+    <div class="col s6">
+      <a routerLink="/incoming" class="tile">
+        <i class="material-icons tile-icon">get_app</i>
+        <h5>Check-in</h5>
+      </a>
+    </div>
+    <div class="col s6">
       <a routerLink="/warehouse" class="tile">
         <i class="material-icons tile-icon">store</i>
         <h5>Warehouse</h5>
       </a>
     </div>
-    <div class="col s6 m4">
+    <div class="col s6">
       <a routerLink="/assignee" class="tile">
         <i class="material-icons tile-icon">people</i>
         <h5>Assignees</h5>
       </a>
     </div>
-    <div class="col s6 m4">
-      <a routerLink="/incoming" class="tile">
-        <i class="material-icons tile-icon">get_app</i>
-        <h5>Check-in</h5>
+    <div class="col s6">
+      <a routerLink="/movements" class="tile">
+        <i class="material-icons tile-icon">import_export</i>
+        <h5>Movements</h5>
       </a>
     </div>
   </nav>

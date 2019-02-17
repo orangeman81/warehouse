@@ -1,7 +1,7 @@
 <main class="container">
   <header>
     <span>
-      <h1>Check-in</h1>
+      <h1>Incoming</h1>
       <p>list of all incoming products</p>
     </span>
     <nav class="actions">
@@ -13,7 +13,7 @@
       </a>
     </nav>
   </header>
-  <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
+  <hr>
   <wh-list>
     <li *ngFor="let prod of incoming | async">
       <span class="withIcon">
@@ -30,11 +30,12 @@
       </span>
       <span class="actions">
         <button (click)="openDialog(prod)">delete</button>
-        <a [routerLink]="['/incoming/details', prod.id]" class="btn">details</a>
+        <a [routerLink]="['/incoming/details', prod._id]" class="btn">details</a>
+        <button (click)="openDialog(prod)">chek-in</button>
       </span>
     </li>
   </wh-list>
-  <!-- <wh-paginator *ngIf="prodLength" [length]="prodLength" [size]="10" (data)="loadProducts($event.pageIndex)"></wh-paginator> -->
+  <wh-paginator *ngIf="incomingLength" [length]="incomingLength" [size]="10" (data)="loadIncoming($event.pageIndex)"></wh-paginator>
 </main>
 <wh-dialog *ngIf="dialog">
   <span>

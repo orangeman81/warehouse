@@ -1,3 +1,4 @@
+import { Paginated } from '@feathersjs/feathers';
 import { State } from './../../reducers/index';
 import { Router } from '@angular/router';
 import { AssigneeUpdated, AssigneeCreated, AssigneeActionTypes, AssigneeLoad, AssigneeDeleteReq, AssigneeDeleted, AssigneeRequest, AssigneesLoad, AssigneesRequest } from './assignee.actions';
@@ -5,8 +6,8 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { filter, mergeMap, map, tap, withLatestFrom } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import { AssigneesService } from 'src/app/services/assignees.service';
 import { AssigneesLoaded } from './assignee.selectors';
+import { ApiService } from 'src/app/services/api.service';
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class AssigneeEffects {
   createassignee$ = this.actions$
     .pipe(
       ofType<AssigneeCreated>(AssigneeActionTypes.AssigneeCreated),
-      mergeMap(action => this.as.$createAssignee(action.payload)),
+      mergeMap(action => this.api.$create('assignees', action.payload)),
       map(assignee => new AssigneeLoad({ assignee })),
       tap(() => this.router.navigate(['/assignee']))
     );
@@ -25,14 +26,16 @@ export class AssigneeEffects {
   updateassignee$ = this.actions$
     .pipe(
       ofType<AssigneeUpdated>(AssigneeActionTypes.AssigneeUpdated),
-      mergeMap(action => this.as.$updateAssignee(action.payload.assignee))
+      tap(action => console.log(action.payload)),
+      mergeMap(action => this.api.$update('assignees', action.payload.assignee)),
+      tap(() => this.router.navigate(['/assignee']))
     );
 
   @Effect()
   deleteassignee$ = this.actions$
     .pipe(
       ofType<AssigneeDeleteReq>(AssigneeActionTypes.AssigneeDeleteReq),
-      mergeMap(action => this.as.$deleteAssignee(action.payload.assigneeId)),
+      mergeMap(action => this.api.$delete('assignees', action.payload.assigneeId)),
       map(assigneeId => new AssigneeDeleted({ assigneeId: assigneeId._id }))
     );
 
@@ -40,7 +43,7 @@ export class AssigneeEffects {
   loadassignee$ = this.actions$
     .pipe(
       ofType<AssigneeRequest>(AssigneeActionTypes.AssigneeRequest),
-      mergeMap(action => this.as.$findOneAssignee(action.payload)),
+      mergeMap(action => this.api.$findOne('assignees', action.payload)),
       map(assignee => new AssigneeLoad({ assignee }))
     );
 
@@ -53,14 +56,19 @@ export class AssigneeEffects {
           select(AssigneesLoaded)
         )),
       filter(([action, assigneesloaded]) => !assigneesloaded),
-      mergeMap(action => this.as.$findAssignee()),
+      mergeMap(action =>
+        this.api.$connect('assignees')
+          .pipe(
+            map((res: Paginated<any>) => res.data)
+          )
+      ),
       map(assignees => new AssigneesLoad({ assignees }))
     )
 
   constructor(
     private actions$: Actions,
     private store: Store<State>,
-    private as: AssigneesService,
+    private api: ApiService,
     private router: Router
   ) { }
 }

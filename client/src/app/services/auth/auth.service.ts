@@ -33,7 +33,6 @@ export class AuthService {
   get userInfo(): User {
     const helper = new JwtHelperService();
     const results = helper.decodeToken(this.token);
-    console.log(results)
     return results.userInfo;
   }
 
@@ -44,6 +43,10 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient, private api: FeathersService) { }
+
+  initAuth() {
+    this.api.authenticate();
+  }
 
   $login(credentials): Observable<LoginRequest> {
     return from(

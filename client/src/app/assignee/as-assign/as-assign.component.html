@@ -45,7 +45,7 @@
           <p>Serial:&ensp;{{prod.serial}}</p>
         </span>
         <span class="actions">
-          <a [routerLink]="['/warehouse/details', details.id]" class="btn mr-8">details</a>
+          <a [routerLink]="['/warehouse/details', details._id]" class="btn mr-8">details</a>
           <button (click)="openDialog(prod)">assign</button>
         </span>
       </li>

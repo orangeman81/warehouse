@@ -3,13 +3,13 @@ const { disablePagination } = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [  ],
+    all: [authenticate('jwt')],
     find: [disablePagination()],
     get: [],
-    create: [authenticate('jwt')],
-    update: [authenticate('jwt')],
-    patch: [authenticate('jwt')],
-    remove: [authenticate('jwt')]
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
   },
 
   after: {

@@ -9,7 +9,7 @@ import { Incoming } from 'src/app/models/incoming';
 })
 export class InFormComponent implements OnInit {
 
-  prodForm = new FormGroup({
+  inForm = new FormGroup({
     description: new FormControl(''),
     sender: new FormControl(''),
     recipient: new FormControl(''),
@@ -27,7 +27,7 @@ export class InFormComponent implements OnInit {
 
   ngOnInit() {
     if (this.data) {
-      this.prodForm.setValue({
+      this.inForm.patchValue({
         description: this.data.description,
         sender: this.data.sender,
         recipient: this.data.recipient,

@@ -8,6 +8,7 @@ import { InCreateComponent } from './in-create/in-create.component';
 import { InDetailsComponent } from './in-details/in-details.component';
 import { InFormComponent } from './in-form/in-form.component';
 import { InListComponent } from './in-list/in-list.component';
+import { InDetailsResolver } from './resolvers/inDetails.resolver';
 
 @NgModule({
   declarations: [IncomingComponent, InCreateComponent, InDetailsComponent, InFormComponent, InListComponent],
@@ -15,6 +16,7 @@ import { InListComponent } from './in-list/in-list.component';
     CommonModule,
     IncomingRoutingModule,
     ComponentsModule
-  ]
+  ],
+  providers: [InDetailsResolver]
 })
 export class IncomingModule { }

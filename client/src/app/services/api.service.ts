@@ -1,13 +1,15 @@
+import { Paginated } from '@feathersjs/feathers';
+import { FeathersService } from './feathers.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { first, shareReplay, last } from 'rxjs/operators';
-import { environment } from './../../environments/environment';
+import { first, shareReplay, last, map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RestService {
+export class ApiService {
 
   baseUrl: string = environment.baseUrl;
   httpOptions = {
@@ -19,18 +21,30 @@ export class RestService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private socket: FeathersService) { }
+
+  $connect(service: string) {
+    return (this.socket
+      .service(service))
+      .watch()
+      .find({
+        query: {
+          $sort: { createdAt: -1 }
+        }
+      })
+  }
 
   $find(url): Observable<any> {
-    return this.http.get(this.baseUrl + `${url}?$limit=-1$$sort[createdAt]=-1`, this.httpOptions)
+    return this.http.get<any>(this.baseUrl + `${url}?$limit='-1'&$sort[createdAt]=-1`, this.httpOptions)
       .pipe(
+        map(res => res.data),
         first(),
         shareReplay()
       )
   }
 
   $findPaged(url, skip): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl + `${url}?$limit=10?$skip=${skip}?$sort[createdAt]=-1`, this.httpOptions)
+    return this.http.get<any[]>(this.baseUrl + `${url}?$limit=10&$skip=${skip}&$sort[createdAt]=-1`, this.httpOptions)
       .pipe(
         first(),
         shareReplay()
@@ -46,7 +60,7 @@ export class RestService {
   }
 
   $create(url, payload): Observable<any> {
-    return this.http.post<any>(this.baseUrl + `${url}`, payload)
+    return this.http.post<any>(this.baseUrl + `${url}`, payload, this.httpOptions)
       .pipe(
         last(),
         shareReplay()

@@ -11,7 +11,6 @@ import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy
 })
 export class AsFormComponent implements OnInit {
 
-  filters = new Filters();
   assigneeForm = new FormGroup({
     name: new FormControl(''),
     surname: new FormControl(''),

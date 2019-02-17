@@ -31,6 +31,7 @@ export class WhFormComponent implements OnInit {
   ngOnInit() {
     if (this.data) {
       this.prodForm.setValue({
+        assigneeId: this.data.assigneeId,
         name: this.data.name,
         producer: this.data.producer,
         serial: this.data.serial,

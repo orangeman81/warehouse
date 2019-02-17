@@ -8,6 +8,7 @@ import { ComponentsModule } from './components/components.module';
 import { LoginModule } from './login/login.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // components
 import { AppComponent } from './app.component';
@@ -16,7 +17,7 @@ import { MainComponent } from './main/main.component';
 import { reducers, metaReducers } from './reducers';
 import { AuthEffects } from './login/store/auth.effects';
 import { TokenInterceptor } from './services/auth/token.interceptor';
-import { environment } from '../environments/environment';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { environment } from '../environments/environment';
       useClass: TokenInterceptor,
       multi: true
     },
-    FeathersService
+    FeathersService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

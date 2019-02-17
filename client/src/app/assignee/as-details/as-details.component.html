@@ -40,7 +40,7 @@
         <p>All product assigned to {{details.name}} {{details.surname}}</p>
       </span>
       <nav class="actions">
-        <a [routerLink]="['/assignee/assign', details.id]">
+        <a [routerLink]="['/assignee/assign', details._id]">
           <i class="material-icons tile-icon">add</i>
         </a>
       </nav>
@@ -53,7 +53,7 @@
           <p>Serial:&ensp;{{prod.serial}}</p>
         </span>
         <span class="actions">
-          <a [routerLink]="['/warehouse/details', prod.id]" class="btn">details</a>
+          <a [routerLink]="['/warehouse/details', prod._id]" class="btn">details</a>
           <button (click)="openDialog(prod)">unassign</button>
         </span>
       </li>

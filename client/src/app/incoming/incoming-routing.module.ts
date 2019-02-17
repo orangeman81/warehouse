@@ -5,6 +5,7 @@ import { AuthGuard } from './../services/auth/auth.guard';
 import { IncomingComponent } from './incoming.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { InDetailsResolver } from './resolvers/inDetails.resolver';
 
 const routes: Routes = [
   {
@@ -23,9 +24,9 @@ const routes: Routes = [
       {
         path: "details/:id",
         component: InDetailsComponent,
-        // resolve: {
-        //   details: InDetailsResolver
-        // }
+        resolve: {
+          details: InDetailsResolver
+        }
       }
     ]
   }
