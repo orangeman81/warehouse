@@ -17,15 +17,15 @@
     <hr>
     <wh-list *ngIf="!toUpdate; else updateForm">
       <li>
-        <h3>Email</h3>
+        <h4>Email</h4>
         <p>{{details.email}}</p>
       </li>
       <li>
-        <h3>Phone</h3>
+        <h4>Phone</h4>
         <p>{{details.phone}}</p>
       </li>
       <li *ngIf="details.note">
-        <h3>Note</h3>
+        <h4>Note</h4>
         <p>{{details.note}}</p>
       </li>
     </wh-list>

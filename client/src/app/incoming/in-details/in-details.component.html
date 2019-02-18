@@ -1,7 +1,7 @@
 <main class="container">
   <header>
     <span>
-      <h1>{{details.checkInDate | date: 'short'}}</h1>
+      <h1>{{details.description}}</h1>
       <p>Check-in Details</p>
     </span>
     <nav class="actions">
@@ -16,24 +16,24 @@
   <hr>
   <wh-list *ngIf="!toUpdate; else updateForm">
     <li>
-      <h3>Serial</h3>
-      <p>{{details.serial}}</p>
-    </li>
-    <li>
-      <h3>Sender</h3>
-      <p>{{details.sender}}</p>
-    </li>
-    <li>
-      <h3>Recipient</h3>
-      <p>{{details.recipient}}</p>
-    </li>
-    <li>
-      <h3>Consignee</h3>
+      <h4>Check-in</h4>
       <p>{{details.user}}</p>
     </li>
     <li>
-      <h3>Description</h3>
-      <p>{{details.description}}</p>
+      <h4>Date of arrival</h4>
+      <p>{{details.checkInDate | date: 'short'}}</p>
+    </li>
+    <li>
+      <h4>Serial</h4>
+      <p>{{details.serial}}</p>
+    </li>
+    <li>
+      <h4>Sender</h4>
+      <p>{{details.sender}}</p>
+    </li>
+    <li>
+      <h4>Consignee</h4>
+      <p>{{details.consignee}}</p>
     </li>
   </wh-list>
   <ng-template #updateForm>

@@ -24,14 +24,14 @@
           </ng-template>
         </span>
         <header>
-          <h3>{{prod.checkInDate | date: 'short'}}</h3>
-          <p>Serial:&ensp;{{prod.serial}}</p>
+          <h3>{{prod.description}}</h3>
+          <p>{{prod.checkInDate | date: 'short'}}</p>
         </header>
       </span>
       <span class="actions">
         <button (click)="openDialog(prod)">delete</button>
         <a [routerLink]="['/incoming/details', prod._id]" class="btn">details</a>
-        <button (click)="openDialog(prod)">chek-in</button>
+        <button (click)="openDialog(prod)">chekin</button>
       </span>
     </li>
   </wh-list>

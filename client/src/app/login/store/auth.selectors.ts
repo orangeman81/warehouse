@@ -12,3 +12,8 @@ export const message = createSelector(
     auth => auth.message
 )
 
+export const username = createSelector(
+    selectAuthState,
+    auth => auth.user.username
+)
+

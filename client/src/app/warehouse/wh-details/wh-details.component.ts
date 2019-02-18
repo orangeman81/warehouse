@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -19,7 +19,10 @@ export class WhDetailsComponent implements OnInit, OnDestroy {
   toUpdate: boolean = false;
   toggleIcon: string = "update";
 
-  constructor(private route: ActivatedRoute, private store: Store<State>) { }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<State>,
+    private router: Router) { }
 
   ngOnInit() {
     this.detailsSub = this.route.data
@@ -34,6 +37,7 @@ export class WhDetailsComponent implements OnInit, OnDestroy {
       changes: payload
     }
     this.store.dispatch(new productUpdate({ prod }));
+    this.router.navigate(['/warehouse'])
   }
 
   toggleUpdate() {

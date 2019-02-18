@@ -27,8 +27,7 @@ export class WarehouseEffects {
     .pipe(
       ofType<productUpdate>(WarehouseActionTypes.productUpdate),
       mergeMap(action => this.api.$update('warehouse', action.payload.prod)),
-      map(() => new productUpdated()),
-      tap(() => this.router.navigate(['/warehouse']))
+      map(() => new productUpdated())
     );
 
   @Effect()

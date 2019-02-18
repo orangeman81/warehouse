@@ -7,10 +7,10 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const incoming = new Schema({
     description: { type: String, required: true },
+    serial: { type: String, required: true },
     sender: { type: String, required: false },
-    recipient: { type: String, required: false },
-    serial: { type: String, required: false },
-    user: { type: String, required: false },
+    consignee: { type: String, required: false },
+    user: { type: String, required: true },
     checkInDate: { type: String, required: true },
     cheked: { type: Boolean, required: false },
   }, {

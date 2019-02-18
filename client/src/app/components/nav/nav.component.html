@@ -1,5 +1,5 @@
 <nav>
-  <a [routerLink]="['/main']" routerLinkActive="active">Warehouse</a>
+  <a [routerLink]="['/main']" routerLinkActive="active"><i class="material-icons tile-icon">home</i></a>
   <ul *ngIf="isLoggedIn$ | async">
     <li>
       <a [routerLink]="['/incoming']" routerLinkActive="active"><i class="material-icons tile-icon">get_app</i></a>
