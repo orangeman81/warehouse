@@ -23,7 +23,7 @@ export function asReducer(state = initialAsState, action: AssigneeActions): asSt
     case AssigneeActionTypes.AssigneeLoad: {
       return adapter.addOne(action.payload.assignee, state)
     }
-    case AssigneeActionTypes.AssigneeUpdated: {
+    case AssigneeActionTypes.AssigneeUpdate: {
       return adapter.updateOne(action.payload.assignee, state)
     }
     case AssigneeActionTypes.AssigneeDeleted: {

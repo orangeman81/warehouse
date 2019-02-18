@@ -1,7 +1,7 @@
 import { Paginated } from '@feathersjs/feathers';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { WarehouseActionTypes, productRequest, productLoad, warehouseRequest, warehouseLoad, productCreated, productDeleted, productDeleteReq, productUpdated } from './warehouse.actions';
+import { WarehouseActionTypes, productRequest, productLoad, warehouseRequest, warehouseLoad, productCreated, productDeleted, productDeleteReq, productUpdated, productUpdate } from './warehouse.actions';
 import { mergeMap, map, withLatestFrom, filter, tap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { State } from 'src/app/reducers';
@@ -25,8 +25,9 @@ export class WarehouseEffects {
   @Effect()
   updateProd$ = this.actions$
     .pipe(
-      ofType<productUpdated>(WarehouseActionTypes.productUpdated),
+      ofType<productUpdate>(WarehouseActionTypes.productUpdate),
       mergeMap(action => this.api.$update('warehouse', action.payload.prod)),
+      map(() => new productUpdated()),
       tap(() => this.router.navigate(['/warehouse']))
     );
 

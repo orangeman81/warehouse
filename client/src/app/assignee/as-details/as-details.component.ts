@@ -1,15 +1,15 @@
-import { AssigneeUpdated } from './../store/assignee.actions';
-import { Update } from '@ngrx/entity';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { State } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
 import { Assignee } from './../../models/assignee';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
 import { Product } from 'src/app/models/product';
-import { warehouseRequest, productUpdated } from 'src/app/warehouse/store/warehouse.actions';
-import { selectProdByAssegneeId } from 'src/app/warehouse/store/warehouse.selectors';
+import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Update } from '@ngrx/entity';
+import { selectProdByAssegneeId } from 'src/app/warehouse/store/warehouse.selectors';
+import { AssigneeUpdate } from './../store/assignee.actions';
+import { warehouseRequest, productUpdate } from 'src/app/warehouse/store/warehouse.actions';
 
 @Component({
   selector: 'wh-as-details',
@@ -52,7 +52,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
       id: this.details._id,
       changes: payload
     }
-    this.store.dispatch(new AssigneeUpdated({ assignee }));
+    this.store.dispatch(new AssigneeUpdate({ assignee }));
   }
 
   openDialog(prod) {
@@ -67,7 +67,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
       id: payload._id,
       changes: payload
     }
-    this.store.dispatch(new productUpdated({ prod }));
+    this.store.dispatch(new productUpdate({ prod }));
     this.dialog = false;
   }
 

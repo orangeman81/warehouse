@@ -23,7 +23,7 @@ export function whReducer(state = initialWhState, action: WarehouseActions): whS
     case WarehouseActionTypes.productLoad: {
       return adapter.addOne(action.payload.prod, state)
     }
-    case WarehouseActionTypes.productUpdated: {
+    case WarehouseActionTypes.productUpdate: {
       return adapter.updateOne(action.payload.prod, state)
     }
     case WarehouseActionTypes.productDeleted: {

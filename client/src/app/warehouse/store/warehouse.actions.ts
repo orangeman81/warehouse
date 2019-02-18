@@ -8,6 +8,7 @@ export enum WarehouseActionTypes {
   productRequest = '[product details page] product requested',
   productLoad = '[warehouse API] product loaded',
   productCreated = '[warehouse API] product created',
+  productUpdate = '[warehouse details page] product update',
   productUpdated = '[warehouse API] product updated',
   productDeleteReq = '[product List page] product delete request',
   productDeleted = '[warehouse API] product deleted'
@@ -32,9 +33,12 @@ export class productCreated implements Action {
   readonly type = WarehouseActionTypes.productCreated;
   constructor(public payload: { prod: Product }) { }
 }
+export class productUpdate implements Action {
+  readonly type = WarehouseActionTypes.productUpdate;
+  constructor(public payload: { prod: Update<Product> }) { }
+}
 export class productUpdated implements Action {
   readonly type = WarehouseActionTypes.productUpdated;
-  constructor(public payload: { prod: Update<Product> }) { }
 }
 export class productDeleteReq implements Action {
   readonly type = WarehouseActionTypes.productDeleteReq;
@@ -45,4 +49,4 @@ export class productDeleted implements Action {
   constructor(public payload: { prodId: string }) { }
 }
 
-export type WarehouseActions = warehouseRequest | warehouseLoad | productRequest | productLoad | productCreated | productUpdated | productDeleted;
+export type WarehouseActions = warehouseRequest | warehouseLoad | productRequest | productLoad | productCreated | productUpdate | productUpdated | productDeleteReq | productDeleted;

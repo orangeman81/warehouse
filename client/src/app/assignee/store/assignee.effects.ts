@@ -1,7 +1,7 @@
 import { Paginated } from '@feathersjs/feathers';
 import { State } from './../../reducers/index';
 import { Router } from '@angular/router';
-import { AssigneeUpdated, AssigneeCreated, AssigneeActionTypes, AssigneeLoad, AssigneeDeleteReq, AssigneeDeleted, AssigneeRequest, AssigneesLoad, AssigneesRequest } from './assignee.actions';
+import { AssigneeUpdated, AssigneeCreated, AssigneeActionTypes, AssigneeLoad, AssigneeDeleteReq, AssigneeDeleted, AssigneeRequest, AssigneesLoad, AssigneesRequest, AssigneeUpdate } from './assignee.actions';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { filter, mergeMap, map, tap, withLatestFrom } from 'rxjs/operators';
@@ -25,9 +25,9 @@ export class AssigneeEffects {
   @Effect()
   updateassignee$ = this.actions$
     .pipe(
-      ofType<AssigneeUpdated>(AssigneeActionTypes.AssigneeUpdated),
-      tap(action => console.log(action.payload)),
+      ofType<AssigneeUpdate>(AssigneeActionTypes.AssigneeUpdate),
       mergeMap(action => this.api.$update('assignees', action.payload.assignee)),
+      map(() => new AssigneeUpdated()),
       tap(() => this.router.navigate(['/assignee']))
     );
 

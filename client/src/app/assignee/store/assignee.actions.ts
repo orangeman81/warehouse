@@ -8,6 +8,7 @@ export enum AssigneeActionTypes {
   AssigneeRequest = '[Assignee details page] Assignee requested',
   AssigneeLoad = '[Assignee API] Assignee loaded',
   AssigneeCreated = '[Assignee API] Assignee created',
+  AssigneeUpdate = '[Assignee details page] Assignee update',
   AssigneeUpdated = '[Assignee API] Assignee updated',
   AssigneeDeleteReq = '[Assignee List page] Assignee delete request',
   AssigneeDeleted = '[Assignee API] Assignee deleted'
@@ -32,9 +33,12 @@ export class AssigneeCreated implements Action {
   readonly type = AssigneeActionTypes.AssigneeCreated;
   constructor(public payload: { assignee: Assignee }) { }
 }
+export class AssigneeUpdate implements Action {
+  readonly type = AssigneeActionTypes.AssigneeUpdate;
+  constructor(public payload: { assignee: Update<Assignee> }) { }
+}
 export class AssigneeUpdated implements Action {
   readonly type = AssigneeActionTypes.AssigneeUpdated;
-  constructor(public payload: { assignee: Update<Assignee> }) { }
 }
 export class AssigneeDeleteReq implements Action {
   readonly type = AssigneeActionTypes.AssigneeDeleteReq;
@@ -45,4 +49,4 @@ export class AssigneeDeleted implements Action {
   constructor(public payload: { assigneeId: string }) { }
 }
 
-export type AssigneeActions = AssigneesRequest | AssigneesLoad | AssigneeRequest | AssigneeLoad | AssigneeCreated | AssigneeUpdated | AssigneeDeleted;
+export type AssigneeActions = AssigneesRequest | AssigneesLoad | AssigneeRequest | AssigneeLoad | AssigneeCreated | AssigneeUpdate | AssigneeUpdated | AssigneeDeleteReq | AssigneeDeleted;

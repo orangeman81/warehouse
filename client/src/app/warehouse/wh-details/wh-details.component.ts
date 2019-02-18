@@ -4,7 +4,7 @@ import { Product } from 'src/app/models/product';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/reducers';
-import { productUpdated } from '../store/warehouse.actions';
+import { productUpdate } from '../store/warehouse.actions';
 import { Update } from '@ngrx/entity';
 
 @Component({
@@ -33,7 +33,7 @@ export class WhDetailsComponent implements OnInit, OnDestroy {
       id: this.details._id,
       changes: payload
     }
-    this.store.dispatch(new productUpdated({ prod }));
+    this.store.dispatch(new productUpdate({ prod }));
   }
 
   toggleUpdate() {
