@@ -14,7 +14,9 @@ module.exports = function (app) {
     note: { type: String, required: false },
     assignmentDate: { type: Number, required: false },
     conditions: { type: String, required: false },
-    deleted: { type: Boolean, required: false }
+    deleted: { type: Boolean, required: false },
+    checkInId: { type: String, required: false },
+    arrivalDate: { type: Number, required: false }
   }, {
       timestamps: true
     });

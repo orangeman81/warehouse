@@ -10,6 +10,9 @@
           <i class="material-icons tile-icon">arrow_back</i>
         </a>
         <a>
+          <i class="material-icons tile-icon" (click)="openDeleteDialog()">delete</i>
+        </a>
+        <a>
           <i class="material-icons tile-icon" (click)="toggleUpdate()">{{toggleIcon}}</i>
         </a>
       </nav>
@@ -46,8 +49,8 @@
       </nav>
     </header>
     <hr>
-    <wh-list *ngIf="(products | async)?.length > 0; else noProds">
-      <li *ngFor="let prod of products | async">
+    <wh-list *ngIf="products?.length > 0; else noProds">
+      <li *ngFor="let prod of products">
         <span>
           <h3>{{prod.name}}</h3>
           <p>Serial:&ensp;{{prod.serial}}</p>
@@ -72,5 +75,15 @@
   <span class="actions">
     <button (click)="dialog = false">cancel</button>
     <button (click)="unassign()">unassign</button>
+  </span>
+</wh-dialog>
+<wh-dialog *ngIf="deleteDialog">
+  <span>
+    <h3>Delete assignee</h3>
+    <p>{{dialogPayload.name}} {{dialogPayload.surname}}</p>
+  </span>
+  <span class="actions">
+    <button (click)="deleteDialog = false">cancel</button>
+    <button (click)="delete()">delete</button>
   </span>
 </wh-dialog>

@@ -18,7 +18,6 @@
         <p>{{assignee.email}}</p>
       </span>
       <span class="actions">
-        <button (click)="openDialog(assignee)">delete</button>
         <a [routerLink]="['/assignee/details', assignee._id]" class="btn mr-8">details</a>
         <a [routerLink]="['/assignee/assign', assignee._id]" class="btn mr-8">assign</a>
       </span>
@@ -26,13 +25,3 @@
   </wh-list>
   <wh-paginator *ngIf="asLength" [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
 </main>
-<wh-dialog *ngIf="dialog">
-  <span>
-    <h3>Delete {{dialogPayload.name}} {{dialogPayload.surname}}?</h3>
-    <p>{{dialogPayload.email}}</p>
-  </span>
-  <span class="actions">
-    <button (click)="dialog = false">cancel</button>
-    <button (click)="delete()">delete</button>
-  </span>
-</wh-dialog>

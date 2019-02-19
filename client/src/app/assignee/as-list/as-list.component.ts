@@ -1,12 +1,13 @@
-import { Product } from './../../models/product';
-import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { selectAssigneePage, selectAssigneeQuery } from '../store/assignee.selectors';
 import { AssigneesRequest, AssigneeDeleteReq } from '../store/assignee.actions';
 import { State } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
-import { Assignee } from '../../models/assignee';
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { selectAssigneePage, selectAssigneeQuery } from '../store/assignee.selectors';
+import { map } from 'rxjs/operators';
+import { Product } from './../../models/product';
+import { Assignee } from '../../models/assignee';
+import { Incoming } from 'src/app/models/incoming';
 
 @Component({
   selector: 'wh-as-list',
@@ -15,10 +16,8 @@ import { selectAssigneePage, selectAssigneeQuery } from '../store/assignee.selec
 })
 export class AsListComponent implements OnInit {
 
-  assignees: Observable<Product[] | Assignee[]>;
+  assignees: Observable<Product[] | Assignee[] | Incoming[]>;
   asLength: number;
-  dialog: boolean;
-  dialogPayload: Product;
 
   constructor(private store: Store<State>) { }
 
@@ -51,16 +50,6 @@ export class AsListComponent implements OnInit {
           })
         );
     }
-  }
-
-  openDialog(prod) {
-    this.dialogPayload = prod;
-    this.dialog = true;
-  }
-
-  delete(id: string = this.dialogPayload._id) {
-    this.store.dispatch(new AssigneeDeleteReq({ assigneeId: id }));
-    this.dialog = false;
   }
 
 }

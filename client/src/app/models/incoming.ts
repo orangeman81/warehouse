@@ -5,6 +5,6 @@ export interface Incoming {
     sender: string;
     consignee: string;
     user: string;
-    checkInDate: string;
-    cheked: boolean;
+    checkInDate: number;
+    checked: boolean;
 }

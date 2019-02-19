@@ -17,7 +17,7 @@ export class InFormComponent implements OnInit {
     consignee: new FormControl(''),
     checkInDate: new FormControl(Date.now()),
     user: new FormControl(''),
-    cheked: new FormControl(false)
+    checked: new FormControl(false)
   });
 
   @Input()
@@ -41,7 +41,7 @@ export class InFormComponent implements OnInit {
         consignee: this.data.consignee,
         checkInDate: this.data.checkInDate,
         user: this.data.user,
-        cheked: this.data.cheked
+        checked: this.data.checked
       });
     }
   }

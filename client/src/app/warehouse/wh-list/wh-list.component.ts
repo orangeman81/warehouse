@@ -7,6 +7,7 @@ import { Product } from 'src/app/models/product';
 import { selectAllProd, selectProdPage, selectProdQuery, selectProdNotAssigned } from '../store/warehouse.selectors';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Incoming } from 'src/app/models/incoming';
 
 @Component({
   selector: 'wh-wh-list',
@@ -15,7 +16,7 @@ import { map } from 'rxjs/operators';
 })
 export class WhListComponent implements OnInit {
 
-  products: Observable<Product[] | Assignee[]>;
+  products: Observable<Product[] | Assignee[] | Incoming[]>;
   prodLength: number;
   dialog: boolean;
   dialogPayload: Product;

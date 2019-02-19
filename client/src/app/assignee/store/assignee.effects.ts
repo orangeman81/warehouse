@@ -36,7 +36,8 @@ export class AssigneeEffects {
     .pipe(
       ofType<AssigneeDeleteReq>(AssigneeActionTypes.AssigneeDeleteReq),
       mergeMap(action => this.api.$delete('assignees', action.payload.assigneeId)),
-      map(assigneeId => new AssigneeDeleted({ assigneeId: assigneeId._id }))
+      map(assigneeId => new AssigneeDeleted({ assigneeId: assigneeId._id })),
+      tap(() => this.router.navigate(['/assignee']))
     );
 
   @Effect()

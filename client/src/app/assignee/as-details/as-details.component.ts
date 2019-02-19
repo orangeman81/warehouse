@@ -8,7 +8,7 @@ import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
 import { selectProdByAssegneeId } from 'src/app/warehouse/store/warehouse.selectors';
-import { AssigneeUpdate } from './../store/assignee.actions';
+import { AssigneeUpdate, AssigneeDeleteReq } from './../store/assignee.actions';
 import { warehouseRequest, productUpdate } from 'src/app/warehouse/store/warehouse.actions';
 
 @Component({
@@ -19,12 +19,14 @@ import { warehouseRequest, productUpdate } from 'src/app/warehouse/store/warehou
 export class AsDetailsComponent implements OnInit, OnDestroy {
 
   detailsSub: Subscription;
+  productsSub: Subscription;
   details: Assignee;
-  products: Observable<Product[] | Assignee[]>;
+  products: Product[];
   toUpdate: boolean = false;
   toggleIcon: string = "update";
   dialog: boolean;
-  dialogPayload: Product;
+  deleteDialog: boolean;
+  dialogPayload: any;
 
   constructor(private route: ActivatedRoute, private store: Store<State>) { }
 
@@ -38,13 +40,12 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
 
   loadProducts(id) {
     this.store.dispatch(new warehouseRequest());
-    this.products = this.store
+    this.productsSub = this.store
       .pipe(
         select(selectProdByAssegneeId(id)),
-        map(data => {
-          return data;
-        })
-      );
+      ).subscribe(prod => {
+        this.products = prod;
+      })
   }
 
   update(payload) {
@@ -60,7 +61,12 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
     this.dialog = true;
   }
 
-  unassign(payload: Product = this.dialogPayload) {
+  openDeleteDialog() {
+    this.dialogPayload = this.details;
+    this.deleteDialog = true;
+  }
+
+  unassign(payload = this.dialogPayload) {
     payload.assigneeId = "";
     payload.assignmentDate = null;
     const prod: Update<Product> = {
@@ -81,8 +87,22 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  delete(id: string = this.dialogPayload._id) {
+    this.products.forEach(el => {
+      el.assigneeId = "";
+      const prod: Update<Product> = {
+        id: el._id,
+        changes: el
+      }
+      this.store.dispatch(new productUpdate({ prod }));
+    })
+    this.store.dispatch(new AssigneeDeleteReq({ assigneeId: id }));
+    this.dialog = false;
+  }
+
   ngOnDestroy() {
     this.detailsSub.unsubscribe();
+    this.productsSub.unsubscribe();
   }
 
 }

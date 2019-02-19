@@ -31,7 +31,7 @@
       <span class="actions">
         <button (click)="openDialog(prod)">delete</button>
         <a [routerLink]="['/incoming/details', prod._id]" class="btn">details</a>
-        <button (click)="openDialog(prod)">chekin</button>
+        <a [routerLink]="['/warehouse/checkin', prod._id]" class="btn">checkin</a>
       </span>
     </li>
   </wh-list>

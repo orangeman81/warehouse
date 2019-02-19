@@ -9,13 +9,19 @@ import { InDetailsComponent } from './in-details/in-details.component';
 import { InFormComponent } from './in-form/in-form.component';
 import { InListComponent } from './in-list/in-list.component';
 import { InDetailsResolver } from './resolvers/inDetails.resolver';
+import { StoreModule } from '@ngrx/store';
+import * as fromIncoming from './store/incoming.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { IncomingEffects } from './store/incoming.effects';
 
 @NgModule({
   declarations: [IncomingComponent, InCreateComponent, InDetailsComponent, InFormComponent, InListComponent],
   imports: [
     CommonModule,
     IncomingRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    StoreModule.forFeature('incoming', fromIncoming.inReducer),
+    EffectsModule.forFeature([IncomingEffects])
   ],
   providers: [InDetailsResolver]
 })

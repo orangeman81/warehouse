@@ -9,6 +9,7 @@ import { warehouseRequest, productUpdate } from 'src/app/warehouse/store/warehou
 import { selectProdQuery, selectProdNotAssigned } from 'src/app/warehouse/store/warehouse.selectors';
 import { map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
+import { Incoming } from 'src/app/models/incoming';
 
 @Component({
   selector: 'wh-as-assign',
@@ -19,7 +20,7 @@ export class AsAssignComponent implements OnInit {
 
   detailsSub: Subscription;
   details: Assignee;
-  products: Observable<Product[] | Assignee[]>;
+  products: Observable<Product[] | Assignee[] | Incoming[]>;
   prodLength: number;
   dialog: boolean;
   dialogPayload: Product;

@@ -15,6 +15,10 @@
   </header>
   <hr>
   <wh-list *ngIf="!toUpdate; else updateForm">
+    <li *ngIf="details.arrivalDate">
+      <h4>Date of arrival</h4>
+      <p>{{details.arrivalDate | date: 'short'}}</p>
+    </li>
     <li>
       <h4>Serial</h4>
       <p>{{details.serial}}</p>

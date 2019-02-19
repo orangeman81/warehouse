@@ -23,14 +23,12 @@ export class ApiService {
 
   constructor(private http: HttpClient, private socket: FeathersService) { }
 
-  $connect(service: string) {
+  $connect(service: string, query: object = { $sort: { createdAt: -1 } }) {
     return (this.socket
       .service(service))
       .watch()
       .find({
-        query: {
-          $sort: { createdAt: -1 }
-        }
+        query: query
       })
   }
 

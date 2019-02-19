@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Incoming } from 'src/app/models/incoming';
 import { ApiService } from 'src/app/services/api.service';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/reducers';
+import { IncomingUpdate } from '../store/incoming.actions';
 
 @Component({
   selector: 'wh-in-details',
@@ -13,14 +16,12 @@ export class InDetailsComponent implements OnInit {
 
   details: Incoming;
   detailsSub: Subscription;
-  operationSub: Subscription;
   toUpdate: boolean = false;
   toggleIcon: string = "update";
 
   constructor(
     private route: ActivatedRoute,
-    private api: ApiService,
-    private router: Router
+    private store: Store<State>
   ) { }
 
   ngOnInit() {
@@ -35,12 +36,7 @@ export class InDetailsComponent implements OnInit {
       id: this.details._id,
       changes: payload
     }
-    this.operationSub = this.api.$update('incoming', incoming)
-      .subscribe(
-        () => { },
-        (err) => { throwError(err) },
-        () => { this.router.navigate(['incoming']) }
-      );
+    this.store.dispatch(new IncomingUpdate({ incoming }));
   }
 
   toggleUpdate() {
@@ -55,7 +51,6 @@ export class InDetailsComponent implements OnInit {
 
   ngOnDestroy() {
     this.detailsSub.unsubscribe();
-    this.operationSub ? this.operationSub.unsubscribe() : null;
   }
 
 }

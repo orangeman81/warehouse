@@ -1,9 +1,13 @@
 import { Incoming } from 'src/app/models/incoming';
-import { Paginated } from '@feathersjs/feathers';
 import { map } from 'rxjs/operators';
-import { ApiService } from 'src/app/services/api.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { AllIncomingRequest, IncomingDeleteReq } from '../store/incoming.actions';
+import { Store, select } from '@ngrx/store';
+import { State } from 'src/app/reducers';
+import { Product } from 'src/app/models/product';
+import { Assignee } from 'src/app/models/assignee';
+import { selectIncomingPage } from '../store/incoming.selectors';
 
 @Component({
   selector: 'wh-in-list',
@@ -12,22 +16,28 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class InListComponent implements OnInit, OnDestroy {
 
-  incoming: Observable<Incoming[]>;
+  incoming: Observable<Product[] | Assignee[] | Incoming[]>;
   incomingLength: number;
   operationSub: Subscription;
   dialog: boolean;
   dialogPayload: Incoming;
 
-  constructor(private api: ApiService) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.incoming = this.api.$connect('incoming')
+    this.loadIncoming(0)
+  }
+
+  loadIncoming(skip) {
+    this.store.dispatch(new AllIncomingRequest());
+    this.incoming = this.store
       .pipe(
-        map((res: Paginated<any>) => {
-          this.incomingLength = res.total;
-          return res.data;
+        select(selectIncomingPage(skip)),
+        map(data => {
+          this.incomingLength = data.total;
+          return data.data;
         })
-      )
+      );
   }
 
   openDialog(prod) {
@@ -36,8 +46,7 @@ export class InListComponent implements OnInit, OnDestroy {
   }
 
   delete(id: string = this.dialogPayload._id) {
-    this.operationSub = this.api.$delete('incoming', id)
-      .subscribe();
+    this.store.dispatch(new IncomingDeleteReq({ incomingId: id }));
     this.dialog = false;
   }
 

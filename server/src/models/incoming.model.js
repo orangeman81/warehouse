@@ -12,7 +12,7 @@ module.exports = function (app) {
     consignee: { type: String, required: false },
     user: { type: String, required: true },
     checkInDate: { type: String, required: true },
-    cheked: { type: Boolean, required: false },
+    checked: { type: Boolean, required: false },
   }, {
     timestamps: true
   });

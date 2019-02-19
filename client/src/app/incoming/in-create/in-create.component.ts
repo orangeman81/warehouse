@@ -1,10 +1,10 @@
 import { State } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { ApiService } from './../../services/api.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { username } from 'src/app/login/store/auth.selectors';
+import { IncomingCreated } from '../store/incoming.actions';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'wh-in-create',
@@ -15,31 +15,24 @@ export class InCreateComponent implements OnInit, OnDestroy {
 
   username: string;
   storeSub: Subscription;
-  operationSub: Subscription;
 
-  constructor(
-    private api: ApiService,
-    private router: Router,
-    private store: Store<State>
-  ) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
     this.storeSub = this.store
       .pipe(
-        select(username)
+        select(username),
+        first()
       )
       .subscribe(username => this.username = username);
   }
 
   save(payload) {
-    this.operationSub = this.api.$create('incoming', payload)
-      .subscribe();
-    this.router.navigate(['/incoming']);
+    this.store.dispatch(new IncomingCreated(payload))
   }
 
   ngOnDestroy() {
     this.storeSub.unsubscribe();
-    this.operationSub ? this.operationSub.unsubscribe() : null;
   }
 
 }

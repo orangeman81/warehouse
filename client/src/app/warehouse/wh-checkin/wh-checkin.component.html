@@ -1,0 +1,15 @@
+<main class="container">
+  <header>
+    <span>
+      <h1>Product Check-in</h1>
+      <p>Create a new Product</p>
+    </span>
+    <nav class="actions">
+      <a [routerLink]="['/incoming']">
+        <i class="material-icons tile-icon">arrow_back</i>
+      </a>
+    </nav>
+  </header>
+  <hr>
+  <wh-wh-form [incoming]="incoming" (save)="save($event)"></wh-wh-form>
+</main>
