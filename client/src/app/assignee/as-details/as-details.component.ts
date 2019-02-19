@@ -1,3 +1,4 @@
+import { productAssign } from './../../warehouse/store/warehouse.actions';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from 'src/app/reducers';
@@ -73,7 +74,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
       id: payload._id,
       changes: payload
     }
-    this.store.dispatch(new productUpdate({ prod }));
+    this.store.dispatch(new productAssign({ prod }));
     this.dialog = false;
   }
 

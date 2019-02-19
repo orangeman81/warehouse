@@ -37,7 +37,6 @@ export class WhDetailsComponent implements OnInit, OnDestroy {
       changes: payload
     }
     this.store.dispatch(new productUpdate({ prod }));
-    this.router.navigate(['/warehouse'])
   }
 
   toggleUpdate() {

@@ -36,6 +36,7 @@ export class WhFormComponent implements OnInit {
 
   ngOnInit() {
     if (this.incoming) this.prodForm.patchValue({
+      name: this.incoming.description,
       serial: this.incoming.serial,
       checkInId: this.incoming._id,
       arrivalDate: this.incoming.checkInDate

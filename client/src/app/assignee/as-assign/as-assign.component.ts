@@ -5,7 +5,7 @@ import { Product } from 'src/app/models/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { State } from 'src/app/reducers';
-import { warehouseRequest, productUpdate } from 'src/app/warehouse/store/warehouse.actions';
+import { warehouseRequest, productAssign } from 'src/app/warehouse/store/warehouse.actions';
 import { selectProdQuery, selectProdNotAssigned } from 'src/app/warehouse/store/warehouse.selectors';
 import { map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
@@ -74,7 +74,7 @@ export class AsAssignComponent implements OnInit {
       id: payload._id,
       changes: payload
     }
-    this.store.dispatch(new productUpdate({ prod }));
+    this.store.dispatch(new productAssign({ prod }));
     this.router.navigate(['/assignee/details', this.details._id]);
   }
 

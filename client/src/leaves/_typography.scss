@@ -86,7 +86,6 @@ p {
 main>header,
 main>section>header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     h1~p {
         font-size: $h4-size;

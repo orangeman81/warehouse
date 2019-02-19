@@ -18,9 +18,9 @@
     <li *ngFor="let prod of incoming | async">
       <span class="withIcon">
         <span>
-          <i class="material-icons mr-24" *ngIf="prod.cheked; else assigned">store</i>
-          <ng-template #assigned>
-            <i class="material-icons mr-24">check</i>
+          <i class="material-icons mr-24" *ngIf="prod.checked; else toAssigne">check</i>
+          <ng-template #toAssigne>
+            <i class="material-icons mr-24">get_app</i>
           </ng-template>
         </span>
         <header>
@@ -31,11 +31,12 @@
       <span class="actions">
         <button (click)="openDialog(prod)">delete</button>
         <a [routerLink]="['/incoming/details', prod._id]" class="btn">details</a>
-        <a [routerLink]="['/warehouse/checkin', prod._id]" class="btn">checkin</a>
+        <a *ngIf="!prod.checked" [routerLink]="['/warehouse/checkin', prod._id]" class="btn">checkin</a>
       </span>
     </li>
   </wh-list>
-  <wh-paginator *ngIf="incomingLength" [length]="incomingLength" [size]="10" (data)="loadIncoming($event.pageIndex)"></wh-paginator>
+  <wh-paginator *ngIf="incomingLength" [length]="incomingLength" [size]="10" (data)="loadIncoming($event.pageIndex)">
+  </wh-paginator>
 </main>
 <wh-dialog *ngIf="dialog">
   <span>

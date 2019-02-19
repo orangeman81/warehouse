@@ -1,7 +1,7 @@
 import { Paginated } from '@feathersjs/feathers';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { WarehouseActionTypes, productRequest, productLoad, warehouseRequest, warehouseLoad, productCreated, productDeleted, productDeleteReq, productUpdated, productUpdate } from './warehouse.actions';
+import { WarehouseActionTypes, productRequest, productLoad, warehouseRequest, warehouseLoad, productCreated, productDeleted, productDeleteReq, productUpdated, productUpdate, productCheckin, productAssign } from './warehouse.actions';
 import { mergeMap, map, withLatestFrom, filter, tap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { State } from 'src/app/reducers';
@@ -22,10 +22,30 @@ export class WarehouseEffects {
       tap(() => this.router.navigate(['/warehouse']))
     );
 
+  //method to create, no router needed  
+  @Effect()
+  checkProd$ = this.actions$
+    .pipe(
+      ofType<productCheckin>(WarehouseActionTypes.productCheckin),
+      mergeMap(action => this.api.$create('warehouse', action.payload)),
+      map(prod => new productLoad({ prod }))
+    );
+
+  //TODO: switch update methods to have an action to call, a call, then an action to store data
   @Effect()
   updateProd$ = this.actions$
     .pipe(
       ofType<productUpdate>(WarehouseActionTypes.productUpdate),
+      mergeMap(action => this.api.$update('warehouse', action.payload.prod)),
+      map(() => new productUpdated()),
+      tap(() => this.router.navigate(['/warehouse']))
+    );
+
+  //method to update, no router needed  
+  @Effect()
+  assignProd$ = this.actions$
+    .pipe(
+      ofType<productAssign>(WarehouseActionTypes.productAssign),
       mergeMap(action => this.api.$update('warehouse', action.payload.prod)),
       map(() => new productUpdated())
     );

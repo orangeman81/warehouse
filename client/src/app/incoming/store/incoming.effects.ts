@@ -19,6 +19,7 @@ export class IncomingEffects {
       ofType<IncomingCreated>(IncomingActionTypes.incomingCreated),
       mergeMap(action => this.api.$create('incoming', action.payload)),
       map(incoming => new IncomingLoad({ incoming })),
+      tap(() => this.router.navigate(['/incoming']))
     );
 
   @Effect()
@@ -56,11 +57,7 @@ export class IncomingEffects {
         )),
       filter(([action, incomingloaded]) => !incomingloaded),
       mergeMap(action =>
-        this.api.$connect('incoming',
-          {
-            $sort: { createdAt: -1 },
-            checked: false
-          })
+        this.api.$connect('incoming')
           .pipe(
             map((res: Paginated<any>) => res.data)
           )

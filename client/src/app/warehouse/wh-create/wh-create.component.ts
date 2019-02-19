@@ -15,7 +15,6 @@ export class WhCreateComponent {
 
   save(payload) {
     this.store.dispatch(new productCreated(payload))
-    this.router.navigate(['warehouse']);
   }
 
 }

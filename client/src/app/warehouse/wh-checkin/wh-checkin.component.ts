@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Incoming } from 'src/app/models/incoming';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/reducers';
-import { productCreated } from '../store/warehouse.actions';
+import { productCheckin } from '../store/warehouse.actions';
 import { IncomingUpdate } from 'src/app/incoming/store/incoming.actions';
 import { Update } from '@ngrx/entity';
 
@@ -31,7 +31,7 @@ export class WhCheckinComponent implements OnInit {
       id: this.incoming._id,
       changes: this.incoming
     }
-    this.store.dispatch(new productCreated(payload))
+    this.store.dispatch(new productCheckin(payload))
     this.store.dispatch(new IncomingUpdate({ incoming }))
   }
 
