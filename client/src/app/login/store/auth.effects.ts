@@ -47,8 +47,8 @@ export class AuthEffects {
         username: tokenInfo.username,
         id: tokenInfo.id
       };
-      this.auth.initAuth();
       this.store.dispatch(new Login({ user: user, message: "Login Succesful", isLoggedIn: true }));
+      this.auth.initAuth();
     } else {
       this.store.dispatch(new Login({ user: false, message: "", isLoggedIn: false }));
     }

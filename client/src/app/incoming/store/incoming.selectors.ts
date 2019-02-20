@@ -29,6 +29,15 @@ export const selectIncomingPage = (skip: number) => createSelector(
     }
 )
 
+export const selectIncomingQuery = (query: string) => createSelector(
+    selectAllIncoming,
+    allIncoming => {
+        return allIncoming.filter(Incoming => (Incoming.description.toLowerCase().includes(query.toLowerCase())
+            || Incoming.sender.toLowerCase().includes(query.toLowerCase()))
+            || Incoming.serial.toLowerCase().includes(query.toLowerCase()));
+    }
+)
+
 export const incomingLoaded = createSelector(
     selectInState,
     inState => inState.incomingLoaded

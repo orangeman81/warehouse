@@ -5,29 +5,18 @@
       <p>list of all incoming products</p>
     </span>
     <nav class="actions">
-      <!-- <a (click)="filterProd()" [ngClass]="{'active' : prodIn}">
-        <i class="material-icons tile-icon">store</i>
-      </a> -->
       <a [routerLink]="['/incoming/create']">
         <i class="material-icons tile-icon">add</i>
       </a>
     </nav>
   </header>
-  <hr>
+  <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
   <wh-list>
     <li *ngFor="let prod of incoming | async">
-      <span class="withIcon">
-        <span>
-          <i class="material-icons mr-24" *ngIf="prod.checked; else toAssigne">check</i>
-          <ng-template #toAssigne>
-            <i class="material-icons mr-24">get_app</i>
-          </ng-template>
-        </span>
-        <header>
-          <h3>{{prod.description}}</h3>
-          <p>{{prod.checkInDate | date: 'short'}}</p>
-        </header>
-      </span>
+      <header>
+        <h3>{{prod.description}}</h3>
+        <p>{{prod.checkInDate | date: 'short'}}</p>
+      </header>
       <span class="actions">
         <button (click)="openDialog(prod)">delete</button>
         <a [routerLink]="['/incoming/details', prod._id]" class="btn">details</a>

@@ -18,7 +18,7 @@ module.exports = function (app) {
     serial: { type: String, required: true },
     sender: { type: String, required: false },
     consignee: { type: String, required: false },
-    user: { type: String, required: true }
+    user: { type: String, required: false }
   }, {
       timestamps: true
     });

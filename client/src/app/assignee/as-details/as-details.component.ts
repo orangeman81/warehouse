@@ -5,12 +5,11 @@ import { State } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
 import { Assignee } from './../../models/assignee';
 import { Product } from 'src/app/models/product';
-import { Subscription, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { Update } from '@ngrx/entity';
 import { selectProdByAssegneeId } from 'src/app/warehouse/store/warehouse.selectors';
 import { AssigneeUpdate, AssigneeDeleteReq } from './../store/assignee.actions';
-import { warehouseRequest, productUpdate } from 'src/app/warehouse/store/warehouse.actions';
+import { warehouseRequest } from 'src/app/warehouse/store/warehouse.actions';
 
 @Component({
   selector: 'wh-as-details',
@@ -95,7 +94,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
         id: el._id,
         changes: el
       }
-      this.store.dispatch(new productUpdate({ prod }));
+      this.store.dispatch(new productAssign({ prod }));
     })
     this.store.dispatch(new AssigneeDeleteReq({ assigneeId: id }));
     this.dialog = false;

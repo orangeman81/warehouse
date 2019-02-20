@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { State } from 'src/app/reducers';
 import { Product } from 'src/app/models/product';
 import { Assignee } from 'src/app/models/assignee';
-import { selectIncomingPage } from '../store/incoming.selectors';
+import { selectIncomingPage, selectIncomingQuery } from '../store/incoming.selectors';
 
 @Component({
   selector: 'wh-in-list',
@@ -38,6 +38,21 @@ export class InListComponent implements OnInit, OnDestroy {
           return data.data;
         })
       );
+  }
+
+  loadSearch(query: string) {
+    if (query === "") {
+      this.loadIncoming(0);
+    } else {
+      this.incoming = this.store
+        .pipe(
+          select(selectIncomingQuery(query)),
+          map(data => {
+            this.incomingLength = 0;
+            return data;
+          })
+        );
+    }
   }
 
   openDialog(prod) {

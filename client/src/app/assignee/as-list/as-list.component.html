@@ -13,10 +13,10 @@
   <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
   <wh-list>
     <li *ngFor="let assignee of assignees | async">
-      <span>
+      <header>
         <h3>{{assignee.name}} {{assignee.surname}}</h3>
         <p>{{assignee.email}}</p>
-      </span>
+      </header>
       <span class="actions">
         <a [routerLink]="['/assignee/details', assignee._id]" class="btn mr-8">details</a>
         <a [routerLink]="['/assignee/assign', assignee._id]" class="btn mr-8">assign</a>
