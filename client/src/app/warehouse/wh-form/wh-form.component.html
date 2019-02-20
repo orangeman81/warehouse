@@ -7,7 +7,7 @@
       </div>
       <div class="col s12 m6 formGroup">
         <label>Producer</label>
-        <input type="text" formControlName="producer" required>
+        <input type="text" formControlName="producer">
       </div>
       <div class="col s12 m6 formGroup">
         <label>Serial</label>
@@ -22,14 +22,14 @@
       </div>
       <div class="col s12 m6 formGroup">
         <label>Conditions</label>
-        <select type="text" formControlName="conditions" required>
+        <select type="text" formControlName="conditions">
           <option value="">unknown</option>
           <option [value]="condition" *ngFor="let condition of filters.conditions">{{condition}}</option>
         </select>
       </div>
       <div class="col s12 m6 formGroup">
-        <label>Note</label>
-        <input type="text" formControlName="note">
+        <label>Description</label>
+        <input type="text" formControlName="description">
       </div>
     </div>
   </fieldset>

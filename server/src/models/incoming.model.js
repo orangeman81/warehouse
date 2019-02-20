@@ -11,11 +11,10 @@ module.exports = function (app) {
     sender: { type: String, required: false },
     consignee: { type: String, required: false },
     user: { type: String, required: true },
-    checkInDate: { type: String, required: true },
-    checked: { type: Boolean, required: false },
+    checkInDate: { type: Number, required: true }
   }, {
-    timestamps: true
-  });
+      timestamps: false
+    });
 
   return mongooseClient.model('incoming', incoming);
 };

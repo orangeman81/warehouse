@@ -15,9 +15,8 @@ export class InFormComponent implements OnInit {
     serial: new FormControl(''),
     sender: new FormControl(''),
     consignee: new FormControl(''),
-    checkInDate: new FormControl(Date.now()),
     user: new FormControl(''),
-    checked: new FormControl(false)
+    checkInDate: new FormControl(Date.now())
   });
 
   @Input()
@@ -34,15 +33,7 @@ export class InFormComponent implements OnInit {
       this.inForm.patchValue({ user: this.username })
     }
     if (this.data) {
-      this.inForm.patchValue({
-        description: this.data.description,
-        serial: this.data.serial,
-        sender: this.data.sender,
-        consignee: this.data.consignee,
-        checkInDate: this.data.checkInDate,
-        user: this.data.user,
-        checked: this.data.checked
-      });
+      this.inForm.patchValue(this.data);
     }
   }
 

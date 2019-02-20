@@ -16,12 +16,12 @@
   <hr>
   <wh-list *ngIf="!toUpdate; else updateForm">
     <li>
-      <h4>Check-in</h4>
+      <h4>User</h4>
       <p>{{details.user}}</p>
     </li>
     <li>
       <h4>Date of arrival</h4>
-      <p>{{details.checkInDate | date: 'short'}}</p>
+      <p>{{details.createdAt | date: 'short'}}</p>
     </li>
     <li>
       <h4>Serial</h4>

@@ -15,9 +15,21 @@
   </header>
   <hr>
   <wh-list *ngIf="!toUpdate; else updateForm">
-    <li *ngIf="details.arrivalDate">
+    <li>
       <h4>Date of arrival</h4>
-      <p>{{details.arrivalDate | date: 'short'}}</p>
+      <p>{{details.checkInDate | date: 'short'}}</p>
+    </li>
+    <li>
+      <h4>User</h4>
+      <p>{{details.user}}</p>
+    </li>
+    <li>
+      <h4>Sender</h4>
+      <p>{{details.sender}}</p>
+    </li>
+    <li>
+      <h4>Consignee</h4>
+      <p>{{details.consignee}}</p>
     </li>
     <li>
       <h4>Serial</h4>
@@ -36,8 +48,8 @@
       <p>{{details.conditions}}</p>
     </li>
     <li>
-      <h4>Note</h4>
-      <p>{{details.note}}</p>
+      <h4>Description</h4>
+      <p>{{details.description}}</p>
     </li>
   </wh-list>
   <ng-template #updateForm>

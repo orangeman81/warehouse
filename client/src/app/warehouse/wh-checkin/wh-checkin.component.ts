@@ -4,9 +4,8 @@ import { Subscription } from 'rxjs';
 import { Incoming } from 'src/app/models/incoming';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/reducers';
-import { productCheckin } from '../store/warehouse.actions';
-import { IncomingUpdate } from 'src/app/incoming/store/incoming.actions';
-import { Update } from '@ngrx/entity';
+import { productCreated } from '../store/warehouse.actions';
+import { IncomingDeleteReq } from 'src/app/incoming/store/incoming.actions';
 
 @Component({
   selector: 'wh-wh-checkin',
@@ -26,13 +25,9 @@ export class WhCheckinComponent implements OnInit {
   }
 
   save(payload) {
-    this.incoming.checked = true;
-    const incoming: Update<Incoming> = {
-      id: this.incoming._id,
-      changes: this.incoming
-    }
-    this.store.dispatch(new productCheckin(payload))
-    this.store.dispatch(new IncomingUpdate({ incoming }))
+    const incomingId: string = this.incoming._id;
+    this.store.dispatch(new productCreated(payload))
+    this.store.dispatch(new IncomingDeleteReq({ incomingId }))
   }
 
 }

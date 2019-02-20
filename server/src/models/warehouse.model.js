@@ -6,17 +6,19 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const warehouse = new Schema({
-    assigneeId: { type: String, required: false },
     name: { type: String, required: true },
     producer: { type: String, required: true },
-    serial: { type: String, required: true },
     type: { type: String, required: true },
-    note: { type: String, required: false },
-    assignmentDate: { type: Number, required: false },
     conditions: { type: String, required: false },
     deleted: { type: Boolean, required: false },
-    checkInId: { type: String, required: false },
-    arrivalDate: { type: Number, required: false }
+    assigneeId: { type: String, required: false },
+    assignmentDate: { type: Number, required: false },
+    checkInDate: { type: Number, required: false },
+    description: { type: String, required: false },
+    serial: { type: String, required: true },
+    sender: { type: String, required: false },
+    consignee: { type: String, required: false },
+    user: { type: String, required: true }
   }, {
       timestamps: true
     });
