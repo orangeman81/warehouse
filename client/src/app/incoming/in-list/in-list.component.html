@@ -24,7 +24,7 @@
       </footer>
     </li>
   </wh-list>
-  <wh-paginator *ngIf="incomingLength" [length]="incomingLength" [size]="10" (data)="loadIncoming($event.pageIndex)">
+  <wh-paginator *ngIf="incomingLength > 10" [length]="incomingLength" [size]="10" (data)="loadIncoming($event.pageIndex)">
   </wh-paginator>
 </main>
 <wh-dialog *ngIf="dialog">

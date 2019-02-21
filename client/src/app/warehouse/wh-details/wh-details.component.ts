@@ -1,11 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/reducers';
 import { productUpdate } from '../store/warehouse.actions';
 import { Update } from '@ngrx/entity';
+import { Movement } from 'src/app/models/movement';
+import { ApiService } from 'src/app/services/api.service';
+import { map } from 'rxjs/operators';
+import { Paginated } from '@feathersjs/feathers';
 
 @Component({
   selector: 'wh-wh-details',
@@ -16,19 +20,40 @@ export class WhDetailsComponent implements OnInit, OnDestroy {
 
   detailsSub: Subscription;
   details: Product;
+  movSub: Subscription;
+  movements: Movement[];
+  movLength: number;
   toUpdate: boolean = false;
   toggleIcon: string = "update";
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<State>,
-    private router: Router) { }
+    private api: ApiService
+  ) { }
 
   ngOnInit() {
     this.detailsSub = this.route.data
       .subscribe(data => {
         this.details = data['details'];
       });
+
+    this.loadMovements(0);
+  }
+
+  loadMovements(skip) {
+    this.movSub = this.api.$connect('movements', {
+      $sort: { createdAt: -1 },
+      $skip: skip,
+      productId: this.details._id
+    })
+      .pipe(
+        map((res: Paginated<any>) => {
+          this.movLength = res.total;
+          this.movements = res.data;
+        })
+      )
+      .subscribe()
   }
 
   update(payload) {
@@ -51,6 +76,7 @@ export class WhDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.detailsSub.unsubscribe();
+    this.movSub.unsubscribe();
   }
 
 }

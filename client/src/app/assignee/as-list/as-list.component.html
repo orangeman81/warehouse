@@ -23,5 +23,5 @@
       </footer>
     </li>
   </wh-list>
-  <wh-paginator *ngIf="asLength" [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
+  <wh-paginator *ngIf="asLength > 10" [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
 </main>

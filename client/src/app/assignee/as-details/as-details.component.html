@@ -65,6 +65,39 @@
       <h4 class="mt-24">No products assigned</h4>
     </ng-template>
   </section>
+  <section class="mt-56">
+    <header>
+      <span>
+        <h2>Assignee Movements</h2>
+        <p>All {{details.name}} {{details.surname}} movements</p>
+      </span>
+    </header>
+    <hr>
+    <wh-list *ngIf="movLength; else noMovs">
+      <li class="movList" *ngFor="let mov of movements">
+        <nav>
+          <span>
+            <p>{{mov.product}}</p>
+          </span>
+          <span>
+            <i class="material-icons tile-icon" *ngIf="mov.inOut; else in">arrow_back</i>
+            <ng-template #in>
+              <i class="material-icons tile-icon">arrow_forward</i>
+            </ng-template>
+          </span>
+          <span><a [routerLink]="['/assignee/details', mov.assigneeId]">{{mov.assignee}}</a></span>
+        </nav>
+        <footer>
+          <time>{{mov.createdAt | date: 'short'}}</time>
+        </footer>
+      </li>
+    </wh-list>
+    <ng-template #noMovs>
+      <h4 class="mt-24">No movements</h4>
+    </ng-template>
+    <wh-paginator *ngIf="movLength > 10" [length]="movLength" [size]="10" (data)="loadMovements($event.pageIndex * 10)">
+    </wh-paginator>
+  </section>
 </main>
 <wh-dialog *ngIf="dialog">
   <span>

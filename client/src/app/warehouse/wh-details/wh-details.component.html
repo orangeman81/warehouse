@@ -52,6 +52,39 @@
       <p>{{details.description}}</p>
     </li>
   </wh-list>
+  <section class="mt-56">
+    <header>
+      <span>
+        <h2>Product Movements</h2>
+        <p>All {{details.name}} movements</p>
+      </span>
+    </header>
+    <hr>
+    <wh-list *ngIf="movLength; else noMovs">
+      <li class="movList" *ngFor="let mov of movements">
+        <nav>
+          <span>
+            <p>{{mov.product}}</p>
+          </span>
+          <span>
+            <i class="material-icons tile-icon" *ngIf="mov.inOut; else in">arrow_back</i>
+            <ng-template #in>
+              <i class="material-icons tile-icon">arrow_forward</i>
+            </ng-template>
+          </span>
+          <span><a [routerLink]="['/assignee/details', mov.assigneeId]">{{mov.assignee}}</a></span>
+        </nav>
+        <footer>
+          <time>{{mov.createdAt | date: 'short'}}</time>
+        </footer>
+      </li>
+    </wh-list>
+    <ng-template #noMovs>
+      <h4 class="mt-24">No movements</h4>
+    </ng-template>
+    <wh-paginator *ngIf="movLength > 10" [length]="movLength" [size]="10" (data)="loadMovements($event.pageIndex * 10)">
+    </wh-paginator>
+  </section>
   <ng-template #updateForm>
     <wh-wh-form [data]="details" (save)="update($event)"></wh-wh-form>
   </ng-template>

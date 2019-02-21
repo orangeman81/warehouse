@@ -28,5 +28,16 @@
         li:nth-child(even) {
             background: $lGray;
         }
+        li.movList {
+            text-align: center;
+            nav {
+                display: flex;
+                flex-basis: 60%;
+                align-items: center;
+                span {
+                    flex-basis: 33.33%;
+                }
+            }
+        }
     }
 }
