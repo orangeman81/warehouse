@@ -11,6 +11,9 @@ import { selectProdByAssegneeId } from 'src/app/warehouse/store/warehouse.select
 import { AssigneeUpdate, AssigneeDeleteReq } from './../store/assignee.actions';
 import { warehouseRequest } from 'src/app/warehouse/store/warehouse.actions';
 import { Movement } from 'src/app/models/movement';
+import { map } from 'rxjs/operators';
+import { Paginated } from '@feathersjs/feathers';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'wh-as-details',
@@ -21,15 +24,22 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
 
   detailsSub: Subscription;
   productsSub: Subscription;
+  movSub: Subscription;
   details: Assignee;
   products: Product[];
+  movements: Movement[];
+  movLength: number;
   toUpdate: boolean = false;
   toggleIcon: string = "update";
   dialog: boolean;
   deleteDialog: boolean;
   dialogPayload: any;
 
-  constructor(private route: ActivatedRoute, private store: Store<State>) { }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<State>,
+    private api: ApiService
+  ) { }
 
   ngOnInit() {
     this.detailsSub = this.route.data
@@ -37,6 +47,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
         this.details = data['details'];
       });
     this.loadProducts(this.details._id);
+    this.loadMovements(0);
   }
 
   loadProducts(id) {
@@ -47,6 +58,22 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
       ).subscribe(prod => {
         this.products = prod;
       })
+  }
+
+  loadMovements(skip) {
+    this.movSub = this.api.$connect('movements', {
+      $sort: { createdAt: -1 },
+      $skip: skip,
+      $limit: 5,
+      assigneeId: this.details._id
+    })
+      .pipe(
+        map((res: Paginated<any>) => {
+          this.movLength = res.total;
+          this.movements = res.data;
+        })
+      )
+      .subscribe()
   }
 
   update(payload) {
@@ -79,7 +106,7 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
       this.details._id,
       this.details.name + " " + this.details.surname,
       payload._id,
-      payload.name,      
+      payload.name,
       true
     );
     this.store.dispatch(new productAssign({ prod, mov }));
@@ -100,14 +127,8 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
     this.products.forEach(el => {
       el.assigneeId = "";
       this.unassign(el);
-      // const prod: Update<Product> = {
-      //   id: el._id,
-      //   changes: el
-      // }
-      // this.store.dispatch(new productAssign({ prod }));
     })
     this.store.dispatch(new AssigneeDeleteReq({ assigneeId: id }));
-    // this.dialog = false;
   }
 
   ngOnDestroy() {

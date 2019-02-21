@@ -17,14 +17,14 @@
         <h3>{{prod.description}}</h3>
         <p>{{prod.checkInDate | date: 'short'}}</p>
       </header>
-      <span class="actions">
+      <footer class="actions">
         <button (click)="openDialog(prod)">delete</button>
         <a [routerLink]="['/incoming/details', prod._id]" class="btn">details</a>
         <a *ngIf="!prod.checked" [routerLink]="['/warehouse/checkin', prod._id]" class="btn">checkin</a>
-      </span>
+      </footer>
     </li>
   </wh-list>
-  <wh-paginator *ngIf="incomingLength" [length]="incomingLength" [size]="10" (data)="loadIncoming($event.pageIndex)">
+  <wh-paginator *ngIf="incomingLength > 10" [length]="incomingLength" [size]="10" (data)="loadIncoming($event.pageIndex)">
   </wh-paginator>
 </main>
 <wh-dialog *ngIf="dialog">

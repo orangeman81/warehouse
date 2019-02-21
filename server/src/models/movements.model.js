@@ -10,7 +10,7 @@ module.exports = function (app) {
     assignee: { type: String, required: true },
     productId: { type: String, required: true },
     product: { type: String, required: true },
-    inOut: { type: Boolean, required: true }
+    inOut: { type: Boolean, required: true },
   }, {
     timestamps: true
   });

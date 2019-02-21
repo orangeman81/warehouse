@@ -51,19 +51,52 @@
     <hr>
     <wh-list *ngIf="products?.length > 0; else noProds">
       <li *ngFor="let prod of products">
-        <span>
+        <header>
           <h3>{{prod.name}}</h3>
           <p>Serial:&ensp;{{prod.serial}}</p>
-        </span>
-        <span class="actions">
+        </header>
+        <footer class="actions">
           <a [routerLink]="['/warehouse/details', prod._id]" class="btn">details</a>
           <button (click)="openDialog(prod)">unassign</button>
-        </span>
+        </footer>
       </li>
     </wh-list>
     <ng-template #noProds>
       <h4 class="mt-24">No products assigned</h4>
     </ng-template>
+  </section>
+  <section class="mt-56">
+    <header>
+      <span>
+        <h2>Assignee Movements</h2>
+        <p>All {{details.name}} {{details.surname}} movements</p>
+      </span>
+    </header>
+    <hr>
+    <wh-list *ngIf="movLength; else noMovs">
+      <li class="movList" *ngFor="let mov of movements">
+        <nav>
+          <span>
+            <a [routerLink]="['/warehouse/details', mov.productId]">{{mov.product}}</a>
+          </span>
+          <span>
+            <i class="material-icons tile-icon" *ngIf="mov.inOut; else in">arrow_back</i>
+            <ng-template #in>
+              <i class="material-icons tile-icon">arrow_forward</i>
+            </ng-template>
+          </span>
+          <span><p>{{mov.assignee}}</p></span>
+        </nav>
+        <footer>
+          <time>{{mov.createdAt | date: 'short'}}</time>
+        </footer>
+      </li>
+    </wh-list>
+    <ng-template #noMovs>
+      <h4 class="mt-24">No movements</h4>
+    </ng-template>
+    <wh-paginator *ngIf="movLength > 5" [length]="movLength" [size]="5" (data)="loadMovements($event.pageIndex * 5)">
+    </wh-paginator>
   </section>
 </main>
 <wh-dialog *ngIf="dialog">

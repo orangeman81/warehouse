@@ -17,11 +17,11 @@
         <h3>{{assignee.name}} {{assignee.surname}}</h3>
         <p>{{assignee.email}}</p>
       </header>
-      <span class="actions">
+      <footer class="actions">
         <a [routerLink]="['/assignee/details', assignee._id]" class="btn mr-8">details</a>
         <a [routerLink]="['/assignee/assign', assignee._id]" class="btn mr-8">assign</a>
-      </span>
+      </footer>
     </li>
   </wh-list>
-  <wh-paginator *ngIf="asLength" [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
+  <wh-paginator *ngIf="asLength > 10" [length]="asLength" [size]="10" (data)="loadAssignees($event.pageIndex)"></wh-paginator>
 </main>

@@ -40,17 +40,17 @@
     <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
     <wh-list>
       <li *ngFor="let prod of products | async">
-        <span>
+        <header>
           <h3>{{prod.name}}</h3>
           <p>Serial:&ensp;{{prod.serial}}</p>
-        </span>
-        <span class="actions">
+        </header>
+        <footer class="actions">
           <a [routerLink]="['/warehouse/details', details._id]" class="btn mr-8">details</a>
           <button (click)="openDialog(prod)">assign</button>
-        </span>
+        </footer>
       </li>
     </wh-list>
-    <wh-paginator [length]="prodLength" [size]="10" (data)="loadProducts($event.pageIndex)"></wh-paginator>
+    <wh-paginator *ngIf="prodLength > 10" [length]="prodLength" [size]="10" (data)="loadProducts($event.pageIndex)"></wh-paginator>
   </section>
 </main>
 <wh-dialog *ngIf="dialog">

@@ -5,17 +5,20 @@
       <p>list of all warehouse movements</p>
     </span>
     <nav class="actions">
-      <a (click)="toggle(true)" [ngClass]="{'active' : toggleSearch}">
+      <a (click)="filterMovements(1)" [ngClass]="{'active' : allToggle}">
+        <i class="material-icons tile-icon">dashboard</i>
+      </a>
+      <a (click)="filterMovements(2)" [ngClass]="{'active' : inToggle}">
         <i class="material-icons tile-icon">store</i>
       </a>
-      <a (click)="toggle(false)" [ngClass]="{'active' : !toggleSearch}">
+      <a (click)="filterMovements(3)" [ngClass]="{'active' : outToggle}">
         <i class="material-icons tile-icon">people</i>
       </a>
     </nav>
   </header>
   <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
   <wh-list>
-    <li *ngFor="let mov of movements | async">
+    <li class="movList" *ngFor="let mov of movements">
       <nav>
         <span><a [routerLink]="['/warehouse/details', mov.productId]">{{mov.product}}</a></span>
         <span>
@@ -31,6 +34,6 @@
       </footer>
     </li>
   </wh-list>
-  <wh-paginator *ngIf="movLength" [length]="movLength" [size]="10" (data)="loadMovements($event.pageIndex * 10)">
+  <wh-paginator *ngIf="movLength > 10" [length]="movLength" [size]="10" (data)="loadMovements($event.pageIndex * 10)">
   </wh-paginator>
 </main>

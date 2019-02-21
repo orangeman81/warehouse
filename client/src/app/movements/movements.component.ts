@@ -1,76 +1,118 @@
+import { Assignee } from 'src/app/models/assignee';
 import { Paginated } from '@feathersjs/feathers';
 import { ApiService } from 'src/app/services/api.service';
-import { Subscription, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Subscription, Observable, BehaviorSubject } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { map, switchMap } from 'rxjs/operators';
+import { Movement } from '../models/movement';
 
 @Component({
   selector: 'wh-movements',
   templateUrl: './movements.component.html',
   styleUrls: ['./movements.component.scss']
 })
-export class MovementsComponent implements OnInit {
+export class MovementsComponent implements OnInit, OnDestroy {
 
-  movements: Observable<any>;
+  movements: Movement[];
   movSub: Subscription;
   movLength: number;
-  toggleSearch: boolean = true;
-  queryParams: object;
+  allToggle: boolean = true;
+  inToggle: boolean = false;
+  outToggle: boolean = false;
+  searchSub: Subscription;
+  search: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  queryParams: any;
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.movements = this.api.$connect('movements')
-      .pipe(
-        map((res: Paginated<any>) => {
-          this.movLength = res.total;
-          return res.data;
-        })
-      )
+    this.loadMovements(0);
   }
 
-  loadMovements(skip, query?) {
-    this.movements = this.api.$connect('movements', {
-      $sort: { createdAt: -1 },
-      $skip: skip,
-      $limit: 10
-    })
+  loadMovements(skip: number) {
+    this.searchSub = this.search
       .pipe(
-        map((res: Paginated<any>) => {
-          this.movLength = res.total;
-          return res.data;
+        switchMap((active: Boolean) => {
+          console.log(active);
+          if (!active) {
+            this.queryParams = {
+              $sort: { createdAt: -1 },
+              $limit: 10,
+              $skip: skip
+            }
+          } else {
+            // this.queryParams.$skip = skip;
+            console.log("skip ", this.queryParams.$skip)
+          }
+          return this.api.$connect('movements', this.queryParams)
         })
-      )
+      ).subscribe((res: Paginated<any>) => {
+        this.movLength = res.total;
+        this.movements = res.data;
+        console.log(res.total)
+      })
   }
 
-  toggle(value) {
-    value == true ? this.toggleSearch = true : this.toggleSearch = false;
+  filterMovements(value: number) {
+    switch (value) {
+      case 1: {
+        this.allToggle = true;
+        this.inToggle = false;
+        this.outToggle = false;
+        this.queryParams = {
+          $sort: { createdAt: -1 },
+          $limit: 10,
+          $skip: 0
+        }
+        return this.search.next(false);
+      }
+      case 2: {
+        this.allToggle = false;
+        this.inToggle = true;
+        this.outToggle = false;
+        this.queryParams = {
+          $sort: { createdAt: -1 },
+          $limit: 10,
+          $skip: 0,
+          inOut: true
+        }
+        return this.search.next(true);
+      }
+      case 3: {
+        this.allToggle = false;
+        this.inToggle = false;
+        this.outToggle = true;
+        this.queryParams = {
+          $sort: { createdAt: -1 },
+          $limit: 10,
+          $skip: 0,
+          inOut: false
+        }
+        return this.search.next(true);
+      }
+    }
   }
 
   loadSearch(query) {
+    this.allToggle = true;
+    this.inToggle = false;
+    this.outToggle = false;
     if (query == "") {
-      this.loadMovements(0);
+      this.search.next(false);
     } else {
-      if (this.toggleSearch) {
-        this.queryParams = {
-          $sort: { createdAt: -1 },
-          product: query,
-        }
-      } else {
-        this.queryParams = {
-          $sort: { createdAt: -1 },
-          assignee: query,
-        }
+      this.queryParams = {
+        $sort: { createdAt: -1 },
+        $or: [
+          { product: query },
+          { assignee: query }
+        ]
       }
-      this.movements = this.api.$connect('movements', this.queryParams)
-        .pipe(
-          map((res: Paginated<any>) => {
-            this.movLength = res.total;
-            this.movLength = 0;
-            return res.data;
-          })
-        )
+      this.search.next(true);
     }
+  }
+
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
   }
 
 }
