@@ -10,6 +10,7 @@ import { Update } from '@ngrx/entity';
 import { selectProdByAssegneeId } from 'src/app/warehouse/store/warehouse.selectors';
 import { AssigneeUpdate, AssigneeDeleteReq } from './../store/assignee.actions';
 import { warehouseRequest } from 'src/app/warehouse/store/warehouse.actions';
+import { Movement } from 'src/app/models/movement';
 
 @Component({
   selector: 'wh-as-details',
@@ -73,8 +74,16 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
       id: payload._id,
       changes: payload
     }
-    this.store.dispatch(new productAssign({ prod }));
-    this.dialog = false;
+    const mov: Movement = new Movement(
+      null,
+      this.details._id,
+      this.details.name + " " + this.details.surname,
+      payload._id,
+      payload.name,      
+      true
+    );
+    this.store.dispatch(new productAssign({ prod, mov }));
+    this.dialog = true ? this.dialog = false : null;
   }
 
   toggleUpdate() {
@@ -90,14 +99,15 @@ export class AsDetailsComponent implements OnInit, OnDestroy {
   delete(id: string = this.dialogPayload._id) {
     this.products.forEach(el => {
       el.assigneeId = "";
-      const prod: Update<Product> = {
-        id: el._id,
-        changes: el
-      }
-      this.store.dispatch(new productAssign({ prod }));
+      this.unassign(el);
+      // const prod: Update<Product> = {
+      //   id: el._id,
+      //   changes: el
+      // }
+      // this.store.dispatch(new productAssign({ prod }));
     })
     this.store.dispatch(new AssigneeDeleteReq({ assigneeId: id }));
-    this.dialog = false;
+    // this.dialog = false;
   }
 
   ngOnDestroy() {

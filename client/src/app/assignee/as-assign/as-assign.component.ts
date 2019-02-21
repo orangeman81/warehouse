@@ -1,3 +1,4 @@
+import { Movement } from 'src/app/models/movement';
 import { Component, OnInit } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { Assignee } from 'src/app/models/assignee';
@@ -73,8 +74,16 @@ export class AsAssignComponent implements OnInit {
     const prod: Update<Product> = {
       id: payload._id,
       changes: payload
-    }
-    this.store.dispatch(new productAssign({ prod }));
+    };
+    const mov: Movement = new Movement(
+      null,
+      this.details._id,
+      this.details.name + " " + this.details.surname,
+      payload._id,
+      payload.name,
+      false
+    );
+    this.store.dispatch(new productAssign({ prod, mov }));
     this.router.navigate(['/assignee/details', this.details._id]);
   }
 

@@ -18,11 +18,13 @@ import { reducers, metaReducers } from './reducers';
 import { AuthEffects } from './login/store/auth.effects';
 import { TokenInterceptor } from './services/auth/token.interceptor';
 import { ApiService } from './services/api.service';
+import { MovementsComponent } from './movements/movements.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    MovementsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { MovementsComponent } from './movements/movements.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
@@ -17,6 +18,11 @@ const routes: Routes = [
   {
     path: "main",
     component: MainComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "movements",
+    component: MovementsComponent,
     canActivate: [AuthGuard]
   },
   {

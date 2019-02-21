@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Product } from '../../models/product';
 import { Update } from '@ngrx/entity';
+import { Movement } from 'src/app/models/movement';
 
 export enum WarehouseActionTypes {
   warehouseRequest = '[Warehouse] warehouse requested Action',
@@ -40,7 +41,7 @@ export class productUpdate implements Action {
 }
 export class productAssign implements Action {
   readonly type = WarehouseActionTypes.productAssign;
-  constructor(public payload: { prod: Update<Product> }) { }
+  constructor(public payload: { prod: Update<Product>, mov: Movement }) { }
 }
 export class productUpdated implements Action {
   readonly type = WarehouseActionTypes.productUpdated;

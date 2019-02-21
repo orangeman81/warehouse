@@ -1,0 +1,36 @@
+<main class="container">
+  <header>
+    <span>
+      <h1>Movements</h1>
+      <p>list of all warehouse movements</p>
+    </span>
+    <nav class="actions">
+      <a (click)="toggle(true)" [ngClass]="{'active' : toggleSearch}">
+        <i class="material-icons tile-icon">store</i>
+      </a>
+      <a (click)="toggle(false)" [ngClass]="{'active' : !toggleSearch}">
+        <i class="material-icons tile-icon">people</i>
+      </a>
+    </nav>
+  </header>
+  <wh-search-bar (sendQuery)="loadSearch($event)"></wh-search-bar>
+  <wh-list>
+    <li *ngFor="let mov of movements | async">
+      <nav>
+        <span><a [routerLink]="['/warehouse/details', mov.productId]">{{mov.product}}</a></span>
+        <span>
+          <i class="material-icons tile-icon" *ngIf="mov.inOut; else in">arrow_back</i>
+          <ng-template #in>
+            <i class="material-icons tile-icon">arrow_forward</i>
+          </ng-template>
+        </span>
+        <span><a [routerLink]="['/assignee/details', mov.assigneeId]">{{mov.assignee}}</a></span>
+      </nav>
+      <footer>
+        <time>{{mov.createdAt | date: 'short'}}</time>
+      </footer>
+    </li>
+  </wh-list>
+  <wh-paginator *ngIf="movLength" [length]="movLength" [size]="10" (data)="loadMovements($event.pageIndex * 10)">
+  </wh-paginator>
+</main>

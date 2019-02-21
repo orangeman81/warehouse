@@ -20,6 +20,7 @@ import { State } from 'src/app/reducers';
 import { warehouseLoaded } from './warehouse.selectors';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { forkJoin } from 'rxjs';
 
 
 @Injectable()
@@ -49,7 +50,11 @@ export class WarehouseEffects {
   assignProd$ = this.actions$
     .pipe(
       ofType<productAssign>(WarehouseActionTypes.productAssign),
-      mergeMap(action => this.api.$update('warehouse', action.payload.prod)),
+      mergeMap(action => {
+        const update = this.api.$update('warehouse', action.payload.prod);
+        const create = this.api.$create('movements', action.payload.mov);
+        return forkJoin(update, create);
+      }),
       map(() => new productUpdated())
     );
 
