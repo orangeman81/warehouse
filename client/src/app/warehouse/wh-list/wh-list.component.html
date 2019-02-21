@@ -28,10 +28,10 @@
           <p>Serial:&ensp;{{prod.serial}}</p>
         </header>
       </span>
-      <span class="actions">
+      <footer class="actions">
         <button (click)="openDialog(prod)">delete</button>
         <a [routerLink]="['/warehouse/details', prod._id]" class="btn">details</a>
-      </span>
+      </footer>
     </li>
   </wh-list>
   <wh-paginator *ngIf="prodLength" [length]="prodLength" [size]="10" (data)="loadProducts($event.pageIndex)"></wh-paginator>

@@ -51,14 +51,14 @@
     <hr>
     <wh-list *ngIf="products?.length > 0; else noProds">
       <li *ngFor="let prod of products">
-        <span>
+        <header>
           <h3>{{prod.name}}</h3>
           <p>Serial:&ensp;{{prod.serial}}</p>
-        </span>
-        <span class="actions">
+        </header>
+        <footer class="actions">
           <a [routerLink]="['/warehouse/details', prod._id]" class="btn">details</a>
           <button (click)="openDialog(prod)">unassign</button>
-        </span>
+        </footer>
       </li>
     </wh-list>
     <ng-template #noProds>
