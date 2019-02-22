@@ -34,6 +34,6 @@
       </footer>
     </li>
   </wh-list>
-  <wh-paginator *ngIf="movLength > 10" [length]="movLength" [size]="10" (data)="loadMovements($event.pageIndex * 10)">
+  <wh-paginator *ngIf="movLength > 10" [length]="movLength" [size]="10" (data)="skip = $event.pageIndex * 10">
   </wh-paginator>
 </main>

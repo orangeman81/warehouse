@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Output, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PaginationService } from 'src/app/services/pagination.service';
 
 @Component({
@@ -8,13 +8,16 @@ import { PaginationService } from 'src/app/services/pagination.service';
   providers: [PaginationService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaginatorComponent implements OnInit {
+export class PaginatorComponent {
 
   //list length
   @Input()
   get length(): number { return this._pages.currentLength };
   set length(value: number) {
     this._pages.currentLength = value;
+    this.pageIndex = 0;
+    console.log('length ', value)
+    console.log(this.pageIndex)
   }
 
   //list size
@@ -35,8 +38,7 @@ export class PaginatorComponent implements OnInit {
   //current page number
   get pageIndex(): number { return this._pages.currentPage };
   set pageIndex(value: number) {
-    this._pages.pageSubject.next(value);
-    this._changeDetectorRef.markForCheck();
+    this._pages.currentPage = value;
   }
 
   //total page number
@@ -48,18 +50,8 @@ export class PaginatorComponent implements OnInit {
   prevPage: number;
 
   constructor(
-    public _pages: PaginationService,
-    private _changeDetectorRef: ChangeDetectorRef
+    public _pages: PaginationService
   ) { }
-
-  ngOnInit() {
-    this._pages.init();
-    this.pageIndex = 0;
-  }
-
-  ngOnDestroy() {
-    this._pages.closeSub();
-  }
 
   next(): void {
     this.prevPage = this.pageIndex;

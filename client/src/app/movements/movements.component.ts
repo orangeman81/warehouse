@@ -1,7 +1,6 @@
-import { Assignee } from 'src/app/models/assignee';
 import { Paginated } from '@feathersjs/feathers';
 import { ApiService } from 'src/app/services/api.service';
-import { Subscription, Observable, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
 import { Movement } from '../models/movement';
@@ -20,37 +19,39 @@ export class MovementsComponent implements OnInit, OnDestroy {
   inToggle: boolean = false;
   outToggle: boolean = false;
   searchSub: Subscription;
-  search: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  queryParams: any;
+  get skip(): number {
+    return this.queryParams.value.$skip;
+  }
+  set skip(value: number) {
+    let query = this.queryParams.value;
+    query.$skip = value;
+    this.queryParams.next(query);
+  }
+  queryParams: BehaviorSubject<any> = new BehaviorSubject<any>(
+    {
+      $sort: { createdAt: -1 },
+      $limit: 10,
+      $skip: 0
+    }
+  );
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.loadMovements(0);
+    this.loadMovements();
   }
 
-  loadMovements(skip: number) {
-    this.searchSub = this.search
+  loadMovements() {
+    this.searchSub = this.queryParams
       .pipe(
-        switchMap((active: Boolean) => {
-          console.log(active);
-          if (!active) {
-            this.queryParams = {
-              $sort: { createdAt: -1 },
-              $limit: 10,
-              $skip: skip
-            }
-          } else {
-            // this.queryParams.$skip = skip;
-            console.log("skip ", this.queryParams.$skip)
-          }
-          return this.api.$connect('movements', this.queryParams)
+        switchMap(params => {
+          return this.api.$connect('movements', params)
+        }),
+        map((res: Paginated<any>) => {
+          this.movLength = res.total;
+          this.movements = res.data;
         })
-      ).subscribe((res: Paginated<any>) => {
-        this.movLength = res.total;
-        this.movements = res.data;
-        console.log(res.total)
-      })
+      ).subscribe()
   }
 
   filterMovements(value: number) {
@@ -59,36 +60,33 @@ export class MovementsComponent implements OnInit, OnDestroy {
         this.allToggle = true;
         this.inToggle = false;
         this.outToggle = false;
-        this.queryParams = {
+        return this.queryParams.next({
           $sort: { createdAt: -1 },
           $limit: 10,
           $skip: 0
-        }
-        return this.search.next(false);
+        })
       }
       case 2: {
         this.allToggle = false;
         this.inToggle = true;
         this.outToggle = false;
-        this.queryParams = {
+        return this.queryParams.next({
           $sort: { createdAt: -1 },
           $limit: 10,
           $skip: 0,
           inOut: true
-        }
-        return this.search.next(true);
+        })
       }
       case 3: {
         this.allToggle = false;
         this.inToggle = false;
         this.outToggle = true;
-        this.queryParams = {
+        return this.queryParams.next({
           $sort: { createdAt: -1 },
           $limit: 10,
           $skip: 0,
           inOut: false
-        }
-        return this.search.next(true);
+        })
       }
     }
   }
@@ -98,16 +96,20 @@ export class MovementsComponent implements OnInit, OnDestroy {
     this.inToggle = false;
     this.outToggle = false;
     if (query == "") {
-      this.search.next(false);
-    } else {
-      this.queryParams = {
+      this.queryParams.next({
         $sort: { createdAt: -1 },
+        $limit: 10,
+        $skip: 0
+      });
+    } else {
+      this.queryParams.next({
+        $sort: { createdAt: -1 },
+        $skip: 0,
         $or: [
           { product: query },
           { assignee: query }
         ]
-      }
-      this.search.next(true);
+      })
     }
   }
 

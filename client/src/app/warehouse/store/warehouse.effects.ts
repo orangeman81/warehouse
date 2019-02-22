@@ -1,4 +1,3 @@
-import { Paginated } from '@feathersjs/feathers';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
@@ -21,6 +20,7 @@ import { warehouseLoaded } from './warehouse.selectors';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { forkJoin } from 'rxjs';
+import { Product } from 'src/app/models/product';
 
 
 @Injectable()
@@ -85,11 +85,8 @@ export class WarehouseEffects {
       filter(([action, warehouseloaded]) => !warehouseloaded),
       mergeMap(action =>
         this.api.$connect('warehouse')
-          .pipe(
-            map((res: Paginated<any>) => res.data)
-          )
       ),
-      map(warehouse => new warehouseLoad({ warehouse }))
+      map((warehouse: Product[]) => new warehouseLoad({ warehouse }))
     )
 
   constructor(

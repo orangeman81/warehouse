@@ -1,4 +1,3 @@
-import { Paginated } from '@feathersjs/feathers';
 import { State } from './../../reducers/index';
 import { Router } from '@angular/router';
 import { AssigneeUpdated, AssigneeCreated, AssigneeActionTypes, AssigneeLoad, AssigneeDeleteReq, AssigneeDeleted, AssigneeRequest, AssigneesLoad, AssigneesRequest, AssigneeUpdate } from './assignee.actions';
@@ -8,6 +7,7 @@ import { filter, mergeMap, map, tap, withLatestFrom } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { AssigneesLoaded } from './assignee.selectors';
 import { ApiService } from 'src/app/services/api.service';
+import { Assignee } from 'src/app/models/assignee';
 
 
 @Injectable()
@@ -59,11 +59,8 @@ export class AssigneeEffects {
       filter(([action, assigneesloaded]) => !assigneesloaded),
       mergeMap(action =>
         this.api.$connect('assignees')
-          .pipe(
-            map((res: Paginated<any>) => res.data)
-          )
       ),
-      map(assignees => new AssigneesLoad({ assignees }))
+      map((assignees: Assignee[]) => new AssigneesLoad({ assignees }))
     )
 
   constructor(

@@ -1,5 +1,5 @@
 import { Assignee } from '../../models/assignee';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Filters } from 'src/app/models/filters';
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 
@@ -14,7 +14,7 @@ export class AsFormComponent implements OnInit {
   assigneeForm = new FormGroup({
     name: new FormControl(''),
     surname: new FormControl(''),
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.email]),
     phone: new FormControl(''),
     note: new FormControl(''),
   });

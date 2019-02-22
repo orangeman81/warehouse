@@ -6,8 +6,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 import { mergeMap, map, tap, withLatestFrom, filter } from 'rxjs/operators';
 import { IncomingCreated, IncomingUpdate, IncomingDeleteReq, IncomingDeleted, IncomingActionTypes, IncomingRequest, AllIncomingRequest, AllIncomingLoad, IncomingLoad, IncomingUpdated } from './incoming.actions';
-import { Paginated } from '@feathersjs/feathers';
 import { incomingLoaded } from './incoming.selectors';
+import { Incoming } from 'src/app/models/incoming';
 
 
 @Injectable()
@@ -58,11 +58,8 @@ export class IncomingEffects {
       filter(([action, incomingloaded]) => !incomingloaded),
       mergeMap(action =>
         this.api.$connect('incoming')
-          .pipe(
-            map((res: Paginated<any>) => res.data)
-          )
       ),
-      map(incoming => new AllIncomingLoad({ incoming }))
+      map((incoming: Incoming[]) => new AllIncomingLoad({ incoming }))
     )
 
   constructor(
