@@ -54,47 +54,58 @@ export class MovementsComponent implements OnInit, OnDestroy {
       ).subscribe()
   }
 
+  toggleControl(allToggle: boolean, inToggle: boolean, outToggle: boolean) {
+    this.allToggle = allToggle;
+    this.inToggle = inToggle;
+    this.outToggle = outToggle;
+  }
+
   filterMovements(value: number) {
     switch (value) {
       case 1: {
-        this.allToggle = true;
-        this.inToggle = false;
-        this.outToggle = false;
-        return this.queryParams.next({
-          $sort: { createdAt: -1 },
-          $limit: 10,
-          $skip: 0
-        })
+        if (this.allToggle) {
+          return null;
+        } else {
+          this.toggleControl(true, false, false);
+          return this.queryParams.next({
+            $sort: { createdAt: -1 },
+            $limit: 10,
+            $skip: 0
+          })
+        }
+
       }
       case 2: {
-        this.allToggle = false;
-        this.inToggle = true;
-        this.outToggle = false;
-        return this.queryParams.next({
-          $sort: { createdAt: -1 },
-          $limit: 10,
-          $skip: 0,
-          inOut: true
-        })
+        if (this.inToggle) {
+          return null;
+        } else {
+          this.toggleControl(false, true, false);
+          return this.queryParams.next({
+            $sort: { createdAt: -1 },
+            $limit: 10,
+            $skip: 0,
+            inOut: true
+          })
+        }
       }
       case 3: {
-        this.allToggle = false;
-        this.inToggle = false;
-        this.outToggle = true;
-        return this.queryParams.next({
-          $sort: { createdAt: -1 },
-          $limit: 10,
-          $skip: 0,
-          inOut: false
-        })
+        if (this.outToggle) {
+          return null;
+        } else {
+          this.toggleControl(false, false, true);
+          return this.queryParams.next({
+            $sort: { createdAt: -1 },
+            $limit: 10,
+            $skip: 0,
+            inOut: false
+          })
+        }
       }
     }
   }
 
   loadSearch(query) {
-    this.allToggle = true;
-    this.inToggle = false;
-    this.outToggle = false;
+    this.toggleControl(true, false, false);
     if (query == "") {
       this.queryParams.next({
         $sort: { createdAt: -1 },

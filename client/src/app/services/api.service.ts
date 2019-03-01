@@ -23,6 +23,10 @@ export class ApiService {
 
   constructor(private http: HttpClient, private socket: FeathersService) { }
 
+  initAuth() {
+    return this.socket.authenticate();
+  }
+
   $connect(service: string, query: object = { $limit: -1, $sort: { createdAt: -1 } }) {
     return (this.socket
       .service(service))

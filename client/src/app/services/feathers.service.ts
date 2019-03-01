@@ -32,16 +32,6 @@ export class FeathersService {
     return this._feathers.service(name)
   }
 
-  // connect(name: string): Observable<any> {
-  //   return this.service(name)
-  //     .watch()
-  //     .find({
-  //       query: {
-  //         $sort: { createdAt: -1 }
-  //       }
-  //     })
-  // }
-
   // expose authentication
   public authenticate(credentials?): Promise<any> {
     return this._feathers.authenticate(credentials);

@@ -16,8 +16,6 @@ export class PaginatorComponent {
   set length(value: number) {
     this._pages.currentLength = value;
     this.pageIndex = 0;
-    console.log('length ', value)
-    console.log(this.pageIndex)
   }
 
   //list size

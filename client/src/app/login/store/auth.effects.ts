@@ -1,4 +1,4 @@
-import { mergeMap, tap, map, filter } from 'rxjs/operators';
+import { mergeMap, tap, map } from 'rxjs/operators';
 import { AuthService } from './../../services/auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
