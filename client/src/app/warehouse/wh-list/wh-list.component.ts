@@ -29,15 +29,19 @@ export class WhListComponent implements OnInit {
   }
 
   loadProducts(skip) {
-    this.store.dispatch(new warehouseRequest());
-    this.products = this.store
-      .pipe(
-        select(selectProdPage(skip)),
-        map(data => {
-          this.prodLength = data.total;
-          return data.data;
-        })
-      );
+    if (!this.prodIn) {
+      this.store.dispatch(new warehouseRequest());
+      this.products = this.store
+        .pipe(
+          select(selectProdPage(skip)),
+          map(data => {
+            this.prodLength = data.total;
+            return data.data;
+          })
+        );
+    } else {
+      this.loadProductsIn(skip);
+    }
   }
 
   loadSearch(query: string) {

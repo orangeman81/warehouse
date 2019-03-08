@@ -52,7 +52,7 @@ export const selectProdNotAssigned = (skip: number) => createSelector(
         const end = start + 10;
         const paginatedData: paginatedData = {
             data: allProd.filter(prod => !prod.assigneeId).slice(start, end),
-            total: allProd.length
+            total: allProd.filter(prod => !prod.assigneeId).length
         }
         return paginatedData;
     }
