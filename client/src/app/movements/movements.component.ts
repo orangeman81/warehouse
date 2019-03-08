@@ -13,7 +13,6 @@ import { Movement } from '../models/movement';
 export class MovementsComponent implements OnInit, OnDestroy {
 
   movements: Movement[];
-  movSub: Subscription;
   movLength: number;
   allToggle: boolean = true;
   inToggle: boolean = false;
@@ -38,7 +37,11 @@ export class MovementsComponent implements OnInit, OnDestroy {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.loadMovements();
+    // TODO: fix auth issue
+    this.api.initAuth()
+      .then(() => {
+        this.loadMovements();
+      })
   }
 
   loadMovements() {

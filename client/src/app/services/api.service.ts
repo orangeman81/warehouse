@@ -23,7 +23,7 @@ export class ApiService {
 
   constructor(private http: HttpClient, private socket: FeathersService) { }
 
-  initAuth() {
+  initAuth(): Promise<any> {
     return this.socket.authenticate();
   }
 

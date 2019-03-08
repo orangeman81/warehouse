@@ -12,12 +12,33 @@ import { DialogComponent } from './dialog/dialog.component';
 import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  declarations: [NavComponent, FooterComponent, ListComponent, SelectComponent, PaginatorComponent, SearchBarComponent, DialogComponent, LoaderComponent],
+  declarations: [
+    NavComponent,
+    FooterComponent,
+    ListComponent,
+    SelectComponent,
+    PaginatorComponent,
+    SearchBarComponent,
+    DialogComponent,
+    LoaderComponent,
+    SelectComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule
   ],
-  exports: [ReactiveFormsModule, RouterModule, NavComponent, FooterComponent, ListComponent, PaginatorComponent, SearchBarComponent, DialogComponent, LoaderComponent]
+  exports: [
+    ReactiveFormsModule,
+    RouterModule,
+    NavComponent,
+    FooterComponent,
+    ListComponent,
+    PaginatorComponent,
+    SearchBarComponent,
+    DialogComponent,
+    LoaderComponent,
+    SelectComponent
+  ]
 })
 export class ComponentsModule { }

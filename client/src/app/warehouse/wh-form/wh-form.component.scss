@@ -1,2 +1,4 @@
 @import './../../../leaves/variables';
-@import './../../../leaves/forms';
+::ng-deep {
+    @import './../../../leaves/forms';
+}

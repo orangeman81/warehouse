@@ -13,20 +13,10 @@
         <label>Serial</label>
         <input type="text" formControlName="serial" required>
       </div>
-      <div class="col s12 m6 formGroup">
-        <label>Type</label>
-        <select type="text" formControlName="type" required>
-          <option value="">none</option>
-          <option [value]="type" *ngFor="let type of filters.types">{{type}}</option>
-        </select>
-      </div>
-      <div class="col s12 m6 formGroup">
-        <label>Conditions</label>
-        <select type="text" formControlName="conditions">
-          <option value="">unknown</option>
-          <option [value]="condition" *ngFor="let condition of filters.conditions">{{condition}}</option>
-        </select>
-      </div>
+      <wh-select class="col s12 m6 formGroup" [label]="'Type'" [options]="filters.types" (selected)="type = $event">
+      </wh-select>
+      <wh-select class="col s12 m6 formGroup" [label]="'Conditions'" [options]="filters.conditions"
+        (selected)="conditions = $event"></wh-select>
       <div class="col s12 m6 formGroup">
         <label>Description</label>
         <input type="text" formControlName="description">

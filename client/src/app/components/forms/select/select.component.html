@@ -1,3 +1,14 @@
-<p>
-  select works!
-</p>
+<label>{{label}}</label>
+<input type="text" name="selectInput" [placeholder]="optionValue" [value]="optionValue" readonly>
+<div class="menu">
+  <span>
+    <i class="material-icons">expand_more</i>
+  </span>
+  <div class="dropdown" [class.active]="open">
+    <ul>
+      <li *ngFor="let option of options" (click)="optionValue = option">
+        {{option}}
+      </li>
+    </ul>
+  </div>
+</div>

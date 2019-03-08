@@ -53,3 +53,12 @@ img.res {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 998;
 }
+
+// scrollbar
+::-webkit-scrollbar {
+    background: $lGray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $dGray;
+}

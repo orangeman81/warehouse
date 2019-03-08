@@ -44,8 +44,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private api: FeathersService) { }
 
-  initAuth() {
-    this.api.authenticate();
+  initAuth(): Promise<any> {
+    return this.api.authenticate();
   }
 
   $login(credentials): Observable<LoginRequest> {
