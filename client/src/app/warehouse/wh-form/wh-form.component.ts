@@ -36,24 +36,6 @@ export class WhFormComponent implements OnInit {
   @Output()
   save: EventEmitter<FormData> = new EventEmitter<FormData>();
 
-  get conditions() {
-    return this.prodForm.value().conditions;
-  }
-  set conditions(value: string) {
-    this.prodForm.patchValue({
-      conditions: value
-    })
-  }
-
-  get type() {
-    return this.prodForm.value().type;
-  }
-  set type(value: string) {
-    this.prodForm.patchValue({
-      type: value
-    })
-  }
-
   ngOnInit() {
     if (this.incoming) {
       this.prodForm.patchValue(this.incoming);

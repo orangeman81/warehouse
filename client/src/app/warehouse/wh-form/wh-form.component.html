@@ -13,10 +13,10 @@
         <label>Serial</label>
         <input type="text" formControlName="serial" required>
       </div>
-      <wh-select class="col s12 m6 formGroup" [label]="'Type'" [options]="filters.types" (selected)="type = $event">
+      <wh-select class="col s12 m6" [label]="'Type'" [options]="filters.types" formControlName="type">
       </wh-select>
-      <wh-select class="col s12 m6 formGroup" [label]="'Conditions'" [options]="filters.conditions"
-        (selected)="conditions = $event"></wh-select>
+      <wh-select class="col s12 m6" [label]="'Conditions'" [options]="filters.conditions" formControlName="conditions">
+      </wh-select>
       <div class="col s12 m6 formGroup">
         <label>Description</label>
         <input type="text" formControlName="description">

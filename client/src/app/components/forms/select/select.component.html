@@ -1,12 +1,12 @@
 <label>{{label}}</label>
-<input type="text" name="selectInput" [placeholder]="optionValue" [value]="optionValue" readonly>
+<input type="text" name="selectInput" [placeholder]="placeholder" [value]="selectValue" readonly>
 <div class="menu">
   <span>
     <i class="material-icons">expand_more</i>
   </span>
   <div class="dropdown" [class.active]="open">
     <ul>
-      <li *ngFor="let option of options" (click)="optionValue = option">
+      <li *ngFor="let option of options" (click)="selectValue = option">
         {{option}}
       </li>
     </ul>
