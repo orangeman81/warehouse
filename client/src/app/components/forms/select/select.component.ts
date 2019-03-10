@@ -37,7 +37,6 @@ export class SelectComponent implements ControlValueAccessor {
   @HostListener('click') activated() {
     this.open == true ? this.open = false : this.open = true;
   }
-  // TODO: Fix logic, close only if already clicked
   @HostListener('document: click', ['$event']) clickOut(event: MouseEvent): void {
     const targetElement = event.target as HTMLElement;
     const clickedInside = this._elementRef.nativeElement.contains(targetElement);
