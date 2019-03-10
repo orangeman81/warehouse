@@ -113,6 +113,24 @@ a {
     }
 }
 
+// badge
+.badge {
+    position: absolute;
+    left: -12px;
+    top: -4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 50%;
+    background: $gray;
+    border: solid 2px $navGray;
+    color: $navGray;
+    font-size: .8em;
+    animation: slide-in .4s both ease-in
+}
+
 // hr
 hr {
     width: 100%;

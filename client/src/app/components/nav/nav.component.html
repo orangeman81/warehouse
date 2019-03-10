@@ -2,7 +2,10 @@
   <a [routerLink]="['/main']" routerLinkActive="active"><i class="material-icons tile-icon">home</i></a>
   <ul *ngIf="isLoggedIn$ | async">
     <li>
-      <a [routerLink]="['/incoming']" routerLinkActive="active"><i class="material-icons tile-icon">local_shipping</i></a>
+      <a [routerLink]="['/incoming']" routerLinkActive="active">
+        <i class="material-icons tile-icon">local_shipping</i>
+        <span class="badge">{{inCounter$ | async }}</span>
+      </a>
     </li>
     <li>
       <a [routerLink]="['/warehouse']" routerLinkActive="active"><i class="material-icons tile-icon">store</i></a>
@@ -11,7 +14,8 @@
       <a [routerLink]="['/assignee']" routerLinkActive="active"><i class="material-icons tile-icon">people</i></a>
     </li>
     <li>
-      <a [routerLink]="['/movements']" routerLinkActive="active"><i class="material-icons tile-icon">import_export</i></a>
+      <a [routerLink]="['/movements']" routerLinkActive="active"><i
+          class="material-icons tile-icon">import_export</i></a>
     </li>
     <li>
       <a (click)="logout()"><i class="material-icons tile-icon">exit_to_app</i></a>

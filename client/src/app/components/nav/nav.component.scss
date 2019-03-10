@@ -16,6 +16,9 @@ nav {
         i {
             line-height: inherit
         }
+        li {
+            position: relative
+        }
         li:not(:last-child) {
             margin-right: 16px
         }
