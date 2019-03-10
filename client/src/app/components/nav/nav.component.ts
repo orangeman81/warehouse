@@ -1,5 +1,5 @@
 import { Incoming } from './../../models/incoming';
-import { map, switchMap, debounceTime } from 'rxjs/operators';
+import { map, switchMap, debounceTime, filter, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 import { Logout } from './../../login/store/auth.actions';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
@@ -34,7 +34,7 @@ export class NavComponent implements OnInit {
       .pipe(
         debounceTime(50),
         switchMap(() => {
-          return this.inCounter$ = this.api.$connect('incoming')
+          return this.api.$connect('incoming')
             .pipe(
               map((incomings: Incoming[]) => incomings.length)
             )
