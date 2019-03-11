@@ -33,7 +33,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   // UI logic
-  private open: boolean;
+  open: boolean;
   @HostListener('click') activated() {
     this.open == true ? this.open = false : this.open = true;
   }
