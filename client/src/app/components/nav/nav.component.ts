@@ -32,7 +32,7 @@ export class NavComponent implements OnInit {
 
     this.inCounter$ = this.isLoggedIn$
       .pipe(
-        debounceTime(50),
+        debounceTime(80),
         switchMap(() => {
           return this.api.$connect('incoming')
             .pipe(
