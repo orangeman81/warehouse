@@ -14,8 +14,8 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class FeathersService {
   baseUrl: string = environment.baseUrl;  
-  private _feathers = feathers();                     // init socket.io
-  private _socket = io(this.baseUrl);      // init feathers
+  private _feathers = feathers();                       // init socket.io
+  private _socket = io(this.baseUrl);                   // init feathers
 
   constructor() {
     this._feathers
