@@ -13,7 +13,7 @@ import {
   productUpdate,
   productAssign
 } from './warehouse.actions';
-import { mergeMap, map, withLatestFrom, filter, tap } from 'rxjs/operators';
+import { mergeMap, map, withLatestFrom, filter, tap, retry } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { State } from 'src/app/reducers';
 import { warehouseLoaded } from './warehouse.selectors';

@@ -1,9 +1,8 @@
-import { Paginated } from '@feathersjs/feathers';
 import { FeathersService } from './feathers.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { first, shareReplay, last, map } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
+import { first, shareReplay, last, map, retry } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -23,8 +22,16 @@ export class ApiService {
 
   constructor(private http: HttpClient, private socket: FeathersService) { }
 
+  $initAuth(): Observable<any> {
+    return from(this.socket.authenticate())
+      .pipe(
+        first(),
+        shareReplay()
+      );
+  }
+
   initAuth(): Promise<any> {
-    return this.socket.authenticate();
+    return this.socket.authenticate()
   }
 
   $connect(service: string, query: object = { $limit: -1, $sort: { createdAt: -1 } }) {
@@ -34,6 +41,10 @@ export class ApiService {
       .find({
         query: query
       })
+      .pipe(
+        shareReplay(),
+        retry(2)
+      )
   }
 
   $find(url): Observable<any> {
