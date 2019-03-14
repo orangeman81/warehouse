@@ -31,6 +31,19 @@ app.use(compress());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
+
+// redirect no rest request to index
+app.use(require('express-spa-router')(app, {
+    extraRoutes: [
+        'main',
+        'login',
+        'warehouse',
+        'assignees',
+        'incoming',
+        'movements'
+    ]
+}));
+
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 

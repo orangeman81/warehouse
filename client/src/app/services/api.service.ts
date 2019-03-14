@@ -1,4 +1,3 @@
-import { Paginated } from '@feathersjs/feathers';
 import { FeathersService } from './feathers.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
