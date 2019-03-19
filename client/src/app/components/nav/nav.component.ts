@@ -1,5 +1,5 @@
 import { Incoming } from './../../models/incoming';
-import { map, switchMap, debounceTime, filter, tap } from 'rxjs/operators';
+import { map, switchMap, flatMap, filter } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 import { Logout } from './../../login/store/auth.actions';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
@@ -32,7 +32,8 @@ export class NavComponent implements OnInit {
 
     this.inCounter$ = this.isLoggedIn$
       .pipe(
-        debounceTime(100),
+        filter(logged => !!logged),
+        flatMap(() => this.api.$initAuth()),
         switchMap(() => {
           return this.api.$connect('incoming')
             .pipe(
