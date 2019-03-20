@@ -53,6 +53,11 @@ export class AuthService {
       }))
   }
 
+  logout() {
+    this.api.logout();
+    localStorage.removeItem('feathers-jwt');
+  }
+
   $createUser(credentials): Observable<User> {
     return this.http.post<User>(this.baseUrl + 'user', JSON.stringify(credentials), this.httpOptions)
       .pipe(

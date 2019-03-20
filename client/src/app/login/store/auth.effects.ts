@@ -1,10 +1,10 @@
-import { mergeMap, tap, map } from 'rxjs/operators';
+import { mergeMap, tap, map, catchError } from 'rxjs/operators';
 import { AuthService } from './../../services/auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AuthActionTypes, Logout, LoginActionRequest, Login } from './auth.actions';
 import { Router } from '@angular/router';
-import { defer } from 'rxjs';
+import { defer, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/reducers';
 
@@ -19,13 +19,11 @@ export class AuthEffects {
       mergeMap(action => this.auth.$login(action.payload)),
       map(res => {
         if (res.user) {
-          // this.auth.token = res.accessToken;
           this.router.navigate(['main'])
           return new Login({ user: res.user, message: "Login Succesful", isLoggedIn: true })
-        } else {
-          return new Login({ user: false, message: "User doesn't exist", isLoggedIn: false })
         }
-      })
+      }),
+      catchError(() => of(new Login({ user: false, message: "User doesn't exist", isLoggedIn: false })))
     );
 
   @Effect({ dispatch: false })
@@ -33,7 +31,7 @@ export class AuthEffects {
     .pipe(
       ofType<Logout>(AuthActionTypes.LogoutAction),
       tap(() => {
-        localStorage.removeItem('feathers-jwt');
+        this.auth.logout();
         this.router.navigate(['login']);
       })
     );
